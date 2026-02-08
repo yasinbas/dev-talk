@@ -84,6 +84,7 @@ model Lobby {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  @@index([ownerId])
   @@index([status])
   @@index([topic])
 }
@@ -97,8 +98,11 @@ model LobbyParticipant {
   
   role      ParticipantRole @default(LISTENER)
   joinedAt  DateTime @default(now())
+  createdAt DateTime @default(now())
 
   @@id([lobbyId, userId])
+  @@index([lobbyId])
+  @@index([userId])
 }
 
 model Meme {
@@ -112,6 +116,7 @@ model Meme {
   
   createdAt DateTime @default(now())
   
+  @@index([authorId])
   @@index([createdAt])
 }
 
@@ -126,6 +131,8 @@ model Podcast {
   host        User     @relation(fields: [hostId], references: [id], onDelete: Cascade)
   
   createdAt   DateTime @default(now())
+
+  @@index([hostId])
 }
 
 model Event {
@@ -139,6 +146,7 @@ model Event {
   
   createdAt    DateTime @default(now())
   
+  @@index([organizerId])
   @@index([scheduledFor])
 }
 
@@ -159,6 +167,7 @@ model Article {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  @@index([authorId])
   @@index([createdAt])
 }
 
@@ -172,8 +181,11 @@ model ArticleRead {
   article   Article  @relation(fields: [articleId], references: [id], onDelete: Cascade)
   
   readAt    DateTime @default(now())
+  createdAt DateTime @default(now())
 
   @@unique([userId, articleId])
+  @@index([articleId])
+  @@index([userId])
 }
 
 model ArticleLike {
@@ -188,6 +200,8 @@ model ArticleLike {
   createdAt DateTime @default(now())
 
   @@unique([userId, articleId])
+  @@index([articleId])
+  @@index([userId])
 }
 
 model PointAction {
