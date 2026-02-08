@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         IMAGE_NAME = 'devtalk-app'
-        // PATH Fix: Docker'ın yaygın yüklendiği yolları ekliyoruz
+        // Docker'ın potansiyel tüm yollarını zorla ekliyoruz
         PATH = "/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:$PATH"
         
         // Jenkins Credentials
@@ -17,12 +17,12 @@ pipeline {
     }
 
     stages {
-        // Otomatik SCM Checkout zaten yapıldığı için bu aşamayı sadece loglama için tutuyoruz
-        stage('Initialize') {
+        stage('System Check') {
             steps {
                 script {
-                    sh "echo 'Current PATH: \$PATH'"
-                    sh "docker --version || echo 'Docker not found in standard PATH'"
+                    // Docker'ın nerede olduğunu bulmaya çalışalım
+                    sh "which docker || echo 'docker not found in common paths'"
+                    sh "docker --version || true"
                 }
             }
         }
@@ -30,7 +30,9 @@ pipeline {
         stage('Build Image') {
             steps {
                 script {
+                    // PATH'i sh içinde de garantiye alalım
                     sh """
+                    export PATH=\$PATH:/usr/local/bin:/usr/bin
                     docker build \
                     --build-arg NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY='${CLERK_PUBLISHABLE_KEY}' \
                     --build-arg NEXT_PUBLIC_PUSHER_APP_KEY='${PUSHER_APP_KEY}' \
@@ -43,10 +45,8 @@ pipeline {
         stage('Deploy') {
             steps {
                 script {
-                    // Docker Compose v1 veya v2 tespiti
-                    def dockerComposeCmd = sh(script: 'docker-compose --version', returnStatus: true) == 0 ? 'docker-compose' : 'docker compose'
-                    
                     sh """
+                    export PATH=\$PATH:/usr/local/bin:/usr/bin
                     export DB_PASSWORD='${DB_PASSWORD}'
                     export NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY='${CLERK_PUBLISHABLE_KEY}'
                     export CLERK_SECRET_KEY='${CLERK_SECRET_KEY}'
@@ -54,8 +54,14 @@ pipeline {
                     export NEXT_PUBLIC_PUSHER_APP_KEY='${PUSHER_APP_KEY}'
                     export PUSHER_SECRET='${PUSHER_SECRET}'
                     
-                    ${dockerComposeCmd} down || true
-                    ${dockerComposeCmd} up -d
+                    # Docker Compose tespiti
+                    COMPOSE_CMD="docker compose"
+                    if ! command -v docker compose &> /dev/null; then
+                        COMPOSE_CMD="docker-compose"
+                    fi
+                    
+                    \$COMPOSE_CMD down || true
+                    \$COMPOSE_CMD up -d
                     """
                 }
             }
@@ -64,9 +70,9 @@ pipeline {
         stage('Database Migration') {
             steps {
                 script {
-                    echo "Waiting for DB to be ready..."
-                    sh "sleep 15" // DB konteynerinin tam oturması için biraz daha süre
-                    sh "docker exec devtalk-app npx prisma db push --accept-data-loss"
+                    echo "Waiting for DB..."
+                    sh "sleep 20"
+                    sh "export PATH=\$PATH:/usr/local/bin:/usr/bin && docker exec devtalk-app npx prisma db push --accept-data-loss"
                 }
             }
         }
@@ -74,22 +80,21 @@ pipeline {
         stage('Verify') {
             steps {
                 script {
-                    echo "Verifying health check..."
-                    def maxRetries = 15
+                    echo "Verifying health..."
                     def success = false
-                    for (int i = 0; i < maxRetries; i++) {
+                    for (int i = 0; i < 15; i++) {
                         try {
                             sh "curl -f http://localhost:3000/api/health"
                             success = true
                             break
                         } catch (e) {
-                            echo "App starting... (${i+1}/${maxRetries})"
+                            echo "App starting... (${i+1}/15)"
                             sh "sleep 5"
                         }
                     }
                     if (!success) {
-                        sh "docker logs devtalk-app"
-                        error "Health check failed!"
+                        sh "export PATH=\$PATH:/usr/local/bin:/usr/bin && docker logs devtalk-app"
+                        error "Deployment failed health check"
                     }
                 }
             }
@@ -99,8 +104,8 @@ pipeline {
     post {
         always {
             script {
-                // Cleanup stage'ini node içinde güvenli çalıştırma
-                sh "docker image prune -f"
+                // Post-build işlemleri de PATH bağımlı olabilir
+                sh "export PATH=\$PATH:/usr/local/bin:/usr/bin && docker image prune -f || true"
             }
         }
     }
