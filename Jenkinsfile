@@ -3,7 +3,10 @@ pipeline {
 
     environment {
         IMAGE_NAME = 'devtalk-app'
-        // Jenkins Credentials ID - Bunlar Jenkins panelinde oluşturulmuş olmalı
+        // PATH Fix: Docker'ın yaygın yüklendiği yolları ekliyoruz
+        PATH = "/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:$PATH"
+        
+        // Jenkins Credentials
         DB_PASSWORD = credentials('devtalk-db-password')
         DATABASE_URL = credentials('devtalk-database-url')
         CLERK_PUBLISHABLE_KEY = credentials('clerk-publishable-key')
@@ -14,9 +17,13 @@ pipeline {
     }
 
     stages {
-        stage('Checkout') {
+        // Otomatik SCM Checkout zaten yapıldığı için bu aşamayı sadece loglama için tutuyoruz
+        stage('Initialize') {
             steps {
-                checkout scm
+                script {
+                    sh "echo 'Current PATH: \$PATH'"
+                    sh "docker --version || echo 'Docker not found in standard PATH'"
+                }
             }
         }
 
@@ -36,7 +43,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 script {
-                    // Docker Compose versiyon kontrolü (v1 vs v2)
+                    // Docker Compose v1 veya v2 tespiti
                     def dockerComposeCmd = sh(script: 'docker-compose --version', returnStatus: true) == 0 ? 'docker-compose' : 'docker compose'
                     
                     sh """
@@ -58,7 +65,7 @@ pipeline {
             steps {
                 script {
                     echo "Waiting for DB to be ready..."
-                    sh "sleep 10"
+                    sh "sleep 15" // DB konteynerinin tam oturması için biraz daha süre
                     sh "docker exec devtalk-app npx prisma db push --accept-data-loss"
                 }
             }
@@ -67,31 +74,32 @@ pipeline {
         stage('Verify') {
             steps {
                 script {
-                    echo "Verifying deployment health..."
-                    def maxRetries = 12
+                    echo "Verifying health check..."
+                    def maxRetries = 15
                     def success = false
                     for (int i = 0; i < maxRetries; i++) {
                         try {
-                            // Docker içindeki uygulamaya localhost:3000 üzerinden erişim testi
                             sh "curl -f http://localhost:3000/api/health"
                             success = true
                             break
                         } catch (e) {
-                            echo "Container starting up... (${i+1}/${maxRetries})"
+                            echo "App starting... (${i+1}/${maxRetries})"
                             sh "sleep 5"
                         }
                     }
                     if (!success) {
-                        echo "Deployment verification failed. Logs:"
                         sh "docker logs devtalk-app"
-                        error "Health check failed"
+                        error "Health check failed!"
                     }
                 }
             }
         }
-        
-        stage('Cleanup') {
-            steps {
+    }
+
+    post {
+        always {
+            script {
+                // Cleanup stage'ini node içinde güvenli çalıştırma
                 sh "docker image prune -f"
             }
         }
