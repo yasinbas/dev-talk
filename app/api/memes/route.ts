@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { currentUser } from "@clerk/nextjs/server";
 import { db } from "@/lib/db";
+import { getOrCreateUser } from "@/lib/auth-utils";
+import { awardPoints } from "@/lib/points";
 
 export async function POST(req: Request) {
     try {
@@ -9,12 +11,13 @@ export async function POST(req: Request) {
             return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
         }
 
-        const dbUser = await db.user.findUnique({ where: { clerkId: user.id } });
-        if (!dbUser) {
-            return NextResponse.json({ error: "User not found" }, { status: 404 });
+        const { caption, imageUrl } = await req.json();
+
+        if (!caption || !imageUrl) {
+            return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
         }
 
-        const { caption, imageUrl } = await req.json();
+        const dbUser = await getOrCreateUser(user);
 
         const meme = await db.meme.create({
             data: {
@@ -23,6 +26,9 @@ export async function POST(req: Request) {
                 authorId: dbUser.id
             }
         });
+
+        // Award points for meme
+        await awardPoints(dbUser.id, "MEME_PUBLISHED", { memeId: meme.id });
 
         return NextResponse.json(meme);
     } catch (_error) {

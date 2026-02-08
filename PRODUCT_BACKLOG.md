@@ -8,14 +8,14 @@
 
 ## 🟡 Phase 2: Core Loop - "Real-time Connections"
 ### Epic: Lobbies
-- [ ] **Create Lobby**: User can start a lobby with a topic and max participants.
-- [ ] **Join Lobby**: User can join an existing lobby.
-- [ ] **Real-time Status**: Lobby status updates (WAITING -> LIVE -> ENDED) using Pusher.
+- [x] **Create Lobby**: User can start a lobby with a topic and max participants.
+- [x] **Join Lobby**: User can join an existing lobby.
+- [x] **Real-time Status**: Lobby status updates (WAITING -> LIVE -> ENDED) using Pusher.
 - [ ] **Chat/Voice**: Integrate text chat (Pusher) and Voice (agora/livekit?) inside a lobby.
 
 ### Epic: Content Machine
 - [ ] **Article CRUD**: Users can write, publish, and read articles.
-- [ ] **Meme Upload**: Upload images with captions (UploadThing integration).
+- [x] **Meme Upload**: Upload images with captions (UploadThing integration).
 - [ ] **Podcast Recording**: Simple audio upload/recording interface.
 
 ## 🔵 Phase 3: Engagement & Gamification

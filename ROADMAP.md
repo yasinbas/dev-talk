@@ -12,7 +12,9 @@
 ### 📅 Sprint 2: The Lobby Experience
 *Focus: Making the "Real-time" promise true.*
 - [x] Implement Pusher for live lobby updates
-- [ ] Add "Active Participants" list in Lobby view
+- [x] Add "Active Participants" list in Lobby view
+- [x] Fix Memes page crash (next/image whitelist)
+- [x] Refactor User Sync (getOrCreateUser)
 - [ ] **Milestone**: First successful 3-person live lobby session
 
 ### 📅 Sprint 3: Content & Identity

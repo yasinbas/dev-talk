@@ -3,6 +3,7 @@ import { currentUser } from "@clerk/nextjs/server";
 import { db } from "@/lib/db";
 import { canCreateLobby, LOBBY_CREATE_THRESHOLD } from "@/lib/permissions";
 import { awardPoints } from "@/lib/points";
+import { getOrCreateUser } from "@/lib/auth-utils";
 import Pusher from "pusher";
 
 const pusher = new Pusher({
@@ -30,18 +31,7 @@ export async function POST(req: Request) {
         }
 
         // Get or create user
-        let dbUser = await db.user.findUnique({ where: { clerkId: user.id } });
-        if (!dbUser) {
-            dbUser = await db.user.create({
-                data: {
-                    clerkId: user.id,
-                    email: user.emailAddresses[0].emailAddress,
-                    firstName: user.firstName,
-                    lastName: user.lastName,
-                    imageUrl: user.imageUrl,
-                },
-            });
-        }
+        const dbUser = await getOrCreateUser(user);
 
         // Check permission (100 points required)
         const hasPermission = await canCreateLobby(dbUser.id);

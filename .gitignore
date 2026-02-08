@@ -44,3 +44,10 @@ next-env.d.ts
 /lint.log
 /lint_output.txt
 /*.log
+
+# Artifacts
+lighthouse-report.json
+playwright-report/
+test-results/
+.DS_Store
+Thumbs.db

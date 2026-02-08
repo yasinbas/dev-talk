@@ -3,6 +3,8 @@ import { currentUser } from "@clerk/nextjs/server";
 import { db } from "@/lib/db";
 import { pusherServer } from "@/lib/pusher";
 
+import { getOrCreateUser } from "@/lib/auth-utils";
+
 export async function POST(
     req: Request,
     { params }: { params: Promise<{ id: string }> }
@@ -16,13 +18,7 @@ export async function POST(
         const { id: lobbyId } = await params;
 
         // Get user from DB
-        const dbUser = await db.user.findUnique({
-            where: { clerkId: user.id }
-        });
-
-        if (!dbUser) {
-            return NextResponse.json({ error: "User not found" }, { status: 404 });
-        }
+        const dbUser = await getOrCreateUser(user);
 
         // Check if already participant
         const existingParticipant = await db.lobbyParticipant.findUnique({

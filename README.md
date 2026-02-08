@@ -1,36 +1,77 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# DevTalk - Social Platform for Developers
 
-## Getting Started
+A real-time social platform built for developers to connect, share knowledge (articles, podcasts), and engage in live audio/chat lobbies.
 
-First, run the development server:
+## 🚀 Tech Stack
 
+- **Framework**: Next.js 15 (App Router)
+- **Language**: TypeScript
+- **Database**: PostgreSQL (via Docker) + Prisma ORM 7
+- **Authentication**: Clerk
+- **Real-time**: Pusher (WebSockets)
+- **Styling**: Tailwind CSS v4
+- **Deployment**: Jenkins CI/CD + Docker (Production)
+
+## 🛠️ Getting Started
+
+### 1. Prerequisites
+- Node.js 20+
+- Docker & Docker Compose
+
+### 2. Environment Setup
+Copy the example environment file:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+cp .env.example .env
+```
+Fill in your credentials (Clerk, Pusher, Database URL).
+
+### 3. Start Database
+Run PostgreSQL via Docker:
+```bash
+docker-compose up -d db
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 4. Install Dependencies
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 5. Run Database Migrations
+Push the Prisma schema to your local database:
+```bash
+npx prisma db push
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 6. Start Development Server
+```bash
+npm run dev
+```
+Open [http://localhost:3000](http://localhost:3000) to view the app.
 
-## Learn More
+## 📂 Project Structure
 
-To learn more about Next.js, take a look at the following resources:
+- `/app` - Next.js App Router pages and API routes.
+  - `/api` - Backend endpoints (Articles, Lobbies, etc.).
+  - `/lobbies` - Real-time lobby features.
+- `/components` - Reusable UI components (buttons, dialogs).
+- `/lib` - Utility functions (DB connection, Auth helpers, Points logic).
+- `/prisma` - Database schema and client generation.
+- `.env` - Environment variables (Subject to gitignore).
+- `Jenkinsfile` - CI/CD pipeline configuration.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🔄 Deployment
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+This project uses **Jenkins** for continuous integration and deployment.
+- **Push to Main**: Triggers build, test, and deployment to production server.
+- **Docker**: Application runs in a containerized environment (`devtalk-app`).
 
-## Deploy on Vercel
+## 🧪 Testing
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Run unit tests:
+```bash
+npm test
+```
+Run E2E tests (Playwright):
+```bash
+npx playwright test
+```
