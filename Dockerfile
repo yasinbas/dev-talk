@@ -43,8 +43,9 @@ COPY --from=builder /app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
-# Prisma migration için şema ve binary kopyalama
+# Prisma migration için şema ve konfigürasyon kopyalama
 COPY --from=builder --chown=nextjs:nodejs /app/prisma ./prisma
+COPY --from=builder --chown=nextjs:nodejs /app/prisma.config.ts ./prisma.config.ts
 # Prisma binary'sini standalone içine manuel kopyalamaya gerek kalmayabilir 
 # ama migration scripti çalıştıracaksan dursun.
 

@@ -67,7 +67,7 @@ pipeline {
                     echo "Waiting for DB..."
                     sh 'sleep 20'
                     // Sırları sh seviyesinde tutuyoruz
-                    sh 'export PATH=$PATH:/usr/local/bin:/usr/bin && docker exec devtalk-app npx prisma db push --accept-data-loss'
+                    sh 'export PATH=$PATH:/usr/local/bin:/usr/bin && docker exec -e DATABASE_URL="${DATABASE_URL}" devtalk-app npx prisma db push --accept-data-loss'
                 }
             }
         }
