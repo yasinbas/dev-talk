@@ -23,18 +23,8 @@ pipeline {
             }
         }
 
-        stage('Install & Test') {
-            steps {
-                // Install dependencies
-                sh 'npm ci'
-                
-                // Linting (Fail if code quality is bad)
-                // sh 'npm run lint' 
-                
-                // Unit Tests (if available)
-                // sh 'npm test'
-            }
-        }
+        // stage('Install & Test') removed to avoid host Node.js dependency
+
 
         stage('Build Docker Image') {
             steps {
