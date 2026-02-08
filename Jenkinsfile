@@ -3,10 +3,10 @@ pipeline {
 
     environment {
         IMAGE_NAME = 'devtalk-app'
-        // Docker'ın potansiyel tüm yollarını zorla ekliyoruz
+        // PATH'i çevre değişkeni olarak tanımlıyoruz
         PATH = "/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:$PATH"
         
-        // Jenkins Credentials
+        // Credentials (Bunlar env var olarak sh tarafından görülecek)
         DB_PASSWORD = credentials('devtalk-db-password')
         DATABASE_URL = credentials('devtalk-database-url')
         CLERK_PUBLISHABLE_KEY = credentials('clerk-publishable-key')
@@ -20,9 +20,9 @@ pipeline {
         stage('System Check') {
             steps {
                 script {
-                    // Docker'ın nerede olduğunu bulmaya çalışalım
-                    sh "which docker || echo 'docker not found in common paths'"
-                    sh "docker --version || true"
+                    // Tek tırnak kullanarak shell genişletmesini sağlıyoruz
+                    sh 'which docker || echo "docker not found in common paths"'
+                    sh 'docker --version || true'
                 }
             }
         }
@@ -30,14 +30,14 @@ pipeline {
         stage('Build Image') {
             steps {
                 script {
-                    // PATH'i sh içinde de garantiye alalım
-                    sh """
-                    export PATH=\$PATH:/usr/local/bin:/usr/bin
+                    // Üçlü tek tırnak ('''): Interpolation yapmaz, tüm sırları shell env üzerinden okur
+                    sh '''
+                    export PATH=$PATH:/usr/local/bin:/usr/bin
                     docker build \
-                    --build-arg NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY='${CLERK_PUBLISHABLE_KEY}' \
-                    --build-arg NEXT_PUBLIC_PUSHER_APP_KEY='${PUSHER_APP_KEY}' \
-                    -t ${IMAGE_NAME}:latest .
-                    """
+                    --build-arg NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY="${CLERK_PUBLISHABLE_KEY}" \
+                    --build-arg NEXT_PUBLIC_PUSHER_APP_KEY="${PUSHER_APP_KEY}" \
+                    -t "${IMAGE_NAME}:latest" .
+                    '''
                 }
             }
         }
@@ -45,14 +45,8 @@ pipeline {
         stage('Deploy') {
             steps {
                 script {
-                    sh """
-                    export PATH=\$PATH:/usr/local/bin:/usr/bin
-                    export DB_PASSWORD='${DB_PASSWORD}'
-                    export NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY='${CLERK_PUBLISHABLE_KEY}'
-                    export CLERK_SECRET_KEY='${CLERK_SECRET_KEY}'
-                    export PUSHER_APP_ID='${PUSHER_APP_ID}'
-                    export NEXT_PUBLIC_PUSHER_APP_KEY='${PUSHER_APP_KEY}'
-                    export PUSHER_SECRET='${PUSHER_SECRET}'
+                    sh '''
+                    export PATH=$PATH:/usr/local/bin:/usr/bin
                     
                     # Docker Compose tespiti
                     COMPOSE_CMD="docker compose"
@@ -60,9 +54,9 @@ pipeline {
                         COMPOSE_CMD="docker-compose"
                     fi
                     
-                    \$COMPOSE_CMD down || true
-                    \$COMPOSE_CMD up -d
-                    """
+                    $COMPOSE_CMD down || true
+                    $COMPOSE_CMD up -d
+                    '''
                 }
             }
         }
@@ -71,8 +65,9 @@ pipeline {
             steps {
                 script {
                     echo "Waiting for DB..."
-                    sh "sleep 20"
-                    sh "export PATH=\$PATH:/usr/local/bin:/usr/bin && docker exec devtalk-app npx prisma db push --accept-data-loss"
+                    sh 'sleep 20'
+                    // Sırları sh seviyesinde tutuyoruz
+                    sh 'export PATH=$PATH:/usr/local/bin:/usr/bin && docker exec devtalk-app npx prisma db push --accept-data-loss'
                 }
             }
         }
@@ -84,16 +79,17 @@ pipeline {
                     def success = false
                     for (int i = 0; i < 15; i++) {
                         try {
-                            sh "curl -f http://localhost:3000/api/health"
+                            // Çift tırnak yerine tek tırnak
+                            sh 'curl -f http://localhost:3000/api/health'
                             success = true
                             break
                         } catch (e) {
                             echo "App starting... (${i+1}/15)"
-                            sh "sleep 5"
+                            sh 'sleep 5'
                         }
                     }
                     if (!success) {
-                        sh "export PATH=\$PATH:/usr/local/bin:/usr/bin && docker logs devtalk-app"
+                        sh 'export PATH=$PATH:/usr/local/bin:/usr/bin && docker logs devtalk-app'
                         error "Deployment failed health check"
                     }
                 }
@@ -104,8 +100,7 @@ pipeline {
     post {
         always {
             script {
-                // Post-build işlemleri de PATH bağımlı olabilir
-                sh "export PATH=\$PATH:/usr/local/bin:/usr/bin && docker image prune -f || true"
+                sh 'export PATH=$PATH:/usr/local/bin:/usr/bin && docker image prune -f || true'
             }
         }
     }
