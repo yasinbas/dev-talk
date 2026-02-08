@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { BookOpen, Eye } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 
 interface ArticleCardProps {
     article: {
@@ -10,11 +11,13 @@ interface ArticleCardProps {
         summary: string | null;
         createdAt: Date;
         author: {
+            id: string;
             firstName: string | null;
             lastName: string | null;
             imageUrl: string | null;
         };
         _count: { readers: number };
+        hasRead: boolean;
     };
 }
 
@@ -27,11 +30,18 @@ export function ArticleCard({ article }: ArticleCardProps) {
         <Link href={`/articles/${article.id}`}>
             <Card className="h-full hover:bg-accent/50 transition-colors cursor-pointer">
                 <CardHeader className="pb-2">
-                    <div className="flex items-center gap-2 mb-2">
-                        <BookOpen className="h-4 w-4 text-primary" />
-                        <span className="text-xs text-muted-foreground">
-                            +5 points to read
-                        </span>
+                    <div className="flex items-center justify-between mb-2">
+                        <div className="flex items-center gap-2">
+                            <BookOpen className="h-4 w-4 text-primary" />
+                            <span className="text-xs text-muted-foreground">
+                                +5 points to read
+                            </span>
+                        </div>
+                        {article.hasRead && (
+                            <Badge variant="secondary" className="bg-green-500/20 text-green-400 h-5 px-1.5 py-0 text-[10px]">
+                                ✓ Read
+                            </Badge>
+                        )}
                     </div>
                     <CardTitle className="line-clamp-2">{article.title}</CardTitle>
                 </CardHeader>

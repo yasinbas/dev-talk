@@ -60,6 +60,21 @@ export async function POST(
         // Award points
         await awardPoints(dbUser.id, "ARTICLE_READ", { articleId });
 
+        // Broadcast update via Pusher
+        const updatedArticle = await db.article.findUnique({
+            where: { id: articleId },
+            select: { _count: { select: { readers: true } } }
+        });
+
+        if (updatedArticle) {
+            const { pusherServer } = await import("@/lib/pusher");
+            await pusherServer.trigger("articles", "article:read", {
+                articleId,
+                readersCount: updatedArticle._count.readers,
+                clerkId: user.id // Send clerkId to help clients identify their own read events
+            });
+        }
+
         return NextResponse.json({ success: true, points: 5 });
     } catch (error) {
         console.error("Failed to mark as read:", error);
