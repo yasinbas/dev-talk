@@ -21,7 +21,7 @@ interface Lobby {
     ownerId: string;
     createdAt: Date;
     owner: User;
-    participants: any[];
+    participants: unknown[];
 }
 
 
@@ -51,7 +51,7 @@ export default async function LobbiesPage() {
                         No active lobbies. Start one!
                     </div>
                 ) : (
-                    (lobbies as Lobby[]).map((lobby: Lobby) => (
+                    (lobbies as unknown as Lobby[]).map((lobby) => (
                         <LobbyCard key={lobby.id} lobby={lobby} />
                     ))
                 )}

@@ -26,12 +26,12 @@ interface Message {
 interface Props {
     lobbyId: string;
     initialParticipants: Participant[];
-    currentUserId: string;
+    _currentUserId: string;
 }
 
-export default function LobbyRoom({ lobbyId, initialParticipants, currentUserId }: Props) {
+export default function LobbyRoom({ lobbyId, initialParticipants, _currentUserId }: Props) {
     const [participants, setParticipants] = useState<Participant[]>(initialParticipants);
-    const [messages, _setMessages] = useState<Message[]>([]);
+    const [messages] = useState<Message[]>([]);
 
     useEffect(() => {
         // Initialize Pusher client

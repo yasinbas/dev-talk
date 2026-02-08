@@ -25,7 +25,7 @@ export async function POST(req: Request) {
         });
 
         return NextResponse.json(meme);
-    } catch (error) {
+    } catch (_error) {
         return NextResponse.json({ error: "Failed to create meme" }, { status: 500 });
     }
 }
@@ -38,7 +38,7 @@ export async function GET() {
             take: 50
         });
         return NextResponse.json(memes);
-    } catch (error) {
+    } catch (_error) {
         return NextResponse.json({ error: "Failed to fetch memes" }, { status: 500 });
     }
 }

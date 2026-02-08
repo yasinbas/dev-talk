@@ -26,7 +26,7 @@ export async function POST(req: Request) {
         });
 
         return NextResponse.json(podcast);
-    } catch (error) {
+    } catch (_error) {
         return NextResponse.json({ error: "Failed to create podcast" }, { status: 500 });
     }
 }
@@ -38,7 +38,7 @@ export async function GET() {
             orderBy: { createdAt: "desc" }
         });
         return NextResponse.json(podcasts);
-    } catch (error) {
+    } catch (_error) {
         return NextResponse.json({ error: "Failed to fetch podcasts" }, { status: 500 });
     }
 }

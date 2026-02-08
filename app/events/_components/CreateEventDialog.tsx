@@ -45,7 +45,7 @@ export function CreateEventDialog() {
             setScheduledFor("");
             toast.success("Event created!");
             router.refresh();
-        } catch (error) {
+        } catch (_error) {
             toast.error("Failed to create event");
         } finally {
             setLoading(false);

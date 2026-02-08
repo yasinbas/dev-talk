@@ -16,6 +16,7 @@ import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { Upload } from "lucide-react";
+import Image from "next/image";
 import { UploadButton } from "@/lib/uploadthing";
 
 export function UploadMemeDialog() {
@@ -43,7 +44,7 @@ export function UploadMemeDialog() {
             setImageUrl("");
             toast.success("Meme uploaded!");
             router.refresh();
-        } catch (error) {
+        } catch (_error) {
             toast.error("Failed to upload meme");
         } finally {
             setLoading(false);
@@ -79,7 +80,7 @@ export function UploadMemeDialog() {
                         <Label>Meme Image</Label>
                         <div className="flex flex-col items-center justify-center border-2 border-dashed rounded-lg p-6 bg-muted/50 cursor-pointer">
                             {imageUrl ? (
-                                <img src={imageUrl} alt="Preview" className="max-h-32 rounded mb-4" />
+                                <Image src={imageUrl} alt="Preview" width={400} height={300} className="max-h-32 w-auto object-contain rounded mb-4" />
                             ) : null}
                             <UploadButton
                                 endpoint="imageUploader"

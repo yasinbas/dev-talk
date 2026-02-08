@@ -21,7 +21,7 @@ export function ProfileForm({ initialStack }: ProfileFormProps) {
         try {
             await updateTechStack(stack);
             toast.success("Profile updated!");
-        } catch (error) {
+        } catch (_error) {
             toast.error("Something went wrong.");
         } finally {
             setLoading(false);

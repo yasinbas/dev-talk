@@ -46,7 +46,7 @@ export function UploadPodcastDialog() {
             setAudioUrl("");
             toast.success("Podcast published!");
             router.refresh();
-        } catch (error) {
+        } catch (_error) {
             toast.error("Failed to publish podcast");
         } finally {
             setLoading(false);

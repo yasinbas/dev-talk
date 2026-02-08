@@ -26,7 +26,7 @@ export async function POST(req: Request) {
         });
 
         return NextResponse.json(event);
-    } catch (error) {
+    } catch (_error) {
         return NextResponse.json({ error: "Failed to create event" }, { status: 500 });
     }
 }
@@ -39,7 +39,7 @@ export async function GET() {
             orderBy: { scheduledFor: "asc" }
         });
         return NextResponse.json(events);
-    } catch (error) {
+    } catch (_error) {
         return NextResponse.json({ error: "Failed to fetch events" }, { status: 500 });
     }
 }

@@ -15,7 +15,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import { AlertCircle, Lock } from "lucide-react";
+import { Lock } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 interface PermissionStatus {
@@ -90,8 +90,8 @@ export function CreateLobbyDialog() {
             setOpen(false);
             toast.success("Lobby created! +10 points earned");
             router.push(`/lobbies/${data.id}`);
-        } catch (error) {
-            toast.error(error instanceof Error ? error.message : "Failed to create lobby");
+        } catch (_error) {
+            toast.error(_error instanceof Error ? _error.message : "Failed to create lobby");
         } finally {
             setLoading(false);
         }

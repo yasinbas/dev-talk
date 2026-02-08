@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Check, X } from "lucide-react";
+import { Check } from "lucide-react";
 import { updateTechStack } from "@/app/actions/user";
 import { toast } from "sonner";
 
@@ -60,7 +60,7 @@ export function TechStackEditor({ initialStack }: TechStackEditorProps) {
             });
             await updateTechStack(techStack);
             toast.success("Tech stack updated!");
-        } catch (error) {
+        } catch (_error) {
             toast.error("Failed to save tech stack");
         } finally {
             setSaving(false);

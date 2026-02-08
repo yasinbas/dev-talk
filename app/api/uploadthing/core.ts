@@ -22,7 +22,7 @@ export const ourFileRouter = {
             if (!user) throw new Error("Unauthorized");
             return { userId: user.id };
         })
-        .onUploadComplete(async ({ metadata, file }) => {
+        .onUploadComplete(async ({ metadata }) => {
             return { uploadedBy: metadata.userId };
         }),
 } satisfies FileRouter;

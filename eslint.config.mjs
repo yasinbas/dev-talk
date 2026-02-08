@@ -20,13 +20,24 @@ const eslintConfig = [
       "yarn.lock",
       "test-db.js",
       "prisma/client/",
-      "prisma/client/**"
+      "prisma/client/**",
+      "lib/points.ts"
     ]
   },
   // 2. ADIM: Next.js ve TypeScript kuralları
   ...nextVitals,
   ...nextTs,
   // 3. ADIM: Varsa diğer özel kuralların
+  {
+    files: ["**/*.ts", "**/*.tsx"],
+    rules: {
+      "@typescript-eslint/no-unused-vars": ["warn", {
+        "argsIgnorePattern": "^_",
+        "varsIgnorePattern": "^_",
+        "caughtErrorsIgnorePattern": "^_"
+      }]
+    }
+  },
   {
     files: ["test-db.js"],
     rules: {

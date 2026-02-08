@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { db } from "@/lib/db";
 import { TechStackEditor } from "./_components/TechStackEditor";
 import { Badge } from "@/components/ui/badge";
+import Image from "next/image";
 
 export default async function ProfilePage() {
     const user = await currentUser();
@@ -24,7 +25,7 @@ export default async function ProfilePage() {
 
             <div className="bg-card p-6 rounded-lg border shadow-sm">
                 <div className="flex items-center space-x-4 mb-6">
-                    <img src={user.imageUrl} alt={user.firstName || "User"} className="w-16 h-16 rounded-full" />
+                    <Image src={user.imageUrl} alt={user.firstName || "User"} width={64} height={64} className="rounded-full" />
                     <div className="flex-1">
                         <div className="flex items-center gap-2">
                             <h2 className="text-xl font-semibold">{user.firstName} {user.lastName}</h2>
