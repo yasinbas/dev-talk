@@ -36,7 +36,7 @@ export default async function LobbyPage({ params }: Props) {
             <LobbyRoom
                 lobbyId={lobby.id}
                 initialParticipants={lobby.participants}
-                currentUserId={user.id}
+                _currentUserId={user.id}
             />
         </div>
     );
