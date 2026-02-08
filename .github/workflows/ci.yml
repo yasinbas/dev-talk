@@ -21,5 +21,6 @@ jobs:
       - run: npx tsc --noEmit
       - run: npm run build
         env:
-          NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: pk_test_mock
-          NEXT_PUBLIC_PUSHER_APP_KEY: mock_key
+          NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY }}
+          NEXT_PUBLIC_PUSHER_APP_KEY: ${{ secrets.NEXT_PUBLIC_PUSHER_APP_KEY }}
+          DATABASE_URL: postgresql://mock:mock@localhost:5432/mock # Build sırasında şema kontrolü için gerekebilir
