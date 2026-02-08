@@ -1,5 +1,5 @@
 import { db } from "./db";
-import type { PointActionType } from "../prisma/client";
+import type { PointActionType } from "@prisma/client";
 
 // Point values for earning
 export const POINT_VALUES = {
