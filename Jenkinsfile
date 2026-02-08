@@ -29,8 +29,13 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    // Build image - this also verifies the build succeeds
-                    sh "docker build -t ${IMAGE_NAME}:${BUILD_NUMBER} ."
+                    // Next.js'in frontend tarafında keyleri görebilmesi için --build-arg kullanmalıyız
+                    sh """
+                    docker build \
+                    --build-arg NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY='${NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}' \
+                    --build-arg NEXT_PUBLIC_PUSHER_APP_KEY='${NEXT_PUBLIC_PUSHER_APP_KEY}' \
+                    -t ${IMAGE_NAME}:${BUILD_NUMBER} .
+                    """
                 }
             }
         }
