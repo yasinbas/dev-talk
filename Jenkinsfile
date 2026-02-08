@@ -79,6 +79,36 @@ pipeline {
                 }
             }
         }
+
+        stage('Verify Deployment') {
+            steps {
+                script {
+                    echo "Waiting for application to start..."
+                    // Wait up to 60 seconds (12 * 5s)
+                    def maxRetries = 12
+                    def retryCount = 0
+                    def success = false
+                    
+                    while (retryCount < maxRetries && !success) {
+                        try {
+                            sh "curl -f http://localhost:${PORT}/api/health"
+                            success = true
+                            echo "Application is healthy!"
+                        } catch (Exception e) {
+                            retryCount++
+                            echo "Health check failed (attempt ${retryCount}/${maxRetries}), waiting 5s..."
+                            sh "sleep 5"
+                        }
+                    }
+                    
+                    if (!success) {
+                        echo "Deployment verification failed! Checking container logs..."
+                        sh "docker logs ${CONTAINER_NAME}"
+                        error "Application failed to start correctly"
+                    }
+                }
+            }
+        }
         
         stage('Cleanup') {
             steps {
