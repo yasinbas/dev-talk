@@ -5,12 +5,12 @@ import { LobbyCard } from "./LobbyCard";
 import { pusherClient } from "@/lib/pusher-client";
 import { Prisma } from "@prisma/client";
 
-type LobbyWithOwner = Prisma.LobbyGetPayload<{
-    include: { owner: true }
+type LobbyWithDetails = Prisma.LobbyGetPayload<{
+    include: { owner: true; participants: true }
 }>;
 
 interface LobbyListProps {
-    initialLobbies: LobbyWithOwner[];
+    initialLobbies: LobbyWithDetails[];
 }
 
 export function LobbyList({ initialLobbies }: LobbyListProps) {
@@ -19,7 +19,7 @@ export function LobbyList({ initialLobbies }: LobbyListProps) {
     useEffect(() => {
         pusherClient.subscribe("lobbies");
 
-        const handleLobbyCreated = (data: { lobby: LobbyWithOwner }) => {
+        const handleLobbyCreated = (data: { lobby: LobbyWithDetails }) => {
             setLobbies((prev) => [data.lobby, ...prev]);
         };
 

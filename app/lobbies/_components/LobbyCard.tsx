@@ -4,12 +4,12 @@ import { Users, LogIn } from "lucide-react";
 import Link from "next/link";
 import { Prisma } from "@prisma/client";
 
-type LobbyWithOwner = Prisma.LobbyGetPayload<{
-    include: { owner: true }
+type LobbyWithDetails = Prisma.LobbyGetPayload<{
+    include: { owner: true; participants: true }
 }>;
 
 interface LobbyCardProps {
-    lobby: LobbyWithOwner;
+    lobby: LobbyWithDetails;
 }
 
 export function LobbyCard({ lobby }: LobbyCardProps) {
@@ -22,7 +22,7 @@ export function LobbyCard({ lobby }: LobbyCardProps) {
             <CardContent>
                 <div className="flex items-center space-x-2 text-sm text-muted-foreground">
                     <Users className="h-4 w-4" />
-                    <span>{0} / {lobby.maxParticipants} Online</span>
+                    <span>{lobby.participants.length} / {lobby.maxParticipants} Online</span>
                 </div>
             </CardContent>
             <CardFooter>
