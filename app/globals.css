@@ -80,6 +80,10 @@
   --radius-sm: calc(var(--radius) - 4px);
 }
 
+@utility border-border {
+  border-color: var(--color-border);
+}
+
 @layer base {
   * {
     @apply border-border;
