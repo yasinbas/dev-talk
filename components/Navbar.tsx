@@ -1,7 +1,6 @@
 import { UserButton } from "@clerk/nextjs";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { MessageSquare, Calendar, Mic, Hash, User } from "lucide-react";
+import { MessageSquare, Calendar, Mic, Hash, User, BookOpen } from "lucide-react";
 
 export function Navbar() {
     return (
@@ -15,6 +14,10 @@ export function Navbar() {
 
                 {/* Main Nav Links */}
                 <div className="flex items-center space-x-4 md:space-x-6 flex-1">
+                    <Link href="/articles" className="text-sm font-medium transition-colors hover:text-primary flex items-center gap-2">
+                        <BookOpen className="h-4 w-4" />
+                        Articles
+                    </Link>
                     <Link href="/lobbies" className="text-sm font-medium transition-colors hover:text-primary flex items-center gap-2">
                         <MessageSquare className="h-4 w-4" />
                         Lobbies

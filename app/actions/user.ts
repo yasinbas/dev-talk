@@ -27,7 +27,6 @@ export async function syncUser() {
             email: user.emailAddresses[0].emailAddress,
             firstName: user.firstName,
             lastName: user.lastName,
-            // Default role is DEVELOPER from schema
         },
     });
 
@@ -41,11 +40,20 @@ export async function updateTechStack(techStack: string) {
         throw new Error("Unauthorized");
     }
 
-    await db.user.update({
+    // Use upsert to handle case where user doesn't exist yet
+    await db.user.upsert({
         where: {
             clerkId: user.id,
         },
-        data: {
+        update: {
+            techStack,
+        },
+        create: {
+            clerkId: user.id,
+            email: user.emailAddresses[0].emailAddress,
+            imageUrl: user.imageUrl,
+            firstName: user.firstName,
+            lastName: user.lastName,
             techStack,
         },
     });
@@ -69,6 +77,4 @@ export async function getUserProfile() {
     });
 
     return dbUser;
-
-    return user;
 }

@@ -131,6 +131,7 @@ exports.Prisma.UserScalarFieldEnum = {
   role: 'role',
   techStack: 'techStack',
   points: 'points',
+  lastLoginAt: 'lastLoginAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -183,6 +184,33 @@ exports.Prisma.EventScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.ArticleScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  content: 'content',
+  summary: 'summary',
+  authorId: 'authorId',
+  readCount: 'readCount',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ArticleReadScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  articleId: 'articleId',
+  readAt: 'readAt'
+};
+
+exports.Prisma.PointActionScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  action: 'action',
+  points: 'points',
+  metadata: 'metadata',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -225,13 +253,25 @@ exports.ParticipantRole = exports.$Enums.ParticipantRole = {
   LISTENER: 'LISTENER'
 };
 
+exports.PointActionType = exports.$Enums.PointActionType = {
+  ARTICLE_READ: 'ARTICLE_READ',
+  ARTICLE_PUBLISHED: 'ARTICLE_PUBLISHED',
+  PODCAST_PUBLISHED: 'PODCAST_PUBLISHED',
+  MEME_PUBLISHED: 'MEME_PUBLISHED',
+  LOBBY_HOSTED: 'LOBBY_HOSTED',
+  DECAY: 'DECAY'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   Lobby: 'Lobby',
   LobbyParticipant: 'LobbyParticipant',
   Meme: 'Meme',
   Podcast: 'Podcast',
-  Event: 'Event'
+  Event: 'Event',
+  Article: 'Article',
+  ArticleRead: 'ArticleRead',
+  PointAction: 'PointAction'
 };
 
 /**

@@ -43,6 +43,21 @@ export type Podcast = $Result.DefaultSelection<Prisma.$PodcastPayload>
  * 
  */
 export type Event = $Result.DefaultSelection<Prisma.$EventPayload>
+/**
+ * Model Article
+ * 
+ */
+export type Article = $Result.DefaultSelection<Prisma.$ArticlePayload>
+/**
+ * Model ArticleRead
+ * 
+ */
+export type ArticleRead = $Result.DefaultSelection<Prisma.$ArticleReadPayload>
+/**
+ * Model PointAction
+ * 
+ */
+export type PointAction = $Result.DefaultSelection<Prisma.$PointActionPayload>
 
 /**
  * Enums
@@ -73,6 +88,18 @@ export const ParticipantRole: {
 
 export type ParticipantRole = (typeof ParticipantRole)[keyof typeof ParticipantRole]
 
+
+export const PointActionType: {
+  ARTICLE_READ: 'ARTICLE_READ',
+  ARTICLE_PUBLISHED: 'ARTICLE_PUBLISHED',
+  PODCAST_PUBLISHED: 'PODCAST_PUBLISHED',
+  MEME_PUBLISHED: 'MEME_PUBLISHED',
+  LOBBY_HOSTED: 'LOBBY_HOSTED',
+  DECAY: 'DECAY'
+};
+
+export type PointActionType = (typeof PointActionType)[keyof typeof PointActionType]
+
 }
 
 export type Role = $Enums.Role
@@ -86,6 +113,10 @@ export const LobbyStatus: typeof $Enums.LobbyStatus
 export type ParticipantRole = $Enums.ParticipantRole
 
 export const ParticipantRole: typeof $Enums.ParticipantRole
+
+export type PointActionType = $Enums.PointActionType
+
+export const PointActionType: typeof $Enums.PointActionType
 
 /**
  * ##  Prisma Client ʲˢ
@@ -263,6 +294,36 @@ export class PrismaClient<
     * ```
     */
   get event(): Prisma.EventDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.article`: Exposes CRUD operations for the **Article** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Articles
+    * const articles = await prisma.article.findMany()
+    * ```
+    */
+  get article(): Prisma.ArticleDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.articleRead`: Exposes CRUD operations for the **ArticleRead** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ArticleReads
+    * const articleReads = await prisma.articleRead.findMany()
+    * ```
+    */
+  get articleRead(): Prisma.ArticleReadDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.pointAction`: Exposes CRUD operations for the **PointAction** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more PointActions
+    * const pointActions = await prisma.pointAction.findMany()
+    * ```
+    */
+  get pointAction(): Prisma.PointActionDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -702,7 +763,10 @@ export namespace Prisma {
     LobbyParticipant: 'LobbyParticipant',
     Meme: 'Meme',
     Podcast: 'Podcast',
-    Event: 'Event'
+    Event: 'Event',
+    Article: 'Article',
+    ArticleRead: 'ArticleRead',
+    PointAction: 'PointAction'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -718,7 +782,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "lobby" | "lobbyParticipant" | "meme" | "podcast" | "event"
+      modelProps: "user" | "lobby" | "lobbyParticipant" | "meme" | "podcast" | "event" | "article" | "articleRead" | "pointAction"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1166,6 +1230,228 @@ export namespace Prisma {
           }
         }
       }
+      Article: {
+        payload: Prisma.$ArticlePayload<ExtArgs>
+        fields: Prisma.ArticleFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ArticleFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArticlePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ArticleFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArticlePayload>
+          }
+          findFirst: {
+            args: Prisma.ArticleFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArticlePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ArticleFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArticlePayload>
+          }
+          findMany: {
+            args: Prisma.ArticleFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArticlePayload>[]
+          }
+          create: {
+            args: Prisma.ArticleCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArticlePayload>
+          }
+          createMany: {
+            args: Prisma.ArticleCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ArticleCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArticlePayload>[]
+          }
+          delete: {
+            args: Prisma.ArticleDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArticlePayload>
+          }
+          update: {
+            args: Prisma.ArticleUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArticlePayload>
+          }
+          deleteMany: {
+            args: Prisma.ArticleDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ArticleUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ArticleUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArticlePayload>[]
+          }
+          upsert: {
+            args: Prisma.ArticleUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArticlePayload>
+          }
+          aggregate: {
+            args: Prisma.ArticleAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateArticle>
+          }
+          groupBy: {
+            args: Prisma.ArticleGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ArticleGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ArticleCountArgs<ExtArgs>
+            result: $Utils.Optional<ArticleCountAggregateOutputType> | number
+          }
+        }
+      }
+      ArticleRead: {
+        payload: Prisma.$ArticleReadPayload<ExtArgs>
+        fields: Prisma.ArticleReadFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ArticleReadFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArticleReadPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ArticleReadFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArticleReadPayload>
+          }
+          findFirst: {
+            args: Prisma.ArticleReadFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArticleReadPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ArticleReadFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArticleReadPayload>
+          }
+          findMany: {
+            args: Prisma.ArticleReadFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArticleReadPayload>[]
+          }
+          create: {
+            args: Prisma.ArticleReadCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArticleReadPayload>
+          }
+          createMany: {
+            args: Prisma.ArticleReadCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ArticleReadCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArticleReadPayload>[]
+          }
+          delete: {
+            args: Prisma.ArticleReadDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArticleReadPayload>
+          }
+          update: {
+            args: Prisma.ArticleReadUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArticleReadPayload>
+          }
+          deleteMany: {
+            args: Prisma.ArticleReadDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ArticleReadUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ArticleReadUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArticleReadPayload>[]
+          }
+          upsert: {
+            args: Prisma.ArticleReadUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArticleReadPayload>
+          }
+          aggregate: {
+            args: Prisma.ArticleReadAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateArticleRead>
+          }
+          groupBy: {
+            args: Prisma.ArticleReadGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ArticleReadGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ArticleReadCountArgs<ExtArgs>
+            result: $Utils.Optional<ArticleReadCountAggregateOutputType> | number
+          }
+        }
+      }
+      PointAction: {
+        payload: Prisma.$PointActionPayload<ExtArgs>
+        fields: Prisma.PointActionFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.PointActionFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PointActionPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.PointActionFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PointActionPayload>
+          }
+          findFirst: {
+            args: Prisma.PointActionFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PointActionPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.PointActionFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PointActionPayload>
+          }
+          findMany: {
+            args: Prisma.PointActionFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PointActionPayload>[]
+          }
+          create: {
+            args: Prisma.PointActionCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PointActionPayload>
+          }
+          createMany: {
+            args: Prisma.PointActionCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.PointActionCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PointActionPayload>[]
+          }
+          delete: {
+            args: Prisma.PointActionDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PointActionPayload>
+          }
+          update: {
+            args: Prisma.PointActionUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PointActionPayload>
+          }
+          deleteMany: {
+            args: Prisma.PointActionDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.PointActionUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.PointActionUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PointActionPayload>[]
+          }
+          upsert: {
+            args: Prisma.PointActionUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PointActionPayload>
+          }
+          aggregate: {
+            args: Prisma.PointActionAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePointAction>
+          }
+          groupBy: {
+            args: Prisma.PointActionGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PointActionGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.PointActionCountArgs<ExtArgs>
+            result: $Utils.Optional<PointActionCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1280,6 +1566,9 @@ export namespace Prisma {
     meme?: MemeOmit
     podcast?: PodcastOmit
     event?: EventOmit
+    article?: ArticleOmit
+    articleRead?: ArticleReadOmit
+    pointAction?: PointActionOmit
   }
 
   /* Types for Logging */
@@ -1365,6 +1654,9 @@ export namespace Prisma {
     podcasts: number
     memes: number
     eventsOrganized: number
+    articles: number
+    articleReads: number
+    pointActions: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -1373,6 +1665,9 @@ export namespace Prisma {
     podcasts?: boolean | UserCountOutputTypeCountPodcastsArgs
     memes?: boolean | UserCountOutputTypeCountMemesArgs
     eventsOrganized?: boolean | UserCountOutputTypeCountEventsOrganizedArgs
+    articles?: boolean | UserCountOutputTypeCountArticlesArgs
+    articleReads?: boolean | UserCountOutputTypeCountArticleReadsArgs
+    pointActions?: boolean | UserCountOutputTypeCountPointActionsArgs
   }
 
   // Custom InputTypes
@@ -1421,6 +1716,27 @@ export namespace Prisma {
     where?: EventWhereInput
   }
 
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountArticlesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ArticleWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountArticleReadsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ArticleReadWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountPointActionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PointActionWhereInput
+  }
+
 
   /**
    * Count Type LobbyCountOutputType
@@ -1450,6 +1766,37 @@ export namespace Prisma {
    */
   export type LobbyCountOutputTypeCountParticipantsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: LobbyParticipantWhereInput
+  }
+
+
+  /**
+   * Count Type ArticleCountOutputType
+   */
+
+  export type ArticleCountOutputType = {
+    readers: number
+  }
+
+  export type ArticleCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    readers?: boolean | ArticleCountOutputTypeCountReadersArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * ArticleCountOutputType without action
+   */
+  export type ArticleCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ArticleCountOutputType
+     */
+    select?: ArticleCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * ArticleCountOutputType without action
+   */
+  export type ArticleCountOutputTypeCountReadersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ArticleReadWhereInput
   }
 
 
@@ -1487,6 +1834,7 @@ export namespace Prisma {
     bio: string | null
     role: $Enums.Role | null
     points: number | null
+    lastLoginAt: Date | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -1501,6 +1849,7 @@ export namespace Prisma {
     bio: string | null
     role: $Enums.Role | null
     points: number | null
+    lastLoginAt: Date | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -1516,6 +1865,7 @@ export namespace Prisma {
     role: number
     techStack: number
     points: number
+    lastLoginAt: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -1540,6 +1890,7 @@ export namespace Prisma {
     bio?: true
     role?: true
     points?: true
+    lastLoginAt?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -1554,6 +1905,7 @@ export namespace Prisma {
     bio?: true
     role?: true
     points?: true
+    lastLoginAt?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -1569,6 +1921,7 @@ export namespace Prisma {
     role?: true
     techStack?: true
     points?: true
+    lastLoginAt?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -1671,6 +2024,7 @@ export namespace Prisma {
     role: $Enums.Role
     techStack: JsonValue | null
     points: number
+    lastLoginAt: Date
     createdAt: Date
     updatedAt: Date
     _count: UserCountAggregateOutputType | null
@@ -1705,6 +2059,7 @@ export namespace Prisma {
     role?: boolean
     techStack?: boolean
     points?: boolean
+    lastLoginAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     lobbiesHosted?: boolean | User$lobbiesHostedArgs<ExtArgs>
@@ -1712,6 +2067,9 @@ export namespace Prisma {
     podcasts?: boolean | User$podcastsArgs<ExtArgs>
     memes?: boolean | User$memesArgs<ExtArgs>
     eventsOrganized?: boolean | User$eventsOrganizedArgs<ExtArgs>
+    articles?: boolean | User$articlesArgs<ExtArgs>
+    articleReads?: boolean | User$articleReadsArgs<ExtArgs>
+    pointActions?: boolean | User$pointActionsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -1726,6 +2084,7 @@ export namespace Prisma {
     role?: boolean
     techStack?: boolean
     points?: boolean
+    lastLoginAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["user"]>
@@ -1741,6 +2100,7 @@ export namespace Prisma {
     role?: boolean
     techStack?: boolean
     points?: boolean
+    lastLoginAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["user"]>
@@ -1756,17 +2116,21 @@ export namespace Prisma {
     role?: boolean
     techStack?: boolean
     points?: boolean
+    lastLoginAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "clerkId" | "email" | "firstName" | "lastName" | "imageUrl" | "bio" | "role" | "techStack" | "points" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "clerkId" | "email" | "firstName" | "lastName" | "imageUrl" | "bio" | "role" | "techStack" | "points" | "lastLoginAt" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     lobbiesHosted?: boolean | User$lobbiesHostedArgs<ExtArgs>
     lobbyParticipation?: boolean | User$lobbyParticipationArgs<ExtArgs>
     podcasts?: boolean | User$podcastsArgs<ExtArgs>
     memes?: boolean | User$memesArgs<ExtArgs>
     eventsOrganized?: boolean | User$eventsOrganizedArgs<ExtArgs>
+    articles?: boolean | User$articlesArgs<ExtArgs>
+    articleReads?: boolean | User$articleReadsArgs<ExtArgs>
+    pointActions?: boolean | User$pointActionsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -1780,6 +2144,9 @@ export namespace Prisma {
       podcasts: Prisma.$PodcastPayload<ExtArgs>[]
       memes: Prisma.$MemePayload<ExtArgs>[]
       eventsOrganized: Prisma.$EventPayload<ExtArgs>[]
+      articles: Prisma.$ArticlePayload<ExtArgs>[]
+      articleReads: Prisma.$ArticleReadPayload<ExtArgs>[]
+      pointActions: Prisma.$PointActionPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -1792,6 +2159,7 @@ export namespace Prisma {
       role: $Enums.Role
       techStack: Prisma.JsonValue | null
       points: number
+      lastLoginAt: Date
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["user"]>
@@ -2193,6 +2561,9 @@ export namespace Prisma {
     podcasts<T extends User$podcastsArgs<ExtArgs> = {}>(args?: Subset<T, User$podcastsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PodcastPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     memes<T extends User$memesArgs<ExtArgs> = {}>(args?: Subset<T, User$memesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MemePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     eventsOrganized<T extends User$eventsOrganizedArgs<ExtArgs> = {}>(args?: Subset<T, User$eventsOrganizedArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    articles<T extends User$articlesArgs<ExtArgs> = {}>(args?: Subset<T, User$articlesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ArticlePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    articleReads<T extends User$articleReadsArgs<ExtArgs> = {}>(args?: Subset<T, User$articleReadsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ArticleReadPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    pointActions<T extends User$pointActionsArgs<ExtArgs> = {}>(args?: Subset<T, User$pointActionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PointActionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2232,6 +2603,7 @@ export namespace Prisma {
     readonly role: FieldRef<"User", 'Role'>
     readonly techStack: FieldRef<"User", 'Json'>
     readonly points: FieldRef<"User", 'Int'>
+    readonly lastLoginAt: FieldRef<"User", 'DateTime'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
   }
@@ -2739,6 +3111,78 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: EventScalarFieldEnum | EventScalarFieldEnum[]
+  }
+
+  /**
+   * User.articles
+   */
+  export type User$articlesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Article
+     */
+    select?: ArticleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Article
+     */
+    omit?: ArticleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArticleInclude<ExtArgs> | null
+    where?: ArticleWhereInput
+    orderBy?: ArticleOrderByWithRelationInput | ArticleOrderByWithRelationInput[]
+    cursor?: ArticleWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ArticleScalarFieldEnum | ArticleScalarFieldEnum[]
+  }
+
+  /**
+   * User.articleReads
+   */
+  export type User$articleReadsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ArticleRead
+     */
+    select?: ArticleReadSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ArticleRead
+     */
+    omit?: ArticleReadOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArticleReadInclude<ExtArgs> | null
+    where?: ArticleReadWhereInput
+    orderBy?: ArticleReadOrderByWithRelationInput | ArticleReadOrderByWithRelationInput[]
+    cursor?: ArticleReadWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ArticleReadScalarFieldEnum | ArticleReadScalarFieldEnum[]
+  }
+
+  /**
+   * User.pointActions
+   */
+  export type User$pointActionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PointAction
+     */
+    select?: PointActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PointAction
+     */
+    omit?: PointActionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PointActionInclude<ExtArgs> | null
+    where?: PointActionWhereInput
+    orderBy?: PointActionOrderByWithRelationInput | PointActionOrderByWithRelationInput[]
+    cursor?: PointActionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PointActionScalarFieldEnum | PointActionScalarFieldEnum[]
   }
 
   /**
@@ -8295,6 +8739,3321 @@ export namespace Prisma {
 
 
   /**
+   * Model Article
+   */
+
+  export type AggregateArticle = {
+    _count: ArticleCountAggregateOutputType | null
+    _avg: ArticleAvgAggregateOutputType | null
+    _sum: ArticleSumAggregateOutputType | null
+    _min: ArticleMinAggregateOutputType | null
+    _max: ArticleMaxAggregateOutputType | null
+  }
+
+  export type ArticleAvgAggregateOutputType = {
+    readCount: number | null
+  }
+
+  export type ArticleSumAggregateOutputType = {
+    readCount: number | null
+  }
+
+  export type ArticleMinAggregateOutputType = {
+    id: string | null
+    title: string | null
+    content: string | null
+    summary: string | null
+    authorId: string | null
+    readCount: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ArticleMaxAggregateOutputType = {
+    id: string | null
+    title: string | null
+    content: string | null
+    summary: string | null
+    authorId: string | null
+    readCount: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ArticleCountAggregateOutputType = {
+    id: number
+    title: number
+    content: number
+    summary: number
+    authorId: number
+    readCount: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type ArticleAvgAggregateInputType = {
+    readCount?: true
+  }
+
+  export type ArticleSumAggregateInputType = {
+    readCount?: true
+  }
+
+  export type ArticleMinAggregateInputType = {
+    id?: true
+    title?: true
+    content?: true
+    summary?: true
+    authorId?: true
+    readCount?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ArticleMaxAggregateInputType = {
+    id?: true
+    title?: true
+    content?: true
+    summary?: true
+    authorId?: true
+    readCount?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ArticleCountAggregateInputType = {
+    id?: true
+    title?: true
+    content?: true
+    summary?: true
+    authorId?: true
+    readCount?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type ArticleAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Article to aggregate.
+     */
+    where?: ArticleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Articles to fetch.
+     */
+    orderBy?: ArticleOrderByWithRelationInput | ArticleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ArticleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Articles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Articles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Articles
+    **/
+    _count?: true | ArticleCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ArticleAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ArticleSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ArticleMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ArticleMaxAggregateInputType
+  }
+
+  export type GetArticleAggregateType<T extends ArticleAggregateArgs> = {
+        [P in keyof T & keyof AggregateArticle]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateArticle[P]>
+      : GetScalarType<T[P], AggregateArticle[P]>
+  }
+
+
+
+
+  export type ArticleGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ArticleWhereInput
+    orderBy?: ArticleOrderByWithAggregationInput | ArticleOrderByWithAggregationInput[]
+    by: ArticleScalarFieldEnum[] | ArticleScalarFieldEnum
+    having?: ArticleScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ArticleCountAggregateInputType | true
+    _avg?: ArticleAvgAggregateInputType
+    _sum?: ArticleSumAggregateInputType
+    _min?: ArticleMinAggregateInputType
+    _max?: ArticleMaxAggregateInputType
+  }
+
+  export type ArticleGroupByOutputType = {
+    id: string
+    title: string
+    content: string
+    summary: string | null
+    authorId: string
+    readCount: number
+    createdAt: Date
+    updatedAt: Date
+    _count: ArticleCountAggregateOutputType | null
+    _avg: ArticleAvgAggregateOutputType | null
+    _sum: ArticleSumAggregateOutputType | null
+    _min: ArticleMinAggregateOutputType | null
+    _max: ArticleMaxAggregateOutputType | null
+  }
+
+  type GetArticleGroupByPayload<T extends ArticleGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ArticleGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ArticleGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ArticleGroupByOutputType[P]>
+            : GetScalarType<T[P], ArticleGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ArticleSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    content?: boolean
+    summary?: boolean
+    authorId?: boolean
+    readCount?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    author?: boolean | UserDefaultArgs<ExtArgs>
+    readers?: boolean | Article$readersArgs<ExtArgs>
+    _count?: boolean | ArticleCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["article"]>
+
+  export type ArticleSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    content?: boolean
+    summary?: boolean
+    authorId?: boolean
+    readCount?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    author?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["article"]>
+
+  export type ArticleSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    content?: boolean
+    summary?: boolean
+    authorId?: boolean
+    readCount?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    author?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["article"]>
+
+  export type ArticleSelectScalar = {
+    id?: boolean
+    title?: boolean
+    content?: boolean
+    summary?: boolean
+    authorId?: boolean
+    readCount?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type ArticleOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "content" | "summary" | "authorId" | "readCount" | "createdAt" | "updatedAt", ExtArgs["result"]["article"]>
+  export type ArticleInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    author?: boolean | UserDefaultArgs<ExtArgs>
+    readers?: boolean | Article$readersArgs<ExtArgs>
+    _count?: boolean | ArticleCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type ArticleIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    author?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type ArticleIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    author?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $ArticlePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Article"
+    objects: {
+      author: Prisma.$UserPayload<ExtArgs>
+      readers: Prisma.$ArticleReadPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      title: string
+      content: string
+      summary: string | null
+      authorId: string
+      readCount: number
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["article"]>
+    composites: {}
+  }
+
+  type ArticleGetPayload<S extends boolean | null | undefined | ArticleDefaultArgs> = $Result.GetResult<Prisma.$ArticlePayload, S>
+
+  type ArticleCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ArticleFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ArticleCountAggregateInputType | true
+    }
+
+  export interface ArticleDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Article'], meta: { name: 'Article' } }
+    /**
+     * Find zero or one Article that matches the filter.
+     * @param {ArticleFindUniqueArgs} args - Arguments to find a Article
+     * @example
+     * // Get one Article
+     * const article = await prisma.article.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ArticleFindUniqueArgs>(args: SelectSubset<T, ArticleFindUniqueArgs<ExtArgs>>): Prisma__ArticleClient<$Result.GetResult<Prisma.$ArticlePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Article that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ArticleFindUniqueOrThrowArgs} args - Arguments to find a Article
+     * @example
+     * // Get one Article
+     * const article = await prisma.article.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ArticleFindUniqueOrThrowArgs>(args: SelectSubset<T, ArticleFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ArticleClient<$Result.GetResult<Prisma.$ArticlePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Article that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ArticleFindFirstArgs} args - Arguments to find a Article
+     * @example
+     * // Get one Article
+     * const article = await prisma.article.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ArticleFindFirstArgs>(args?: SelectSubset<T, ArticleFindFirstArgs<ExtArgs>>): Prisma__ArticleClient<$Result.GetResult<Prisma.$ArticlePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Article that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ArticleFindFirstOrThrowArgs} args - Arguments to find a Article
+     * @example
+     * // Get one Article
+     * const article = await prisma.article.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ArticleFindFirstOrThrowArgs>(args?: SelectSubset<T, ArticleFindFirstOrThrowArgs<ExtArgs>>): Prisma__ArticleClient<$Result.GetResult<Prisma.$ArticlePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Articles that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ArticleFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Articles
+     * const articles = await prisma.article.findMany()
+     * 
+     * // Get first 10 Articles
+     * const articles = await prisma.article.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const articleWithIdOnly = await prisma.article.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ArticleFindManyArgs>(args?: SelectSubset<T, ArticleFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ArticlePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Article.
+     * @param {ArticleCreateArgs} args - Arguments to create a Article.
+     * @example
+     * // Create one Article
+     * const Article = await prisma.article.create({
+     *   data: {
+     *     // ... data to create a Article
+     *   }
+     * })
+     * 
+     */
+    create<T extends ArticleCreateArgs>(args: SelectSubset<T, ArticleCreateArgs<ExtArgs>>): Prisma__ArticleClient<$Result.GetResult<Prisma.$ArticlePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Articles.
+     * @param {ArticleCreateManyArgs} args - Arguments to create many Articles.
+     * @example
+     * // Create many Articles
+     * const article = await prisma.article.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ArticleCreateManyArgs>(args?: SelectSubset<T, ArticleCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Articles and returns the data saved in the database.
+     * @param {ArticleCreateManyAndReturnArgs} args - Arguments to create many Articles.
+     * @example
+     * // Create many Articles
+     * const article = await prisma.article.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Articles and only return the `id`
+     * const articleWithIdOnly = await prisma.article.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ArticleCreateManyAndReturnArgs>(args?: SelectSubset<T, ArticleCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ArticlePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Article.
+     * @param {ArticleDeleteArgs} args - Arguments to delete one Article.
+     * @example
+     * // Delete one Article
+     * const Article = await prisma.article.delete({
+     *   where: {
+     *     // ... filter to delete one Article
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ArticleDeleteArgs>(args: SelectSubset<T, ArticleDeleteArgs<ExtArgs>>): Prisma__ArticleClient<$Result.GetResult<Prisma.$ArticlePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Article.
+     * @param {ArticleUpdateArgs} args - Arguments to update one Article.
+     * @example
+     * // Update one Article
+     * const article = await prisma.article.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ArticleUpdateArgs>(args: SelectSubset<T, ArticleUpdateArgs<ExtArgs>>): Prisma__ArticleClient<$Result.GetResult<Prisma.$ArticlePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Articles.
+     * @param {ArticleDeleteManyArgs} args - Arguments to filter Articles to delete.
+     * @example
+     * // Delete a few Articles
+     * const { count } = await prisma.article.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ArticleDeleteManyArgs>(args?: SelectSubset<T, ArticleDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Articles.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ArticleUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Articles
+     * const article = await prisma.article.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ArticleUpdateManyArgs>(args: SelectSubset<T, ArticleUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Articles and returns the data updated in the database.
+     * @param {ArticleUpdateManyAndReturnArgs} args - Arguments to update many Articles.
+     * @example
+     * // Update many Articles
+     * const article = await prisma.article.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Articles and only return the `id`
+     * const articleWithIdOnly = await prisma.article.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ArticleUpdateManyAndReturnArgs>(args: SelectSubset<T, ArticleUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ArticlePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Article.
+     * @param {ArticleUpsertArgs} args - Arguments to update or create a Article.
+     * @example
+     * // Update or create a Article
+     * const article = await prisma.article.upsert({
+     *   create: {
+     *     // ... data to create a Article
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Article we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ArticleUpsertArgs>(args: SelectSubset<T, ArticleUpsertArgs<ExtArgs>>): Prisma__ArticleClient<$Result.GetResult<Prisma.$ArticlePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Articles.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ArticleCountArgs} args - Arguments to filter Articles to count.
+     * @example
+     * // Count the number of Articles
+     * const count = await prisma.article.count({
+     *   where: {
+     *     // ... the filter for the Articles we want to count
+     *   }
+     * })
+    **/
+    count<T extends ArticleCountArgs>(
+      args?: Subset<T, ArticleCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ArticleCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Article.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ArticleAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ArticleAggregateArgs>(args: Subset<T, ArticleAggregateArgs>): Prisma.PrismaPromise<GetArticleAggregateType<T>>
+
+    /**
+     * Group by Article.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ArticleGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ArticleGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ArticleGroupByArgs['orderBy'] }
+        : { orderBy?: ArticleGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ArticleGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetArticleGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Article model
+   */
+  readonly fields: ArticleFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Article.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ArticleClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    author<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    readers<T extends Article$readersArgs<ExtArgs> = {}>(args?: Subset<T, Article$readersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ArticleReadPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Article model
+   */
+  interface ArticleFieldRefs {
+    readonly id: FieldRef<"Article", 'String'>
+    readonly title: FieldRef<"Article", 'String'>
+    readonly content: FieldRef<"Article", 'String'>
+    readonly summary: FieldRef<"Article", 'String'>
+    readonly authorId: FieldRef<"Article", 'String'>
+    readonly readCount: FieldRef<"Article", 'Int'>
+    readonly createdAt: FieldRef<"Article", 'DateTime'>
+    readonly updatedAt: FieldRef<"Article", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Article findUnique
+   */
+  export type ArticleFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Article
+     */
+    select?: ArticleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Article
+     */
+    omit?: ArticleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArticleInclude<ExtArgs> | null
+    /**
+     * Filter, which Article to fetch.
+     */
+    where: ArticleWhereUniqueInput
+  }
+
+  /**
+   * Article findUniqueOrThrow
+   */
+  export type ArticleFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Article
+     */
+    select?: ArticleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Article
+     */
+    omit?: ArticleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArticleInclude<ExtArgs> | null
+    /**
+     * Filter, which Article to fetch.
+     */
+    where: ArticleWhereUniqueInput
+  }
+
+  /**
+   * Article findFirst
+   */
+  export type ArticleFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Article
+     */
+    select?: ArticleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Article
+     */
+    omit?: ArticleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArticleInclude<ExtArgs> | null
+    /**
+     * Filter, which Article to fetch.
+     */
+    where?: ArticleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Articles to fetch.
+     */
+    orderBy?: ArticleOrderByWithRelationInput | ArticleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Articles.
+     */
+    cursor?: ArticleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Articles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Articles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Articles.
+     */
+    distinct?: ArticleScalarFieldEnum | ArticleScalarFieldEnum[]
+  }
+
+  /**
+   * Article findFirstOrThrow
+   */
+  export type ArticleFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Article
+     */
+    select?: ArticleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Article
+     */
+    omit?: ArticleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArticleInclude<ExtArgs> | null
+    /**
+     * Filter, which Article to fetch.
+     */
+    where?: ArticleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Articles to fetch.
+     */
+    orderBy?: ArticleOrderByWithRelationInput | ArticleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Articles.
+     */
+    cursor?: ArticleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Articles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Articles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Articles.
+     */
+    distinct?: ArticleScalarFieldEnum | ArticleScalarFieldEnum[]
+  }
+
+  /**
+   * Article findMany
+   */
+  export type ArticleFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Article
+     */
+    select?: ArticleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Article
+     */
+    omit?: ArticleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArticleInclude<ExtArgs> | null
+    /**
+     * Filter, which Articles to fetch.
+     */
+    where?: ArticleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Articles to fetch.
+     */
+    orderBy?: ArticleOrderByWithRelationInput | ArticleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Articles.
+     */
+    cursor?: ArticleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Articles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Articles.
+     */
+    skip?: number
+    distinct?: ArticleScalarFieldEnum | ArticleScalarFieldEnum[]
+  }
+
+  /**
+   * Article create
+   */
+  export type ArticleCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Article
+     */
+    select?: ArticleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Article
+     */
+    omit?: ArticleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArticleInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Article.
+     */
+    data: XOR<ArticleCreateInput, ArticleUncheckedCreateInput>
+  }
+
+  /**
+   * Article createMany
+   */
+  export type ArticleCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Articles.
+     */
+    data: ArticleCreateManyInput | ArticleCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Article createManyAndReturn
+   */
+  export type ArticleCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Article
+     */
+    select?: ArticleSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Article
+     */
+    omit?: ArticleOmit<ExtArgs> | null
+    /**
+     * The data used to create many Articles.
+     */
+    data: ArticleCreateManyInput | ArticleCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArticleIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Article update
+   */
+  export type ArticleUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Article
+     */
+    select?: ArticleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Article
+     */
+    omit?: ArticleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArticleInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Article.
+     */
+    data: XOR<ArticleUpdateInput, ArticleUncheckedUpdateInput>
+    /**
+     * Choose, which Article to update.
+     */
+    where: ArticleWhereUniqueInput
+  }
+
+  /**
+   * Article updateMany
+   */
+  export type ArticleUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Articles.
+     */
+    data: XOR<ArticleUpdateManyMutationInput, ArticleUncheckedUpdateManyInput>
+    /**
+     * Filter which Articles to update
+     */
+    where?: ArticleWhereInput
+    /**
+     * Limit how many Articles to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Article updateManyAndReturn
+   */
+  export type ArticleUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Article
+     */
+    select?: ArticleSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Article
+     */
+    omit?: ArticleOmit<ExtArgs> | null
+    /**
+     * The data used to update Articles.
+     */
+    data: XOR<ArticleUpdateManyMutationInput, ArticleUncheckedUpdateManyInput>
+    /**
+     * Filter which Articles to update
+     */
+    where?: ArticleWhereInput
+    /**
+     * Limit how many Articles to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArticleIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Article upsert
+   */
+  export type ArticleUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Article
+     */
+    select?: ArticleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Article
+     */
+    omit?: ArticleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArticleInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Article to update in case it exists.
+     */
+    where: ArticleWhereUniqueInput
+    /**
+     * In case the Article found by the `where` argument doesn't exist, create a new Article with this data.
+     */
+    create: XOR<ArticleCreateInput, ArticleUncheckedCreateInput>
+    /**
+     * In case the Article was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ArticleUpdateInput, ArticleUncheckedUpdateInput>
+  }
+
+  /**
+   * Article delete
+   */
+  export type ArticleDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Article
+     */
+    select?: ArticleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Article
+     */
+    omit?: ArticleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArticleInclude<ExtArgs> | null
+    /**
+     * Filter which Article to delete.
+     */
+    where: ArticleWhereUniqueInput
+  }
+
+  /**
+   * Article deleteMany
+   */
+  export type ArticleDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Articles to delete
+     */
+    where?: ArticleWhereInput
+    /**
+     * Limit how many Articles to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Article.readers
+   */
+  export type Article$readersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ArticleRead
+     */
+    select?: ArticleReadSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ArticleRead
+     */
+    omit?: ArticleReadOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArticleReadInclude<ExtArgs> | null
+    where?: ArticleReadWhereInput
+    orderBy?: ArticleReadOrderByWithRelationInput | ArticleReadOrderByWithRelationInput[]
+    cursor?: ArticleReadWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ArticleReadScalarFieldEnum | ArticleReadScalarFieldEnum[]
+  }
+
+  /**
+   * Article without action
+   */
+  export type ArticleDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Article
+     */
+    select?: ArticleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Article
+     */
+    omit?: ArticleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArticleInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model ArticleRead
+   */
+
+  export type AggregateArticleRead = {
+    _count: ArticleReadCountAggregateOutputType | null
+    _min: ArticleReadMinAggregateOutputType | null
+    _max: ArticleReadMaxAggregateOutputType | null
+  }
+
+  export type ArticleReadMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    articleId: string | null
+    readAt: Date | null
+  }
+
+  export type ArticleReadMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    articleId: string | null
+    readAt: Date | null
+  }
+
+  export type ArticleReadCountAggregateOutputType = {
+    id: number
+    userId: number
+    articleId: number
+    readAt: number
+    _all: number
+  }
+
+
+  export type ArticleReadMinAggregateInputType = {
+    id?: true
+    userId?: true
+    articleId?: true
+    readAt?: true
+  }
+
+  export type ArticleReadMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    articleId?: true
+    readAt?: true
+  }
+
+  export type ArticleReadCountAggregateInputType = {
+    id?: true
+    userId?: true
+    articleId?: true
+    readAt?: true
+    _all?: true
+  }
+
+  export type ArticleReadAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ArticleRead to aggregate.
+     */
+    where?: ArticleReadWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ArticleReads to fetch.
+     */
+    orderBy?: ArticleReadOrderByWithRelationInput | ArticleReadOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ArticleReadWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ArticleReads from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ArticleReads.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ArticleReads
+    **/
+    _count?: true | ArticleReadCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ArticleReadMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ArticleReadMaxAggregateInputType
+  }
+
+  export type GetArticleReadAggregateType<T extends ArticleReadAggregateArgs> = {
+        [P in keyof T & keyof AggregateArticleRead]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateArticleRead[P]>
+      : GetScalarType<T[P], AggregateArticleRead[P]>
+  }
+
+
+
+
+  export type ArticleReadGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ArticleReadWhereInput
+    orderBy?: ArticleReadOrderByWithAggregationInput | ArticleReadOrderByWithAggregationInput[]
+    by: ArticleReadScalarFieldEnum[] | ArticleReadScalarFieldEnum
+    having?: ArticleReadScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ArticleReadCountAggregateInputType | true
+    _min?: ArticleReadMinAggregateInputType
+    _max?: ArticleReadMaxAggregateInputType
+  }
+
+  export type ArticleReadGroupByOutputType = {
+    id: string
+    userId: string
+    articleId: string
+    readAt: Date
+    _count: ArticleReadCountAggregateOutputType | null
+    _min: ArticleReadMinAggregateOutputType | null
+    _max: ArticleReadMaxAggregateOutputType | null
+  }
+
+  type GetArticleReadGroupByPayload<T extends ArticleReadGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ArticleReadGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ArticleReadGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ArticleReadGroupByOutputType[P]>
+            : GetScalarType<T[P], ArticleReadGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ArticleReadSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    articleId?: boolean
+    readAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    article?: boolean | ArticleDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["articleRead"]>
+
+  export type ArticleReadSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    articleId?: boolean
+    readAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    article?: boolean | ArticleDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["articleRead"]>
+
+  export type ArticleReadSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    articleId?: boolean
+    readAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    article?: boolean | ArticleDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["articleRead"]>
+
+  export type ArticleReadSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    articleId?: boolean
+    readAt?: boolean
+  }
+
+  export type ArticleReadOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "articleId" | "readAt", ExtArgs["result"]["articleRead"]>
+  export type ArticleReadInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    article?: boolean | ArticleDefaultArgs<ExtArgs>
+  }
+  export type ArticleReadIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    article?: boolean | ArticleDefaultArgs<ExtArgs>
+  }
+  export type ArticleReadIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    article?: boolean | ArticleDefaultArgs<ExtArgs>
+  }
+
+  export type $ArticleReadPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ArticleRead"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+      article: Prisma.$ArticlePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      articleId: string
+      readAt: Date
+    }, ExtArgs["result"]["articleRead"]>
+    composites: {}
+  }
+
+  type ArticleReadGetPayload<S extends boolean | null | undefined | ArticleReadDefaultArgs> = $Result.GetResult<Prisma.$ArticleReadPayload, S>
+
+  type ArticleReadCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ArticleReadFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ArticleReadCountAggregateInputType | true
+    }
+
+  export interface ArticleReadDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ArticleRead'], meta: { name: 'ArticleRead' } }
+    /**
+     * Find zero or one ArticleRead that matches the filter.
+     * @param {ArticleReadFindUniqueArgs} args - Arguments to find a ArticleRead
+     * @example
+     * // Get one ArticleRead
+     * const articleRead = await prisma.articleRead.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ArticleReadFindUniqueArgs>(args: SelectSubset<T, ArticleReadFindUniqueArgs<ExtArgs>>): Prisma__ArticleReadClient<$Result.GetResult<Prisma.$ArticleReadPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one ArticleRead that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ArticleReadFindUniqueOrThrowArgs} args - Arguments to find a ArticleRead
+     * @example
+     * // Get one ArticleRead
+     * const articleRead = await prisma.articleRead.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ArticleReadFindUniqueOrThrowArgs>(args: SelectSubset<T, ArticleReadFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ArticleReadClient<$Result.GetResult<Prisma.$ArticleReadPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ArticleRead that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ArticleReadFindFirstArgs} args - Arguments to find a ArticleRead
+     * @example
+     * // Get one ArticleRead
+     * const articleRead = await prisma.articleRead.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ArticleReadFindFirstArgs>(args?: SelectSubset<T, ArticleReadFindFirstArgs<ExtArgs>>): Prisma__ArticleReadClient<$Result.GetResult<Prisma.$ArticleReadPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ArticleRead that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ArticleReadFindFirstOrThrowArgs} args - Arguments to find a ArticleRead
+     * @example
+     * // Get one ArticleRead
+     * const articleRead = await prisma.articleRead.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ArticleReadFindFirstOrThrowArgs>(args?: SelectSubset<T, ArticleReadFindFirstOrThrowArgs<ExtArgs>>): Prisma__ArticleReadClient<$Result.GetResult<Prisma.$ArticleReadPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more ArticleReads that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ArticleReadFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ArticleReads
+     * const articleReads = await prisma.articleRead.findMany()
+     * 
+     * // Get first 10 ArticleReads
+     * const articleReads = await prisma.articleRead.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const articleReadWithIdOnly = await prisma.articleRead.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ArticleReadFindManyArgs>(args?: SelectSubset<T, ArticleReadFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ArticleReadPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a ArticleRead.
+     * @param {ArticleReadCreateArgs} args - Arguments to create a ArticleRead.
+     * @example
+     * // Create one ArticleRead
+     * const ArticleRead = await prisma.articleRead.create({
+     *   data: {
+     *     // ... data to create a ArticleRead
+     *   }
+     * })
+     * 
+     */
+    create<T extends ArticleReadCreateArgs>(args: SelectSubset<T, ArticleReadCreateArgs<ExtArgs>>): Prisma__ArticleReadClient<$Result.GetResult<Prisma.$ArticleReadPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many ArticleReads.
+     * @param {ArticleReadCreateManyArgs} args - Arguments to create many ArticleReads.
+     * @example
+     * // Create many ArticleReads
+     * const articleRead = await prisma.articleRead.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ArticleReadCreateManyArgs>(args?: SelectSubset<T, ArticleReadCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many ArticleReads and returns the data saved in the database.
+     * @param {ArticleReadCreateManyAndReturnArgs} args - Arguments to create many ArticleReads.
+     * @example
+     * // Create many ArticleReads
+     * const articleRead = await prisma.articleRead.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many ArticleReads and only return the `id`
+     * const articleReadWithIdOnly = await prisma.articleRead.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ArticleReadCreateManyAndReturnArgs>(args?: SelectSubset<T, ArticleReadCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ArticleReadPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a ArticleRead.
+     * @param {ArticleReadDeleteArgs} args - Arguments to delete one ArticleRead.
+     * @example
+     * // Delete one ArticleRead
+     * const ArticleRead = await prisma.articleRead.delete({
+     *   where: {
+     *     // ... filter to delete one ArticleRead
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ArticleReadDeleteArgs>(args: SelectSubset<T, ArticleReadDeleteArgs<ExtArgs>>): Prisma__ArticleReadClient<$Result.GetResult<Prisma.$ArticleReadPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one ArticleRead.
+     * @param {ArticleReadUpdateArgs} args - Arguments to update one ArticleRead.
+     * @example
+     * // Update one ArticleRead
+     * const articleRead = await prisma.articleRead.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ArticleReadUpdateArgs>(args: SelectSubset<T, ArticleReadUpdateArgs<ExtArgs>>): Prisma__ArticleReadClient<$Result.GetResult<Prisma.$ArticleReadPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more ArticleReads.
+     * @param {ArticleReadDeleteManyArgs} args - Arguments to filter ArticleReads to delete.
+     * @example
+     * // Delete a few ArticleReads
+     * const { count } = await prisma.articleRead.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ArticleReadDeleteManyArgs>(args?: SelectSubset<T, ArticleReadDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ArticleReads.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ArticleReadUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ArticleReads
+     * const articleRead = await prisma.articleRead.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ArticleReadUpdateManyArgs>(args: SelectSubset<T, ArticleReadUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ArticleReads and returns the data updated in the database.
+     * @param {ArticleReadUpdateManyAndReturnArgs} args - Arguments to update many ArticleReads.
+     * @example
+     * // Update many ArticleReads
+     * const articleRead = await prisma.articleRead.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more ArticleReads and only return the `id`
+     * const articleReadWithIdOnly = await prisma.articleRead.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ArticleReadUpdateManyAndReturnArgs>(args: SelectSubset<T, ArticleReadUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ArticleReadPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one ArticleRead.
+     * @param {ArticleReadUpsertArgs} args - Arguments to update or create a ArticleRead.
+     * @example
+     * // Update or create a ArticleRead
+     * const articleRead = await prisma.articleRead.upsert({
+     *   create: {
+     *     // ... data to create a ArticleRead
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ArticleRead we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ArticleReadUpsertArgs>(args: SelectSubset<T, ArticleReadUpsertArgs<ExtArgs>>): Prisma__ArticleReadClient<$Result.GetResult<Prisma.$ArticleReadPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of ArticleReads.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ArticleReadCountArgs} args - Arguments to filter ArticleReads to count.
+     * @example
+     * // Count the number of ArticleReads
+     * const count = await prisma.articleRead.count({
+     *   where: {
+     *     // ... the filter for the ArticleReads we want to count
+     *   }
+     * })
+    **/
+    count<T extends ArticleReadCountArgs>(
+      args?: Subset<T, ArticleReadCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ArticleReadCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ArticleRead.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ArticleReadAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ArticleReadAggregateArgs>(args: Subset<T, ArticleReadAggregateArgs>): Prisma.PrismaPromise<GetArticleReadAggregateType<T>>
+
+    /**
+     * Group by ArticleRead.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ArticleReadGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ArticleReadGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ArticleReadGroupByArgs['orderBy'] }
+        : { orderBy?: ArticleReadGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ArticleReadGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetArticleReadGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ArticleRead model
+   */
+  readonly fields: ArticleReadFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ArticleRead.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ArticleReadClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    article<T extends ArticleDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ArticleDefaultArgs<ExtArgs>>): Prisma__ArticleClient<$Result.GetResult<Prisma.$ArticlePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ArticleRead model
+   */
+  interface ArticleReadFieldRefs {
+    readonly id: FieldRef<"ArticleRead", 'String'>
+    readonly userId: FieldRef<"ArticleRead", 'String'>
+    readonly articleId: FieldRef<"ArticleRead", 'String'>
+    readonly readAt: FieldRef<"ArticleRead", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ArticleRead findUnique
+   */
+  export type ArticleReadFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ArticleRead
+     */
+    select?: ArticleReadSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ArticleRead
+     */
+    omit?: ArticleReadOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArticleReadInclude<ExtArgs> | null
+    /**
+     * Filter, which ArticleRead to fetch.
+     */
+    where: ArticleReadWhereUniqueInput
+  }
+
+  /**
+   * ArticleRead findUniqueOrThrow
+   */
+  export type ArticleReadFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ArticleRead
+     */
+    select?: ArticleReadSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ArticleRead
+     */
+    omit?: ArticleReadOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArticleReadInclude<ExtArgs> | null
+    /**
+     * Filter, which ArticleRead to fetch.
+     */
+    where: ArticleReadWhereUniqueInput
+  }
+
+  /**
+   * ArticleRead findFirst
+   */
+  export type ArticleReadFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ArticleRead
+     */
+    select?: ArticleReadSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ArticleRead
+     */
+    omit?: ArticleReadOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArticleReadInclude<ExtArgs> | null
+    /**
+     * Filter, which ArticleRead to fetch.
+     */
+    where?: ArticleReadWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ArticleReads to fetch.
+     */
+    orderBy?: ArticleReadOrderByWithRelationInput | ArticleReadOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ArticleReads.
+     */
+    cursor?: ArticleReadWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ArticleReads from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ArticleReads.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ArticleReads.
+     */
+    distinct?: ArticleReadScalarFieldEnum | ArticleReadScalarFieldEnum[]
+  }
+
+  /**
+   * ArticleRead findFirstOrThrow
+   */
+  export type ArticleReadFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ArticleRead
+     */
+    select?: ArticleReadSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ArticleRead
+     */
+    omit?: ArticleReadOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArticleReadInclude<ExtArgs> | null
+    /**
+     * Filter, which ArticleRead to fetch.
+     */
+    where?: ArticleReadWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ArticleReads to fetch.
+     */
+    orderBy?: ArticleReadOrderByWithRelationInput | ArticleReadOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ArticleReads.
+     */
+    cursor?: ArticleReadWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ArticleReads from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ArticleReads.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ArticleReads.
+     */
+    distinct?: ArticleReadScalarFieldEnum | ArticleReadScalarFieldEnum[]
+  }
+
+  /**
+   * ArticleRead findMany
+   */
+  export type ArticleReadFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ArticleRead
+     */
+    select?: ArticleReadSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ArticleRead
+     */
+    omit?: ArticleReadOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArticleReadInclude<ExtArgs> | null
+    /**
+     * Filter, which ArticleReads to fetch.
+     */
+    where?: ArticleReadWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ArticleReads to fetch.
+     */
+    orderBy?: ArticleReadOrderByWithRelationInput | ArticleReadOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ArticleReads.
+     */
+    cursor?: ArticleReadWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ArticleReads from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ArticleReads.
+     */
+    skip?: number
+    distinct?: ArticleReadScalarFieldEnum | ArticleReadScalarFieldEnum[]
+  }
+
+  /**
+   * ArticleRead create
+   */
+  export type ArticleReadCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ArticleRead
+     */
+    select?: ArticleReadSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ArticleRead
+     */
+    omit?: ArticleReadOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArticleReadInclude<ExtArgs> | null
+    /**
+     * The data needed to create a ArticleRead.
+     */
+    data: XOR<ArticleReadCreateInput, ArticleReadUncheckedCreateInput>
+  }
+
+  /**
+   * ArticleRead createMany
+   */
+  export type ArticleReadCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ArticleReads.
+     */
+    data: ArticleReadCreateManyInput | ArticleReadCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ArticleRead createManyAndReturn
+   */
+  export type ArticleReadCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ArticleRead
+     */
+    select?: ArticleReadSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ArticleRead
+     */
+    omit?: ArticleReadOmit<ExtArgs> | null
+    /**
+     * The data used to create many ArticleReads.
+     */
+    data: ArticleReadCreateManyInput | ArticleReadCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArticleReadIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ArticleRead update
+   */
+  export type ArticleReadUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ArticleRead
+     */
+    select?: ArticleReadSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ArticleRead
+     */
+    omit?: ArticleReadOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArticleReadInclude<ExtArgs> | null
+    /**
+     * The data needed to update a ArticleRead.
+     */
+    data: XOR<ArticleReadUpdateInput, ArticleReadUncheckedUpdateInput>
+    /**
+     * Choose, which ArticleRead to update.
+     */
+    where: ArticleReadWhereUniqueInput
+  }
+
+  /**
+   * ArticleRead updateMany
+   */
+  export type ArticleReadUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ArticleReads.
+     */
+    data: XOR<ArticleReadUpdateManyMutationInput, ArticleReadUncheckedUpdateManyInput>
+    /**
+     * Filter which ArticleReads to update
+     */
+    where?: ArticleReadWhereInput
+    /**
+     * Limit how many ArticleReads to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * ArticleRead updateManyAndReturn
+   */
+  export type ArticleReadUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ArticleRead
+     */
+    select?: ArticleReadSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ArticleRead
+     */
+    omit?: ArticleReadOmit<ExtArgs> | null
+    /**
+     * The data used to update ArticleReads.
+     */
+    data: XOR<ArticleReadUpdateManyMutationInput, ArticleReadUncheckedUpdateManyInput>
+    /**
+     * Filter which ArticleReads to update
+     */
+    where?: ArticleReadWhereInput
+    /**
+     * Limit how many ArticleReads to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArticleReadIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ArticleRead upsert
+   */
+  export type ArticleReadUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ArticleRead
+     */
+    select?: ArticleReadSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ArticleRead
+     */
+    omit?: ArticleReadOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArticleReadInclude<ExtArgs> | null
+    /**
+     * The filter to search for the ArticleRead to update in case it exists.
+     */
+    where: ArticleReadWhereUniqueInput
+    /**
+     * In case the ArticleRead found by the `where` argument doesn't exist, create a new ArticleRead with this data.
+     */
+    create: XOR<ArticleReadCreateInput, ArticleReadUncheckedCreateInput>
+    /**
+     * In case the ArticleRead was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ArticleReadUpdateInput, ArticleReadUncheckedUpdateInput>
+  }
+
+  /**
+   * ArticleRead delete
+   */
+  export type ArticleReadDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ArticleRead
+     */
+    select?: ArticleReadSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ArticleRead
+     */
+    omit?: ArticleReadOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArticleReadInclude<ExtArgs> | null
+    /**
+     * Filter which ArticleRead to delete.
+     */
+    where: ArticleReadWhereUniqueInput
+  }
+
+  /**
+   * ArticleRead deleteMany
+   */
+  export type ArticleReadDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ArticleReads to delete
+     */
+    where?: ArticleReadWhereInput
+    /**
+     * Limit how many ArticleReads to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * ArticleRead without action
+   */
+  export type ArticleReadDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ArticleRead
+     */
+    select?: ArticleReadSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ArticleRead
+     */
+    omit?: ArticleReadOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArticleReadInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model PointAction
+   */
+
+  export type AggregatePointAction = {
+    _count: PointActionCountAggregateOutputType | null
+    _avg: PointActionAvgAggregateOutputType | null
+    _sum: PointActionSumAggregateOutputType | null
+    _min: PointActionMinAggregateOutputType | null
+    _max: PointActionMaxAggregateOutputType | null
+  }
+
+  export type PointActionAvgAggregateOutputType = {
+    points: number | null
+  }
+
+  export type PointActionSumAggregateOutputType = {
+    points: number | null
+  }
+
+  export type PointActionMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    action: $Enums.PointActionType | null
+    points: number | null
+    createdAt: Date | null
+  }
+
+  export type PointActionMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    action: $Enums.PointActionType | null
+    points: number | null
+    createdAt: Date | null
+  }
+
+  export type PointActionCountAggregateOutputType = {
+    id: number
+    userId: number
+    action: number
+    points: number
+    metadata: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type PointActionAvgAggregateInputType = {
+    points?: true
+  }
+
+  export type PointActionSumAggregateInputType = {
+    points?: true
+  }
+
+  export type PointActionMinAggregateInputType = {
+    id?: true
+    userId?: true
+    action?: true
+    points?: true
+    createdAt?: true
+  }
+
+  export type PointActionMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    action?: true
+    points?: true
+    createdAt?: true
+  }
+
+  export type PointActionCountAggregateInputType = {
+    id?: true
+    userId?: true
+    action?: true
+    points?: true
+    metadata?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type PointActionAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PointAction to aggregate.
+     */
+    where?: PointActionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PointActions to fetch.
+     */
+    orderBy?: PointActionOrderByWithRelationInput | PointActionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PointActionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PointActions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PointActions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned PointActions
+    **/
+    _count?: true | PointActionCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: PointActionAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: PointActionSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PointActionMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PointActionMaxAggregateInputType
+  }
+
+  export type GetPointActionAggregateType<T extends PointActionAggregateArgs> = {
+        [P in keyof T & keyof AggregatePointAction]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePointAction[P]>
+      : GetScalarType<T[P], AggregatePointAction[P]>
+  }
+
+
+
+
+  export type PointActionGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PointActionWhereInput
+    orderBy?: PointActionOrderByWithAggregationInput | PointActionOrderByWithAggregationInput[]
+    by: PointActionScalarFieldEnum[] | PointActionScalarFieldEnum
+    having?: PointActionScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PointActionCountAggregateInputType | true
+    _avg?: PointActionAvgAggregateInputType
+    _sum?: PointActionSumAggregateInputType
+    _min?: PointActionMinAggregateInputType
+    _max?: PointActionMaxAggregateInputType
+  }
+
+  export type PointActionGroupByOutputType = {
+    id: string
+    userId: string
+    action: $Enums.PointActionType
+    points: number
+    metadata: JsonValue | null
+    createdAt: Date
+    _count: PointActionCountAggregateOutputType | null
+    _avg: PointActionAvgAggregateOutputType | null
+    _sum: PointActionSumAggregateOutputType | null
+    _min: PointActionMinAggregateOutputType | null
+    _max: PointActionMaxAggregateOutputType | null
+  }
+
+  type GetPointActionGroupByPayload<T extends PointActionGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PointActionGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PointActionGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PointActionGroupByOutputType[P]>
+            : GetScalarType<T[P], PointActionGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PointActionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    action?: boolean
+    points?: boolean
+    metadata?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["pointAction"]>
+
+  export type PointActionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    action?: boolean
+    points?: boolean
+    metadata?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["pointAction"]>
+
+  export type PointActionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    action?: boolean
+    points?: boolean
+    metadata?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["pointAction"]>
+
+  export type PointActionSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    action?: boolean
+    points?: boolean
+    metadata?: boolean
+    createdAt?: boolean
+  }
+
+  export type PointActionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "action" | "points" | "metadata" | "createdAt", ExtArgs["result"]["pointAction"]>
+  export type PointActionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type PointActionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type PointActionIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $PointActionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "PointAction"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      action: $Enums.PointActionType
+      points: number
+      metadata: Prisma.JsonValue | null
+      createdAt: Date
+    }, ExtArgs["result"]["pointAction"]>
+    composites: {}
+  }
+
+  type PointActionGetPayload<S extends boolean | null | undefined | PointActionDefaultArgs> = $Result.GetResult<Prisma.$PointActionPayload, S>
+
+  type PointActionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<PointActionFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: PointActionCountAggregateInputType | true
+    }
+
+  export interface PointActionDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['PointAction'], meta: { name: 'PointAction' } }
+    /**
+     * Find zero or one PointAction that matches the filter.
+     * @param {PointActionFindUniqueArgs} args - Arguments to find a PointAction
+     * @example
+     * // Get one PointAction
+     * const pointAction = await prisma.pointAction.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends PointActionFindUniqueArgs>(args: SelectSubset<T, PointActionFindUniqueArgs<ExtArgs>>): Prisma__PointActionClient<$Result.GetResult<Prisma.$PointActionPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one PointAction that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {PointActionFindUniqueOrThrowArgs} args - Arguments to find a PointAction
+     * @example
+     * // Get one PointAction
+     * const pointAction = await prisma.pointAction.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends PointActionFindUniqueOrThrowArgs>(args: SelectSubset<T, PointActionFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PointActionClient<$Result.GetResult<Prisma.$PointActionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first PointAction that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PointActionFindFirstArgs} args - Arguments to find a PointAction
+     * @example
+     * // Get one PointAction
+     * const pointAction = await prisma.pointAction.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends PointActionFindFirstArgs>(args?: SelectSubset<T, PointActionFindFirstArgs<ExtArgs>>): Prisma__PointActionClient<$Result.GetResult<Prisma.$PointActionPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first PointAction that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PointActionFindFirstOrThrowArgs} args - Arguments to find a PointAction
+     * @example
+     * // Get one PointAction
+     * const pointAction = await prisma.pointAction.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends PointActionFindFirstOrThrowArgs>(args?: SelectSubset<T, PointActionFindFirstOrThrowArgs<ExtArgs>>): Prisma__PointActionClient<$Result.GetResult<Prisma.$PointActionPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more PointActions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PointActionFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all PointActions
+     * const pointActions = await prisma.pointAction.findMany()
+     * 
+     * // Get first 10 PointActions
+     * const pointActions = await prisma.pointAction.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const pointActionWithIdOnly = await prisma.pointAction.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends PointActionFindManyArgs>(args?: SelectSubset<T, PointActionFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PointActionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a PointAction.
+     * @param {PointActionCreateArgs} args - Arguments to create a PointAction.
+     * @example
+     * // Create one PointAction
+     * const PointAction = await prisma.pointAction.create({
+     *   data: {
+     *     // ... data to create a PointAction
+     *   }
+     * })
+     * 
+     */
+    create<T extends PointActionCreateArgs>(args: SelectSubset<T, PointActionCreateArgs<ExtArgs>>): Prisma__PointActionClient<$Result.GetResult<Prisma.$PointActionPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many PointActions.
+     * @param {PointActionCreateManyArgs} args - Arguments to create many PointActions.
+     * @example
+     * // Create many PointActions
+     * const pointAction = await prisma.pointAction.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends PointActionCreateManyArgs>(args?: SelectSubset<T, PointActionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many PointActions and returns the data saved in the database.
+     * @param {PointActionCreateManyAndReturnArgs} args - Arguments to create many PointActions.
+     * @example
+     * // Create many PointActions
+     * const pointAction = await prisma.pointAction.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many PointActions and only return the `id`
+     * const pointActionWithIdOnly = await prisma.pointAction.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends PointActionCreateManyAndReturnArgs>(args?: SelectSubset<T, PointActionCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PointActionPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a PointAction.
+     * @param {PointActionDeleteArgs} args - Arguments to delete one PointAction.
+     * @example
+     * // Delete one PointAction
+     * const PointAction = await prisma.pointAction.delete({
+     *   where: {
+     *     // ... filter to delete one PointAction
+     *   }
+     * })
+     * 
+     */
+    delete<T extends PointActionDeleteArgs>(args: SelectSubset<T, PointActionDeleteArgs<ExtArgs>>): Prisma__PointActionClient<$Result.GetResult<Prisma.$PointActionPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one PointAction.
+     * @param {PointActionUpdateArgs} args - Arguments to update one PointAction.
+     * @example
+     * // Update one PointAction
+     * const pointAction = await prisma.pointAction.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends PointActionUpdateArgs>(args: SelectSubset<T, PointActionUpdateArgs<ExtArgs>>): Prisma__PointActionClient<$Result.GetResult<Prisma.$PointActionPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more PointActions.
+     * @param {PointActionDeleteManyArgs} args - Arguments to filter PointActions to delete.
+     * @example
+     * // Delete a few PointActions
+     * const { count } = await prisma.pointAction.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends PointActionDeleteManyArgs>(args?: SelectSubset<T, PointActionDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PointActions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PointActionUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many PointActions
+     * const pointAction = await prisma.pointAction.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends PointActionUpdateManyArgs>(args: SelectSubset<T, PointActionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PointActions and returns the data updated in the database.
+     * @param {PointActionUpdateManyAndReturnArgs} args - Arguments to update many PointActions.
+     * @example
+     * // Update many PointActions
+     * const pointAction = await prisma.pointAction.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more PointActions and only return the `id`
+     * const pointActionWithIdOnly = await prisma.pointAction.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends PointActionUpdateManyAndReturnArgs>(args: SelectSubset<T, PointActionUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PointActionPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one PointAction.
+     * @param {PointActionUpsertArgs} args - Arguments to update or create a PointAction.
+     * @example
+     * // Update or create a PointAction
+     * const pointAction = await prisma.pointAction.upsert({
+     *   create: {
+     *     // ... data to create a PointAction
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the PointAction we want to update
+     *   }
+     * })
+     */
+    upsert<T extends PointActionUpsertArgs>(args: SelectSubset<T, PointActionUpsertArgs<ExtArgs>>): Prisma__PointActionClient<$Result.GetResult<Prisma.$PointActionPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of PointActions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PointActionCountArgs} args - Arguments to filter PointActions to count.
+     * @example
+     * // Count the number of PointActions
+     * const count = await prisma.pointAction.count({
+     *   where: {
+     *     // ... the filter for the PointActions we want to count
+     *   }
+     * })
+    **/
+    count<T extends PointActionCountArgs>(
+      args?: Subset<T, PointActionCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PointActionCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a PointAction.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PointActionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PointActionAggregateArgs>(args: Subset<T, PointActionAggregateArgs>): Prisma.PrismaPromise<GetPointActionAggregateType<T>>
+
+    /**
+     * Group by PointAction.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PointActionGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PointActionGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PointActionGroupByArgs['orderBy'] }
+        : { orderBy?: PointActionGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PointActionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPointActionGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the PointAction model
+   */
+  readonly fields: PointActionFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for PointAction.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PointActionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the PointAction model
+   */
+  interface PointActionFieldRefs {
+    readonly id: FieldRef<"PointAction", 'String'>
+    readonly userId: FieldRef<"PointAction", 'String'>
+    readonly action: FieldRef<"PointAction", 'PointActionType'>
+    readonly points: FieldRef<"PointAction", 'Int'>
+    readonly metadata: FieldRef<"PointAction", 'Json'>
+    readonly createdAt: FieldRef<"PointAction", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * PointAction findUnique
+   */
+  export type PointActionFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PointAction
+     */
+    select?: PointActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PointAction
+     */
+    omit?: PointActionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PointActionInclude<ExtArgs> | null
+    /**
+     * Filter, which PointAction to fetch.
+     */
+    where: PointActionWhereUniqueInput
+  }
+
+  /**
+   * PointAction findUniqueOrThrow
+   */
+  export type PointActionFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PointAction
+     */
+    select?: PointActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PointAction
+     */
+    omit?: PointActionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PointActionInclude<ExtArgs> | null
+    /**
+     * Filter, which PointAction to fetch.
+     */
+    where: PointActionWhereUniqueInput
+  }
+
+  /**
+   * PointAction findFirst
+   */
+  export type PointActionFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PointAction
+     */
+    select?: PointActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PointAction
+     */
+    omit?: PointActionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PointActionInclude<ExtArgs> | null
+    /**
+     * Filter, which PointAction to fetch.
+     */
+    where?: PointActionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PointActions to fetch.
+     */
+    orderBy?: PointActionOrderByWithRelationInput | PointActionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PointActions.
+     */
+    cursor?: PointActionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PointActions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PointActions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PointActions.
+     */
+    distinct?: PointActionScalarFieldEnum | PointActionScalarFieldEnum[]
+  }
+
+  /**
+   * PointAction findFirstOrThrow
+   */
+  export type PointActionFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PointAction
+     */
+    select?: PointActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PointAction
+     */
+    omit?: PointActionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PointActionInclude<ExtArgs> | null
+    /**
+     * Filter, which PointAction to fetch.
+     */
+    where?: PointActionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PointActions to fetch.
+     */
+    orderBy?: PointActionOrderByWithRelationInput | PointActionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PointActions.
+     */
+    cursor?: PointActionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PointActions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PointActions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PointActions.
+     */
+    distinct?: PointActionScalarFieldEnum | PointActionScalarFieldEnum[]
+  }
+
+  /**
+   * PointAction findMany
+   */
+  export type PointActionFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PointAction
+     */
+    select?: PointActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PointAction
+     */
+    omit?: PointActionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PointActionInclude<ExtArgs> | null
+    /**
+     * Filter, which PointActions to fetch.
+     */
+    where?: PointActionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PointActions to fetch.
+     */
+    orderBy?: PointActionOrderByWithRelationInput | PointActionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing PointActions.
+     */
+    cursor?: PointActionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PointActions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PointActions.
+     */
+    skip?: number
+    distinct?: PointActionScalarFieldEnum | PointActionScalarFieldEnum[]
+  }
+
+  /**
+   * PointAction create
+   */
+  export type PointActionCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PointAction
+     */
+    select?: PointActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PointAction
+     */
+    omit?: PointActionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PointActionInclude<ExtArgs> | null
+    /**
+     * The data needed to create a PointAction.
+     */
+    data: XOR<PointActionCreateInput, PointActionUncheckedCreateInput>
+  }
+
+  /**
+   * PointAction createMany
+   */
+  export type PointActionCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many PointActions.
+     */
+    data: PointActionCreateManyInput | PointActionCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * PointAction createManyAndReturn
+   */
+  export type PointActionCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PointAction
+     */
+    select?: PointActionSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the PointAction
+     */
+    omit?: PointActionOmit<ExtArgs> | null
+    /**
+     * The data used to create many PointActions.
+     */
+    data: PointActionCreateManyInput | PointActionCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PointActionIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * PointAction update
+   */
+  export type PointActionUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PointAction
+     */
+    select?: PointActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PointAction
+     */
+    omit?: PointActionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PointActionInclude<ExtArgs> | null
+    /**
+     * The data needed to update a PointAction.
+     */
+    data: XOR<PointActionUpdateInput, PointActionUncheckedUpdateInput>
+    /**
+     * Choose, which PointAction to update.
+     */
+    where: PointActionWhereUniqueInput
+  }
+
+  /**
+   * PointAction updateMany
+   */
+  export type PointActionUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update PointActions.
+     */
+    data: XOR<PointActionUpdateManyMutationInput, PointActionUncheckedUpdateManyInput>
+    /**
+     * Filter which PointActions to update
+     */
+    where?: PointActionWhereInput
+    /**
+     * Limit how many PointActions to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * PointAction updateManyAndReturn
+   */
+  export type PointActionUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PointAction
+     */
+    select?: PointActionSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the PointAction
+     */
+    omit?: PointActionOmit<ExtArgs> | null
+    /**
+     * The data used to update PointActions.
+     */
+    data: XOR<PointActionUpdateManyMutationInput, PointActionUncheckedUpdateManyInput>
+    /**
+     * Filter which PointActions to update
+     */
+    where?: PointActionWhereInput
+    /**
+     * Limit how many PointActions to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PointActionIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * PointAction upsert
+   */
+  export type PointActionUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PointAction
+     */
+    select?: PointActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PointAction
+     */
+    omit?: PointActionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PointActionInclude<ExtArgs> | null
+    /**
+     * The filter to search for the PointAction to update in case it exists.
+     */
+    where: PointActionWhereUniqueInput
+    /**
+     * In case the PointAction found by the `where` argument doesn't exist, create a new PointAction with this data.
+     */
+    create: XOR<PointActionCreateInput, PointActionUncheckedCreateInput>
+    /**
+     * In case the PointAction was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PointActionUpdateInput, PointActionUncheckedUpdateInput>
+  }
+
+  /**
+   * PointAction delete
+   */
+  export type PointActionDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PointAction
+     */
+    select?: PointActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PointAction
+     */
+    omit?: PointActionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PointActionInclude<ExtArgs> | null
+    /**
+     * Filter which PointAction to delete.
+     */
+    where: PointActionWhereUniqueInput
+  }
+
+  /**
+   * PointAction deleteMany
+   */
+  export type PointActionDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PointActions to delete
+     */
+    where?: PointActionWhereInput
+    /**
+     * Limit how many PointActions to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * PointAction without action
+   */
+  export type PointActionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PointAction
+     */
+    select?: PointActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PointAction
+     */
+    omit?: PointActionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PointActionInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -8319,6 +12078,7 @@ export namespace Prisma {
     role: 'role',
     techStack: 'techStack',
     points: 'points',
+    lastLoginAt: 'lastLoginAt',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -8387,6 +12147,42 @@ export namespace Prisma {
   };
 
   export type EventScalarFieldEnum = (typeof EventScalarFieldEnum)[keyof typeof EventScalarFieldEnum]
+
+
+  export const ArticleScalarFieldEnum: {
+    id: 'id',
+    title: 'title',
+    content: 'content',
+    summary: 'summary',
+    authorId: 'authorId',
+    readCount: 'readCount',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type ArticleScalarFieldEnum = (typeof ArticleScalarFieldEnum)[keyof typeof ArticleScalarFieldEnum]
+
+
+  export const ArticleReadScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    articleId: 'articleId',
+    readAt: 'readAt'
+  };
+
+  export type ArticleReadScalarFieldEnum = (typeof ArticleReadScalarFieldEnum)[keyof typeof ArticleReadScalarFieldEnum]
+
+
+  export const PointActionScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    action: 'action',
+    points: 'points',
+    metadata: 'metadata',
+    createdAt: 'createdAt'
+  };
+
+  export type PointActionScalarFieldEnum = (typeof PointActionScalarFieldEnum)[keyof typeof PointActionScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -8534,6 +12330,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'PointActionType'
+   */
+  export type EnumPointActionTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PointActionType'>
+    
+
+
+  /**
+   * Reference to a field of type 'PointActionType[]'
+   */
+  export type ListEnumPointActionTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PointActionType[]'>
+    
+
+
+  /**
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -8564,6 +12374,7 @@ export namespace Prisma {
     role?: EnumRoleFilter<"User"> | $Enums.Role
     techStack?: JsonNullableFilter<"User">
     points?: IntFilter<"User"> | number
+    lastLoginAt?: DateTimeFilter<"User"> | Date | string
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     lobbiesHosted?: LobbyListRelationFilter
@@ -8571,6 +12382,9 @@ export namespace Prisma {
     podcasts?: PodcastListRelationFilter
     memes?: MemeListRelationFilter
     eventsOrganized?: EventListRelationFilter
+    articles?: ArticleListRelationFilter
+    articleReads?: ArticleReadListRelationFilter
+    pointActions?: PointActionListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -8584,6 +12398,7 @@ export namespace Prisma {
     role?: SortOrder
     techStack?: SortOrderInput | SortOrder
     points?: SortOrder
+    lastLoginAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     lobbiesHosted?: LobbyOrderByRelationAggregateInput
@@ -8591,6 +12406,9 @@ export namespace Prisma {
     podcasts?: PodcastOrderByRelationAggregateInput
     memes?: MemeOrderByRelationAggregateInput
     eventsOrganized?: EventOrderByRelationAggregateInput
+    articles?: ArticleOrderByRelationAggregateInput
+    articleReads?: ArticleReadOrderByRelationAggregateInput
+    pointActions?: PointActionOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -8607,6 +12425,7 @@ export namespace Prisma {
     role?: EnumRoleFilter<"User"> | $Enums.Role
     techStack?: JsonNullableFilter<"User">
     points?: IntFilter<"User"> | number
+    lastLoginAt?: DateTimeFilter<"User"> | Date | string
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     lobbiesHosted?: LobbyListRelationFilter
@@ -8614,6 +12433,9 @@ export namespace Prisma {
     podcasts?: PodcastListRelationFilter
     memes?: MemeListRelationFilter
     eventsOrganized?: EventListRelationFilter
+    articles?: ArticleListRelationFilter
+    articleReads?: ArticleReadListRelationFilter
+    pointActions?: PointActionListRelationFilter
   }, "id" | "clerkId" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -8627,6 +12449,7 @@ export namespace Prisma {
     role?: SortOrder
     techStack?: SortOrderInput | SortOrder
     points?: SortOrder
+    lastLoginAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: UserCountOrderByAggregateInput
@@ -8650,6 +12473,7 @@ export namespace Prisma {
     role?: EnumRoleWithAggregatesFilter<"User"> | $Enums.Role
     techStack?: JsonNullableWithAggregatesFilter<"User">
     points?: IntWithAggregatesFilter<"User"> | number
+    lastLoginAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
   }
@@ -8982,6 +12806,197 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"Event"> | Date | string
   }
 
+  export type ArticleWhereInput = {
+    AND?: ArticleWhereInput | ArticleWhereInput[]
+    OR?: ArticleWhereInput[]
+    NOT?: ArticleWhereInput | ArticleWhereInput[]
+    id?: StringFilter<"Article"> | string
+    title?: StringFilter<"Article"> | string
+    content?: StringFilter<"Article"> | string
+    summary?: StringNullableFilter<"Article"> | string | null
+    authorId?: StringFilter<"Article"> | string
+    readCount?: IntFilter<"Article"> | number
+    createdAt?: DateTimeFilter<"Article"> | Date | string
+    updatedAt?: DateTimeFilter<"Article"> | Date | string
+    author?: XOR<UserScalarRelationFilter, UserWhereInput>
+    readers?: ArticleReadListRelationFilter
+  }
+
+  export type ArticleOrderByWithRelationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    content?: SortOrder
+    summary?: SortOrderInput | SortOrder
+    authorId?: SortOrder
+    readCount?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    author?: UserOrderByWithRelationInput
+    readers?: ArticleReadOrderByRelationAggregateInput
+  }
+
+  export type ArticleWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: ArticleWhereInput | ArticleWhereInput[]
+    OR?: ArticleWhereInput[]
+    NOT?: ArticleWhereInput | ArticleWhereInput[]
+    title?: StringFilter<"Article"> | string
+    content?: StringFilter<"Article"> | string
+    summary?: StringNullableFilter<"Article"> | string | null
+    authorId?: StringFilter<"Article"> | string
+    readCount?: IntFilter<"Article"> | number
+    createdAt?: DateTimeFilter<"Article"> | Date | string
+    updatedAt?: DateTimeFilter<"Article"> | Date | string
+    author?: XOR<UserScalarRelationFilter, UserWhereInput>
+    readers?: ArticleReadListRelationFilter
+  }, "id">
+
+  export type ArticleOrderByWithAggregationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    content?: SortOrder
+    summary?: SortOrderInput | SortOrder
+    authorId?: SortOrder
+    readCount?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: ArticleCountOrderByAggregateInput
+    _avg?: ArticleAvgOrderByAggregateInput
+    _max?: ArticleMaxOrderByAggregateInput
+    _min?: ArticleMinOrderByAggregateInput
+    _sum?: ArticleSumOrderByAggregateInput
+  }
+
+  export type ArticleScalarWhereWithAggregatesInput = {
+    AND?: ArticleScalarWhereWithAggregatesInput | ArticleScalarWhereWithAggregatesInput[]
+    OR?: ArticleScalarWhereWithAggregatesInput[]
+    NOT?: ArticleScalarWhereWithAggregatesInput | ArticleScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Article"> | string
+    title?: StringWithAggregatesFilter<"Article"> | string
+    content?: StringWithAggregatesFilter<"Article"> | string
+    summary?: StringNullableWithAggregatesFilter<"Article"> | string | null
+    authorId?: StringWithAggregatesFilter<"Article"> | string
+    readCount?: IntWithAggregatesFilter<"Article"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"Article"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Article"> | Date | string
+  }
+
+  export type ArticleReadWhereInput = {
+    AND?: ArticleReadWhereInput | ArticleReadWhereInput[]
+    OR?: ArticleReadWhereInput[]
+    NOT?: ArticleReadWhereInput | ArticleReadWhereInput[]
+    id?: StringFilter<"ArticleRead"> | string
+    userId?: StringFilter<"ArticleRead"> | string
+    articleId?: StringFilter<"ArticleRead"> | string
+    readAt?: DateTimeFilter<"ArticleRead"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    article?: XOR<ArticleScalarRelationFilter, ArticleWhereInput>
+  }
+
+  export type ArticleReadOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    articleId?: SortOrder
+    readAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+    article?: ArticleOrderByWithRelationInput
+  }
+
+  export type ArticleReadWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    userId_articleId?: ArticleReadUserIdArticleIdCompoundUniqueInput
+    AND?: ArticleReadWhereInput | ArticleReadWhereInput[]
+    OR?: ArticleReadWhereInput[]
+    NOT?: ArticleReadWhereInput | ArticleReadWhereInput[]
+    userId?: StringFilter<"ArticleRead"> | string
+    articleId?: StringFilter<"ArticleRead"> | string
+    readAt?: DateTimeFilter<"ArticleRead"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    article?: XOR<ArticleScalarRelationFilter, ArticleWhereInput>
+  }, "id" | "userId_articleId">
+
+  export type ArticleReadOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    articleId?: SortOrder
+    readAt?: SortOrder
+    _count?: ArticleReadCountOrderByAggregateInput
+    _max?: ArticleReadMaxOrderByAggregateInput
+    _min?: ArticleReadMinOrderByAggregateInput
+  }
+
+  export type ArticleReadScalarWhereWithAggregatesInput = {
+    AND?: ArticleReadScalarWhereWithAggregatesInput | ArticleReadScalarWhereWithAggregatesInput[]
+    OR?: ArticleReadScalarWhereWithAggregatesInput[]
+    NOT?: ArticleReadScalarWhereWithAggregatesInput | ArticleReadScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"ArticleRead"> | string
+    userId?: StringWithAggregatesFilter<"ArticleRead"> | string
+    articleId?: StringWithAggregatesFilter<"ArticleRead"> | string
+    readAt?: DateTimeWithAggregatesFilter<"ArticleRead"> | Date | string
+  }
+
+  export type PointActionWhereInput = {
+    AND?: PointActionWhereInput | PointActionWhereInput[]
+    OR?: PointActionWhereInput[]
+    NOT?: PointActionWhereInput | PointActionWhereInput[]
+    id?: StringFilter<"PointAction"> | string
+    userId?: StringFilter<"PointAction"> | string
+    action?: EnumPointActionTypeFilter<"PointAction"> | $Enums.PointActionType
+    points?: IntFilter<"PointAction"> | number
+    metadata?: JsonNullableFilter<"PointAction">
+    createdAt?: DateTimeFilter<"PointAction"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type PointActionOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    action?: SortOrder
+    points?: SortOrder
+    metadata?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type PointActionWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: PointActionWhereInput | PointActionWhereInput[]
+    OR?: PointActionWhereInput[]
+    NOT?: PointActionWhereInput | PointActionWhereInput[]
+    userId?: StringFilter<"PointAction"> | string
+    action?: EnumPointActionTypeFilter<"PointAction"> | $Enums.PointActionType
+    points?: IntFilter<"PointAction"> | number
+    metadata?: JsonNullableFilter<"PointAction">
+    createdAt?: DateTimeFilter<"PointAction"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id">
+
+  export type PointActionOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    action?: SortOrder
+    points?: SortOrder
+    metadata?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    _count?: PointActionCountOrderByAggregateInput
+    _avg?: PointActionAvgOrderByAggregateInput
+    _max?: PointActionMaxOrderByAggregateInput
+    _min?: PointActionMinOrderByAggregateInput
+    _sum?: PointActionSumOrderByAggregateInput
+  }
+
+  export type PointActionScalarWhereWithAggregatesInput = {
+    AND?: PointActionScalarWhereWithAggregatesInput | PointActionScalarWhereWithAggregatesInput[]
+    OR?: PointActionScalarWhereWithAggregatesInput[]
+    NOT?: PointActionScalarWhereWithAggregatesInput | PointActionScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"PointAction"> | string
+    userId?: StringWithAggregatesFilter<"PointAction"> | string
+    action?: EnumPointActionTypeWithAggregatesFilter<"PointAction"> | $Enums.PointActionType
+    points?: IntWithAggregatesFilter<"PointAction"> | number
+    metadata?: JsonNullableWithAggregatesFilter<"PointAction">
+    createdAt?: DateTimeWithAggregatesFilter<"PointAction"> | Date | string
+  }
+
   export type UserCreateInput = {
     id?: string
     clerkId: string
@@ -8993,6 +13008,7 @@ export namespace Prisma {
     role?: $Enums.Role
     techStack?: NullableJsonNullValueInput | InputJsonValue
     points?: number
+    lastLoginAt?: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
     lobbiesHosted?: LobbyCreateNestedManyWithoutOwnerInput
@@ -9000,6 +13016,9 @@ export namespace Prisma {
     podcasts?: PodcastCreateNestedManyWithoutHostInput
     memes?: MemeCreateNestedManyWithoutAuthorInput
     eventsOrganized?: EventCreateNestedManyWithoutOrganizerInput
+    articles?: ArticleCreateNestedManyWithoutAuthorInput
+    articleReads?: ArticleReadCreateNestedManyWithoutUserInput
+    pointActions?: PointActionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -9013,6 +13032,7 @@ export namespace Prisma {
     role?: $Enums.Role
     techStack?: NullableJsonNullValueInput | InputJsonValue
     points?: number
+    lastLoginAt?: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
     lobbiesHosted?: LobbyUncheckedCreateNestedManyWithoutOwnerInput
@@ -9020,6 +13040,9 @@ export namespace Prisma {
     podcasts?: PodcastUncheckedCreateNestedManyWithoutHostInput
     memes?: MemeUncheckedCreateNestedManyWithoutAuthorInput
     eventsOrganized?: EventUncheckedCreateNestedManyWithoutOrganizerInput
+    articles?: ArticleUncheckedCreateNestedManyWithoutAuthorInput
+    articleReads?: ArticleReadUncheckedCreateNestedManyWithoutUserInput
+    pointActions?: PointActionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -9033,6 +13056,7 @@ export namespace Prisma {
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     techStack?: NullableJsonNullValueInput | InputJsonValue
     points?: IntFieldUpdateOperationsInput | number
+    lastLoginAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lobbiesHosted?: LobbyUpdateManyWithoutOwnerNestedInput
@@ -9040,6 +13064,9 @@ export namespace Prisma {
     podcasts?: PodcastUpdateManyWithoutHostNestedInput
     memes?: MemeUpdateManyWithoutAuthorNestedInput
     eventsOrganized?: EventUpdateManyWithoutOrganizerNestedInput
+    articles?: ArticleUpdateManyWithoutAuthorNestedInput
+    articleReads?: ArticleReadUpdateManyWithoutUserNestedInput
+    pointActions?: PointActionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -9053,6 +13080,7 @@ export namespace Prisma {
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     techStack?: NullableJsonNullValueInput | InputJsonValue
     points?: IntFieldUpdateOperationsInput | number
+    lastLoginAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lobbiesHosted?: LobbyUncheckedUpdateManyWithoutOwnerNestedInput
@@ -9060,6 +13088,9 @@ export namespace Prisma {
     podcasts?: PodcastUncheckedUpdateManyWithoutHostNestedInput
     memes?: MemeUncheckedUpdateManyWithoutAuthorNestedInput
     eventsOrganized?: EventUncheckedUpdateManyWithoutOrganizerNestedInput
+    articles?: ArticleUncheckedUpdateManyWithoutAuthorNestedInput
+    articleReads?: ArticleReadUncheckedUpdateManyWithoutUserNestedInput
+    pointActions?: PointActionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -9073,6 +13104,7 @@ export namespace Prisma {
     role?: $Enums.Role
     techStack?: NullableJsonNullValueInput | InputJsonValue
     points?: number
+    lastLoginAt?: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -9088,6 +13120,7 @@ export namespace Prisma {
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     techStack?: NullableJsonNullValueInput | InputJsonValue
     points?: IntFieldUpdateOperationsInput | number
+    lastLoginAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -9103,6 +13136,7 @@ export namespace Prisma {
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     techStack?: NullableJsonNullValueInput | InputJsonValue
     points?: IntFieldUpdateOperationsInput | number
+    lastLoginAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -9441,6 +13475,195 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type ArticleCreateInput = {
+    id?: string
+    title: string
+    content: string
+    summary?: string | null
+    readCount?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    author: UserCreateNestedOneWithoutArticlesInput
+    readers?: ArticleReadCreateNestedManyWithoutArticleInput
+  }
+
+  export type ArticleUncheckedCreateInput = {
+    id?: string
+    title: string
+    content: string
+    summary?: string | null
+    authorId: string
+    readCount?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    readers?: ArticleReadUncheckedCreateNestedManyWithoutArticleInput
+  }
+
+  export type ArticleUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    summary?: NullableStringFieldUpdateOperationsInput | string | null
+    readCount?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    author?: UserUpdateOneRequiredWithoutArticlesNestedInput
+    readers?: ArticleReadUpdateManyWithoutArticleNestedInput
+  }
+
+  export type ArticleUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    summary?: NullableStringFieldUpdateOperationsInput | string | null
+    authorId?: StringFieldUpdateOperationsInput | string
+    readCount?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    readers?: ArticleReadUncheckedUpdateManyWithoutArticleNestedInput
+  }
+
+  export type ArticleCreateManyInput = {
+    id?: string
+    title: string
+    content: string
+    summary?: string | null
+    authorId: string
+    readCount?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ArticleUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    summary?: NullableStringFieldUpdateOperationsInput | string | null
+    readCount?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ArticleUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    summary?: NullableStringFieldUpdateOperationsInput | string | null
+    authorId?: StringFieldUpdateOperationsInput | string
+    readCount?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ArticleReadCreateInput = {
+    id?: string
+    readAt?: Date | string
+    user: UserCreateNestedOneWithoutArticleReadsInput
+    article: ArticleCreateNestedOneWithoutReadersInput
+  }
+
+  export type ArticleReadUncheckedCreateInput = {
+    id?: string
+    userId: string
+    articleId: string
+    readAt?: Date | string
+  }
+
+  export type ArticleReadUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    readAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutArticleReadsNestedInput
+    article?: ArticleUpdateOneRequiredWithoutReadersNestedInput
+  }
+
+  export type ArticleReadUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    articleId?: StringFieldUpdateOperationsInput | string
+    readAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ArticleReadCreateManyInput = {
+    id?: string
+    userId: string
+    articleId: string
+    readAt?: Date | string
+  }
+
+  export type ArticleReadUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    readAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ArticleReadUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    articleId?: StringFieldUpdateOperationsInput | string
+    readAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PointActionCreateInput = {
+    id?: string
+    action: $Enums.PointActionType
+    points: number
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutPointActionsInput
+  }
+
+  export type PointActionUncheckedCreateInput = {
+    id?: string
+    userId: string
+    action: $Enums.PointActionType
+    points: number
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type PointActionUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    action?: EnumPointActionTypeFieldUpdateOperationsInput | $Enums.PointActionType
+    points?: IntFieldUpdateOperationsInput | number
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutPointActionsNestedInput
+  }
+
+  export type PointActionUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    action?: EnumPointActionTypeFieldUpdateOperationsInput | $Enums.PointActionType
+    points?: IntFieldUpdateOperationsInput | number
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PointActionCreateManyInput = {
+    id?: string
+    userId: string
+    action: $Enums.PointActionType
+    points: number
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type PointActionUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    action?: EnumPointActionTypeFieldUpdateOperationsInput | $Enums.PointActionType
+    points?: IntFieldUpdateOperationsInput | number
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PointActionUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    action?: EnumPointActionTypeFieldUpdateOperationsInput | $Enums.PointActionType
+    points?: IntFieldUpdateOperationsInput | number
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -9553,6 +13776,24 @@ export namespace Prisma {
     none?: EventWhereInput
   }
 
+  export type ArticleListRelationFilter = {
+    every?: ArticleWhereInput
+    some?: ArticleWhereInput
+    none?: ArticleWhereInput
+  }
+
+  export type ArticleReadListRelationFilter = {
+    every?: ArticleReadWhereInput
+    some?: ArticleReadWhereInput
+    none?: ArticleReadWhereInput
+  }
+
+  export type PointActionListRelationFilter = {
+    every?: PointActionWhereInput
+    some?: PointActionWhereInput
+    none?: PointActionWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -9578,6 +13819,18 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
+  export type ArticleOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ArticleReadOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type PointActionOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type UserCountOrderByAggregateInput = {
     id?: SortOrder
     clerkId?: SortOrder
@@ -9589,6 +13842,7 @@ export namespace Prisma {
     role?: SortOrder
     techStack?: SortOrder
     points?: SortOrder
+    lastLoginAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -9607,6 +13861,7 @@ export namespace Prisma {
     bio?: SortOrder
     role?: SortOrder
     points?: SortOrder
+    lastLoginAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -9621,6 +13876,7 @@ export namespace Prisma {
     bio?: SortOrder
     role?: SortOrder
     points?: SortOrder
+    lastLoginAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -10000,6 +14256,128 @@ export namespace Prisma {
     createdAt?: SortOrder
   }
 
+  export type ArticleCountOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    content?: SortOrder
+    summary?: SortOrder
+    authorId?: SortOrder
+    readCount?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ArticleAvgOrderByAggregateInput = {
+    readCount?: SortOrder
+  }
+
+  export type ArticleMaxOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    content?: SortOrder
+    summary?: SortOrder
+    authorId?: SortOrder
+    readCount?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ArticleMinOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    content?: SortOrder
+    summary?: SortOrder
+    authorId?: SortOrder
+    readCount?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ArticleSumOrderByAggregateInput = {
+    readCount?: SortOrder
+  }
+
+  export type ArticleScalarRelationFilter = {
+    is?: ArticleWhereInput
+    isNot?: ArticleWhereInput
+  }
+
+  export type ArticleReadUserIdArticleIdCompoundUniqueInput = {
+    userId: string
+    articleId: string
+  }
+
+  export type ArticleReadCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    articleId?: SortOrder
+    readAt?: SortOrder
+  }
+
+  export type ArticleReadMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    articleId?: SortOrder
+    readAt?: SortOrder
+  }
+
+  export type ArticleReadMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    articleId?: SortOrder
+    readAt?: SortOrder
+  }
+
+  export type EnumPointActionTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.PointActionType | EnumPointActionTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.PointActionType[] | ListEnumPointActionTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PointActionType[] | ListEnumPointActionTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumPointActionTypeFilter<$PrismaModel> | $Enums.PointActionType
+  }
+
+  export type PointActionCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    action?: SortOrder
+    points?: SortOrder
+    metadata?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type PointActionAvgOrderByAggregateInput = {
+    points?: SortOrder
+  }
+
+  export type PointActionMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    action?: SortOrder
+    points?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type PointActionMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    action?: SortOrder
+    points?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type PointActionSumOrderByAggregateInput = {
+    points?: SortOrder
+  }
+
+  export type EnumPointActionTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.PointActionType | EnumPointActionTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.PointActionType[] | ListEnumPointActionTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PointActionType[] | ListEnumPointActionTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumPointActionTypeWithAggregatesFilter<$PrismaModel> | $Enums.PointActionType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumPointActionTypeFilter<$PrismaModel>
+    _max?: NestedEnumPointActionTypeFilter<$PrismaModel>
+  }
+
   export type LobbyCreateNestedManyWithoutOwnerInput = {
     create?: XOR<LobbyCreateWithoutOwnerInput, LobbyUncheckedCreateWithoutOwnerInput> | LobbyCreateWithoutOwnerInput[] | LobbyUncheckedCreateWithoutOwnerInput[]
     connectOrCreate?: LobbyCreateOrConnectWithoutOwnerInput | LobbyCreateOrConnectWithoutOwnerInput[]
@@ -10035,6 +14413,27 @@ export namespace Prisma {
     connect?: EventWhereUniqueInput | EventWhereUniqueInput[]
   }
 
+  export type ArticleCreateNestedManyWithoutAuthorInput = {
+    create?: XOR<ArticleCreateWithoutAuthorInput, ArticleUncheckedCreateWithoutAuthorInput> | ArticleCreateWithoutAuthorInput[] | ArticleUncheckedCreateWithoutAuthorInput[]
+    connectOrCreate?: ArticleCreateOrConnectWithoutAuthorInput | ArticleCreateOrConnectWithoutAuthorInput[]
+    createMany?: ArticleCreateManyAuthorInputEnvelope
+    connect?: ArticleWhereUniqueInput | ArticleWhereUniqueInput[]
+  }
+
+  export type ArticleReadCreateNestedManyWithoutUserInput = {
+    create?: XOR<ArticleReadCreateWithoutUserInput, ArticleReadUncheckedCreateWithoutUserInput> | ArticleReadCreateWithoutUserInput[] | ArticleReadUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ArticleReadCreateOrConnectWithoutUserInput | ArticleReadCreateOrConnectWithoutUserInput[]
+    createMany?: ArticleReadCreateManyUserInputEnvelope
+    connect?: ArticleReadWhereUniqueInput | ArticleReadWhereUniqueInput[]
+  }
+
+  export type PointActionCreateNestedManyWithoutUserInput = {
+    create?: XOR<PointActionCreateWithoutUserInput, PointActionUncheckedCreateWithoutUserInput> | PointActionCreateWithoutUserInput[] | PointActionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PointActionCreateOrConnectWithoutUserInput | PointActionCreateOrConnectWithoutUserInput[]
+    createMany?: PointActionCreateManyUserInputEnvelope
+    connect?: PointActionWhereUniqueInput | PointActionWhereUniqueInput[]
+  }
+
   export type LobbyUncheckedCreateNestedManyWithoutOwnerInput = {
     create?: XOR<LobbyCreateWithoutOwnerInput, LobbyUncheckedCreateWithoutOwnerInput> | LobbyCreateWithoutOwnerInput[] | LobbyUncheckedCreateWithoutOwnerInput[]
     connectOrCreate?: LobbyCreateOrConnectWithoutOwnerInput | LobbyCreateOrConnectWithoutOwnerInput[]
@@ -10068,6 +14467,27 @@ export namespace Prisma {
     connectOrCreate?: EventCreateOrConnectWithoutOrganizerInput | EventCreateOrConnectWithoutOrganizerInput[]
     createMany?: EventCreateManyOrganizerInputEnvelope
     connect?: EventWhereUniqueInput | EventWhereUniqueInput[]
+  }
+
+  export type ArticleUncheckedCreateNestedManyWithoutAuthorInput = {
+    create?: XOR<ArticleCreateWithoutAuthorInput, ArticleUncheckedCreateWithoutAuthorInput> | ArticleCreateWithoutAuthorInput[] | ArticleUncheckedCreateWithoutAuthorInput[]
+    connectOrCreate?: ArticleCreateOrConnectWithoutAuthorInput | ArticleCreateOrConnectWithoutAuthorInput[]
+    createMany?: ArticleCreateManyAuthorInputEnvelope
+    connect?: ArticleWhereUniqueInput | ArticleWhereUniqueInput[]
+  }
+
+  export type ArticleReadUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<ArticleReadCreateWithoutUserInput, ArticleReadUncheckedCreateWithoutUserInput> | ArticleReadCreateWithoutUserInput[] | ArticleReadUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ArticleReadCreateOrConnectWithoutUserInput | ArticleReadCreateOrConnectWithoutUserInput[]
+    createMany?: ArticleReadCreateManyUserInputEnvelope
+    connect?: ArticleReadWhereUniqueInput | ArticleReadWhereUniqueInput[]
+  }
+
+  export type PointActionUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<PointActionCreateWithoutUserInput, PointActionUncheckedCreateWithoutUserInput> | PointActionCreateWithoutUserInput[] | PointActionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PointActionCreateOrConnectWithoutUserInput | PointActionCreateOrConnectWithoutUserInput[]
+    createMany?: PointActionCreateManyUserInputEnvelope
+    connect?: PointActionWhereUniqueInput | PointActionWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -10164,6 +14584,48 @@ export namespace Prisma {
     deleteMany?: EventScalarWhereInput | EventScalarWhereInput[]
   }
 
+  export type ArticleUpdateManyWithoutAuthorNestedInput = {
+    create?: XOR<ArticleCreateWithoutAuthorInput, ArticleUncheckedCreateWithoutAuthorInput> | ArticleCreateWithoutAuthorInput[] | ArticleUncheckedCreateWithoutAuthorInput[]
+    connectOrCreate?: ArticleCreateOrConnectWithoutAuthorInput | ArticleCreateOrConnectWithoutAuthorInput[]
+    upsert?: ArticleUpsertWithWhereUniqueWithoutAuthorInput | ArticleUpsertWithWhereUniqueWithoutAuthorInput[]
+    createMany?: ArticleCreateManyAuthorInputEnvelope
+    set?: ArticleWhereUniqueInput | ArticleWhereUniqueInput[]
+    disconnect?: ArticleWhereUniqueInput | ArticleWhereUniqueInput[]
+    delete?: ArticleWhereUniqueInput | ArticleWhereUniqueInput[]
+    connect?: ArticleWhereUniqueInput | ArticleWhereUniqueInput[]
+    update?: ArticleUpdateWithWhereUniqueWithoutAuthorInput | ArticleUpdateWithWhereUniqueWithoutAuthorInput[]
+    updateMany?: ArticleUpdateManyWithWhereWithoutAuthorInput | ArticleUpdateManyWithWhereWithoutAuthorInput[]
+    deleteMany?: ArticleScalarWhereInput | ArticleScalarWhereInput[]
+  }
+
+  export type ArticleReadUpdateManyWithoutUserNestedInput = {
+    create?: XOR<ArticleReadCreateWithoutUserInput, ArticleReadUncheckedCreateWithoutUserInput> | ArticleReadCreateWithoutUserInput[] | ArticleReadUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ArticleReadCreateOrConnectWithoutUserInput | ArticleReadCreateOrConnectWithoutUserInput[]
+    upsert?: ArticleReadUpsertWithWhereUniqueWithoutUserInput | ArticleReadUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: ArticleReadCreateManyUserInputEnvelope
+    set?: ArticleReadWhereUniqueInput | ArticleReadWhereUniqueInput[]
+    disconnect?: ArticleReadWhereUniqueInput | ArticleReadWhereUniqueInput[]
+    delete?: ArticleReadWhereUniqueInput | ArticleReadWhereUniqueInput[]
+    connect?: ArticleReadWhereUniqueInput | ArticleReadWhereUniqueInput[]
+    update?: ArticleReadUpdateWithWhereUniqueWithoutUserInput | ArticleReadUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: ArticleReadUpdateManyWithWhereWithoutUserInput | ArticleReadUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: ArticleReadScalarWhereInput | ArticleReadScalarWhereInput[]
+  }
+
+  export type PointActionUpdateManyWithoutUserNestedInput = {
+    create?: XOR<PointActionCreateWithoutUserInput, PointActionUncheckedCreateWithoutUserInput> | PointActionCreateWithoutUserInput[] | PointActionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PointActionCreateOrConnectWithoutUserInput | PointActionCreateOrConnectWithoutUserInput[]
+    upsert?: PointActionUpsertWithWhereUniqueWithoutUserInput | PointActionUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: PointActionCreateManyUserInputEnvelope
+    set?: PointActionWhereUniqueInput | PointActionWhereUniqueInput[]
+    disconnect?: PointActionWhereUniqueInput | PointActionWhereUniqueInput[]
+    delete?: PointActionWhereUniqueInput | PointActionWhereUniqueInput[]
+    connect?: PointActionWhereUniqueInput | PointActionWhereUniqueInput[]
+    update?: PointActionUpdateWithWhereUniqueWithoutUserInput | PointActionUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: PointActionUpdateManyWithWhereWithoutUserInput | PointActionUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: PointActionScalarWhereInput | PointActionScalarWhereInput[]
+  }
+
   export type LobbyUncheckedUpdateManyWithoutOwnerNestedInput = {
     create?: XOR<LobbyCreateWithoutOwnerInput, LobbyUncheckedCreateWithoutOwnerInput> | LobbyCreateWithoutOwnerInput[] | LobbyUncheckedCreateWithoutOwnerInput[]
     connectOrCreate?: LobbyCreateOrConnectWithoutOwnerInput | LobbyCreateOrConnectWithoutOwnerInput[]
@@ -10232,6 +14694,48 @@ export namespace Prisma {
     update?: EventUpdateWithWhereUniqueWithoutOrganizerInput | EventUpdateWithWhereUniqueWithoutOrganizerInput[]
     updateMany?: EventUpdateManyWithWhereWithoutOrganizerInput | EventUpdateManyWithWhereWithoutOrganizerInput[]
     deleteMany?: EventScalarWhereInput | EventScalarWhereInput[]
+  }
+
+  export type ArticleUncheckedUpdateManyWithoutAuthorNestedInput = {
+    create?: XOR<ArticleCreateWithoutAuthorInput, ArticleUncheckedCreateWithoutAuthorInput> | ArticleCreateWithoutAuthorInput[] | ArticleUncheckedCreateWithoutAuthorInput[]
+    connectOrCreate?: ArticleCreateOrConnectWithoutAuthorInput | ArticleCreateOrConnectWithoutAuthorInput[]
+    upsert?: ArticleUpsertWithWhereUniqueWithoutAuthorInput | ArticleUpsertWithWhereUniqueWithoutAuthorInput[]
+    createMany?: ArticleCreateManyAuthorInputEnvelope
+    set?: ArticleWhereUniqueInput | ArticleWhereUniqueInput[]
+    disconnect?: ArticleWhereUniqueInput | ArticleWhereUniqueInput[]
+    delete?: ArticleWhereUniqueInput | ArticleWhereUniqueInput[]
+    connect?: ArticleWhereUniqueInput | ArticleWhereUniqueInput[]
+    update?: ArticleUpdateWithWhereUniqueWithoutAuthorInput | ArticleUpdateWithWhereUniqueWithoutAuthorInput[]
+    updateMany?: ArticleUpdateManyWithWhereWithoutAuthorInput | ArticleUpdateManyWithWhereWithoutAuthorInput[]
+    deleteMany?: ArticleScalarWhereInput | ArticleScalarWhereInput[]
+  }
+
+  export type ArticleReadUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<ArticleReadCreateWithoutUserInput, ArticleReadUncheckedCreateWithoutUserInput> | ArticleReadCreateWithoutUserInput[] | ArticleReadUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ArticleReadCreateOrConnectWithoutUserInput | ArticleReadCreateOrConnectWithoutUserInput[]
+    upsert?: ArticleReadUpsertWithWhereUniqueWithoutUserInput | ArticleReadUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: ArticleReadCreateManyUserInputEnvelope
+    set?: ArticleReadWhereUniqueInput | ArticleReadWhereUniqueInput[]
+    disconnect?: ArticleReadWhereUniqueInput | ArticleReadWhereUniqueInput[]
+    delete?: ArticleReadWhereUniqueInput | ArticleReadWhereUniqueInput[]
+    connect?: ArticleReadWhereUniqueInput | ArticleReadWhereUniqueInput[]
+    update?: ArticleReadUpdateWithWhereUniqueWithoutUserInput | ArticleReadUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: ArticleReadUpdateManyWithWhereWithoutUserInput | ArticleReadUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: ArticleReadScalarWhereInput | ArticleReadScalarWhereInput[]
+  }
+
+  export type PointActionUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<PointActionCreateWithoutUserInput, PointActionUncheckedCreateWithoutUserInput> | PointActionCreateWithoutUserInput[] | PointActionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PointActionCreateOrConnectWithoutUserInput | PointActionCreateOrConnectWithoutUserInput[]
+    upsert?: PointActionUpsertWithWhereUniqueWithoutUserInput | PointActionUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: PointActionCreateManyUserInputEnvelope
+    set?: PointActionWhereUniqueInput | PointActionWhereUniqueInput[]
+    disconnect?: PointActionWhereUniqueInput | PointActionWhereUniqueInput[]
+    delete?: PointActionWhereUniqueInput | PointActionWhereUniqueInput[]
+    connect?: PointActionWhereUniqueInput | PointActionWhereUniqueInput[]
+    update?: PointActionUpdateWithWhereUniqueWithoutUserInput | PointActionUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: PointActionUpdateManyWithWhereWithoutUserInput | PointActionUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: PointActionScalarWhereInput | PointActionScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutLobbiesHostedInput = {
@@ -10378,6 +14882,108 @@ export namespace Prisma {
     upsert?: UserUpsertWithoutEventsOrganizedInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutEventsOrganizedInput, UserUpdateWithoutEventsOrganizedInput>, UserUncheckedUpdateWithoutEventsOrganizedInput>
+  }
+
+  export type UserCreateNestedOneWithoutArticlesInput = {
+    create?: XOR<UserCreateWithoutArticlesInput, UserUncheckedCreateWithoutArticlesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutArticlesInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type ArticleReadCreateNestedManyWithoutArticleInput = {
+    create?: XOR<ArticleReadCreateWithoutArticleInput, ArticleReadUncheckedCreateWithoutArticleInput> | ArticleReadCreateWithoutArticleInput[] | ArticleReadUncheckedCreateWithoutArticleInput[]
+    connectOrCreate?: ArticleReadCreateOrConnectWithoutArticleInput | ArticleReadCreateOrConnectWithoutArticleInput[]
+    createMany?: ArticleReadCreateManyArticleInputEnvelope
+    connect?: ArticleReadWhereUniqueInput | ArticleReadWhereUniqueInput[]
+  }
+
+  export type ArticleReadUncheckedCreateNestedManyWithoutArticleInput = {
+    create?: XOR<ArticleReadCreateWithoutArticleInput, ArticleReadUncheckedCreateWithoutArticleInput> | ArticleReadCreateWithoutArticleInput[] | ArticleReadUncheckedCreateWithoutArticleInput[]
+    connectOrCreate?: ArticleReadCreateOrConnectWithoutArticleInput | ArticleReadCreateOrConnectWithoutArticleInput[]
+    createMany?: ArticleReadCreateManyArticleInputEnvelope
+    connect?: ArticleReadWhereUniqueInput | ArticleReadWhereUniqueInput[]
+  }
+
+  export type UserUpdateOneRequiredWithoutArticlesNestedInput = {
+    create?: XOR<UserCreateWithoutArticlesInput, UserUncheckedCreateWithoutArticlesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutArticlesInput
+    upsert?: UserUpsertWithoutArticlesInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutArticlesInput, UserUpdateWithoutArticlesInput>, UserUncheckedUpdateWithoutArticlesInput>
+  }
+
+  export type ArticleReadUpdateManyWithoutArticleNestedInput = {
+    create?: XOR<ArticleReadCreateWithoutArticleInput, ArticleReadUncheckedCreateWithoutArticleInput> | ArticleReadCreateWithoutArticleInput[] | ArticleReadUncheckedCreateWithoutArticleInput[]
+    connectOrCreate?: ArticleReadCreateOrConnectWithoutArticleInput | ArticleReadCreateOrConnectWithoutArticleInput[]
+    upsert?: ArticleReadUpsertWithWhereUniqueWithoutArticleInput | ArticleReadUpsertWithWhereUniqueWithoutArticleInput[]
+    createMany?: ArticleReadCreateManyArticleInputEnvelope
+    set?: ArticleReadWhereUniqueInput | ArticleReadWhereUniqueInput[]
+    disconnect?: ArticleReadWhereUniqueInput | ArticleReadWhereUniqueInput[]
+    delete?: ArticleReadWhereUniqueInput | ArticleReadWhereUniqueInput[]
+    connect?: ArticleReadWhereUniqueInput | ArticleReadWhereUniqueInput[]
+    update?: ArticleReadUpdateWithWhereUniqueWithoutArticleInput | ArticleReadUpdateWithWhereUniqueWithoutArticleInput[]
+    updateMany?: ArticleReadUpdateManyWithWhereWithoutArticleInput | ArticleReadUpdateManyWithWhereWithoutArticleInput[]
+    deleteMany?: ArticleReadScalarWhereInput | ArticleReadScalarWhereInput[]
+  }
+
+  export type ArticleReadUncheckedUpdateManyWithoutArticleNestedInput = {
+    create?: XOR<ArticleReadCreateWithoutArticleInput, ArticleReadUncheckedCreateWithoutArticleInput> | ArticleReadCreateWithoutArticleInput[] | ArticleReadUncheckedCreateWithoutArticleInput[]
+    connectOrCreate?: ArticleReadCreateOrConnectWithoutArticleInput | ArticleReadCreateOrConnectWithoutArticleInput[]
+    upsert?: ArticleReadUpsertWithWhereUniqueWithoutArticleInput | ArticleReadUpsertWithWhereUniqueWithoutArticleInput[]
+    createMany?: ArticleReadCreateManyArticleInputEnvelope
+    set?: ArticleReadWhereUniqueInput | ArticleReadWhereUniqueInput[]
+    disconnect?: ArticleReadWhereUniqueInput | ArticleReadWhereUniqueInput[]
+    delete?: ArticleReadWhereUniqueInput | ArticleReadWhereUniqueInput[]
+    connect?: ArticleReadWhereUniqueInput | ArticleReadWhereUniqueInput[]
+    update?: ArticleReadUpdateWithWhereUniqueWithoutArticleInput | ArticleReadUpdateWithWhereUniqueWithoutArticleInput[]
+    updateMany?: ArticleReadUpdateManyWithWhereWithoutArticleInput | ArticleReadUpdateManyWithWhereWithoutArticleInput[]
+    deleteMany?: ArticleReadScalarWhereInput | ArticleReadScalarWhereInput[]
+  }
+
+  export type UserCreateNestedOneWithoutArticleReadsInput = {
+    create?: XOR<UserCreateWithoutArticleReadsInput, UserUncheckedCreateWithoutArticleReadsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutArticleReadsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type ArticleCreateNestedOneWithoutReadersInput = {
+    create?: XOR<ArticleCreateWithoutReadersInput, ArticleUncheckedCreateWithoutReadersInput>
+    connectOrCreate?: ArticleCreateOrConnectWithoutReadersInput
+    connect?: ArticleWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutArticleReadsNestedInput = {
+    create?: XOR<UserCreateWithoutArticleReadsInput, UserUncheckedCreateWithoutArticleReadsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutArticleReadsInput
+    upsert?: UserUpsertWithoutArticleReadsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutArticleReadsInput, UserUpdateWithoutArticleReadsInput>, UserUncheckedUpdateWithoutArticleReadsInput>
+  }
+
+  export type ArticleUpdateOneRequiredWithoutReadersNestedInput = {
+    create?: XOR<ArticleCreateWithoutReadersInput, ArticleUncheckedCreateWithoutReadersInput>
+    connectOrCreate?: ArticleCreateOrConnectWithoutReadersInput
+    upsert?: ArticleUpsertWithoutReadersInput
+    connect?: ArticleWhereUniqueInput
+    update?: XOR<XOR<ArticleUpdateToOneWithWhereWithoutReadersInput, ArticleUpdateWithoutReadersInput>, ArticleUncheckedUpdateWithoutReadersInput>
+  }
+
+  export type UserCreateNestedOneWithoutPointActionsInput = {
+    create?: XOR<UserCreateWithoutPointActionsInput, UserUncheckedCreateWithoutPointActionsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutPointActionsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type EnumPointActionTypeFieldUpdateOperationsInput = {
+    set?: $Enums.PointActionType
+  }
+
+  export type UserUpdateOneRequiredWithoutPointActionsNestedInput = {
+    create?: XOR<UserCreateWithoutPointActionsInput, UserUncheckedCreateWithoutPointActionsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutPointActionsInput
+    upsert?: UserUpsertWithoutPointActionsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutPointActionsInput, UserUpdateWithoutPointActionsInput>, UserUncheckedUpdateWithoutPointActionsInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -10642,6 +15248,23 @@ export namespace Prisma {
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
+  export type NestedEnumPointActionTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.PointActionType | EnumPointActionTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.PointActionType[] | ListEnumPointActionTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PointActionType[] | ListEnumPointActionTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumPointActionTypeFilter<$PrismaModel> | $Enums.PointActionType
+  }
+
+  export type NestedEnumPointActionTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.PointActionType | EnumPointActionTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.PointActionType[] | ListEnumPointActionTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PointActionType[] | ListEnumPointActionTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumPointActionTypeWithAggregatesFilter<$PrismaModel> | $Enums.PointActionType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumPointActionTypeFilter<$PrismaModel>
+    _max?: NestedEnumPointActionTypeFilter<$PrismaModel>
+  }
+
   export type LobbyCreateWithoutOwnerInput = {
     id?: string
     title: string
@@ -10777,6 +15400,86 @@ export namespace Prisma {
 
   export type EventCreateManyOrganizerInputEnvelope = {
     data: EventCreateManyOrganizerInput | EventCreateManyOrganizerInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ArticleCreateWithoutAuthorInput = {
+    id?: string
+    title: string
+    content: string
+    summary?: string | null
+    readCount?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    readers?: ArticleReadCreateNestedManyWithoutArticleInput
+  }
+
+  export type ArticleUncheckedCreateWithoutAuthorInput = {
+    id?: string
+    title: string
+    content: string
+    summary?: string | null
+    readCount?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    readers?: ArticleReadUncheckedCreateNestedManyWithoutArticleInput
+  }
+
+  export type ArticleCreateOrConnectWithoutAuthorInput = {
+    where: ArticleWhereUniqueInput
+    create: XOR<ArticleCreateWithoutAuthorInput, ArticleUncheckedCreateWithoutAuthorInput>
+  }
+
+  export type ArticleCreateManyAuthorInputEnvelope = {
+    data: ArticleCreateManyAuthorInput | ArticleCreateManyAuthorInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ArticleReadCreateWithoutUserInput = {
+    id?: string
+    readAt?: Date | string
+    article: ArticleCreateNestedOneWithoutReadersInput
+  }
+
+  export type ArticleReadUncheckedCreateWithoutUserInput = {
+    id?: string
+    articleId: string
+    readAt?: Date | string
+  }
+
+  export type ArticleReadCreateOrConnectWithoutUserInput = {
+    where: ArticleReadWhereUniqueInput
+    create: XOR<ArticleReadCreateWithoutUserInput, ArticleReadUncheckedCreateWithoutUserInput>
+  }
+
+  export type ArticleReadCreateManyUserInputEnvelope = {
+    data: ArticleReadCreateManyUserInput | ArticleReadCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type PointActionCreateWithoutUserInput = {
+    id?: string
+    action: $Enums.PointActionType
+    points: number
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type PointActionUncheckedCreateWithoutUserInput = {
+    id?: string
+    action: $Enums.PointActionType
+    points: number
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type PointActionCreateOrConnectWithoutUserInput = {
+    where: PointActionWhereUniqueInput
+    create: XOR<PointActionCreateWithoutUserInput, PointActionUncheckedCreateWithoutUserInput>
+  }
+
+  export type PointActionCreateManyUserInputEnvelope = {
+    data: PointActionCreateManyUserInput | PointActionCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -10923,6 +15626,90 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Event"> | Date | string
   }
 
+  export type ArticleUpsertWithWhereUniqueWithoutAuthorInput = {
+    where: ArticleWhereUniqueInput
+    update: XOR<ArticleUpdateWithoutAuthorInput, ArticleUncheckedUpdateWithoutAuthorInput>
+    create: XOR<ArticleCreateWithoutAuthorInput, ArticleUncheckedCreateWithoutAuthorInput>
+  }
+
+  export type ArticleUpdateWithWhereUniqueWithoutAuthorInput = {
+    where: ArticleWhereUniqueInput
+    data: XOR<ArticleUpdateWithoutAuthorInput, ArticleUncheckedUpdateWithoutAuthorInput>
+  }
+
+  export type ArticleUpdateManyWithWhereWithoutAuthorInput = {
+    where: ArticleScalarWhereInput
+    data: XOR<ArticleUpdateManyMutationInput, ArticleUncheckedUpdateManyWithoutAuthorInput>
+  }
+
+  export type ArticleScalarWhereInput = {
+    AND?: ArticleScalarWhereInput | ArticleScalarWhereInput[]
+    OR?: ArticleScalarWhereInput[]
+    NOT?: ArticleScalarWhereInput | ArticleScalarWhereInput[]
+    id?: StringFilter<"Article"> | string
+    title?: StringFilter<"Article"> | string
+    content?: StringFilter<"Article"> | string
+    summary?: StringNullableFilter<"Article"> | string | null
+    authorId?: StringFilter<"Article"> | string
+    readCount?: IntFilter<"Article"> | number
+    createdAt?: DateTimeFilter<"Article"> | Date | string
+    updatedAt?: DateTimeFilter<"Article"> | Date | string
+  }
+
+  export type ArticleReadUpsertWithWhereUniqueWithoutUserInput = {
+    where: ArticleReadWhereUniqueInput
+    update: XOR<ArticleReadUpdateWithoutUserInput, ArticleReadUncheckedUpdateWithoutUserInput>
+    create: XOR<ArticleReadCreateWithoutUserInput, ArticleReadUncheckedCreateWithoutUserInput>
+  }
+
+  export type ArticleReadUpdateWithWhereUniqueWithoutUserInput = {
+    where: ArticleReadWhereUniqueInput
+    data: XOR<ArticleReadUpdateWithoutUserInput, ArticleReadUncheckedUpdateWithoutUserInput>
+  }
+
+  export type ArticleReadUpdateManyWithWhereWithoutUserInput = {
+    where: ArticleReadScalarWhereInput
+    data: XOR<ArticleReadUpdateManyMutationInput, ArticleReadUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type ArticleReadScalarWhereInput = {
+    AND?: ArticleReadScalarWhereInput | ArticleReadScalarWhereInput[]
+    OR?: ArticleReadScalarWhereInput[]
+    NOT?: ArticleReadScalarWhereInput | ArticleReadScalarWhereInput[]
+    id?: StringFilter<"ArticleRead"> | string
+    userId?: StringFilter<"ArticleRead"> | string
+    articleId?: StringFilter<"ArticleRead"> | string
+    readAt?: DateTimeFilter<"ArticleRead"> | Date | string
+  }
+
+  export type PointActionUpsertWithWhereUniqueWithoutUserInput = {
+    where: PointActionWhereUniqueInput
+    update: XOR<PointActionUpdateWithoutUserInput, PointActionUncheckedUpdateWithoutUserInput>
+    create: XOR<PointActionCreateWithoutUserInput, PointActionUncheckedCreateWithoutUserInput>
+  }
+
+  export type PointActionUpdateWithWhereUniqueWithoutUserInput = {
+    where: PointActionWhereUniqueInput
+    data: XOR<PointActionUpdateWithoutUserInput, PointActionUncheckedUpdateWithoutUserInput>
+  }
+
+  export type PointActionUpdateManyWithWhereWithoutUserInput = {
+    where: PointActionScalarWhereInput
+    data: XOR<PointActionUpdateManyMutationInput, PointActionUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type PointActionScalarWhereInput = {
+    AND?: PointActionScalarWhereInput | PointActionScalarWhereInput[]
+    OR?: PointActionScalarWhereInput[]
+    NOT?: PointActionScalarWhereInput | PointActionScalarWhereInput[]
+    id?: StringFilter<"PointAction"> | string
+    userId?: StringFilter<"PointAction"> | string
+    action?: EnumPointActionTypeFilter<"PointAction"> | $Enums.PointActionType
+    points?: IntFilter<"PointAction"> | number
+    metadata?: JsonNullableFilter<"PointAction">
+    createdAt?: DateTimeFilter<"PointAction"> | Date | string
+  }
+
   export type UserCreateWithoutLobbiesHostedInput = {
     id?: string
     clerkId: string
@@ -10934,12 +15721,16 @@ export namespace Prisma {
     role?: $Enums.Role
     techStack?: NullableJsonNullValueInput | InputJsonValue
     points?: number
+    lastLoginAt?: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
     lobbyParticipation?: LobbyParticipantCreateNestedManyWithoutUserInput
     podcasts?: PodcastCreateNestedManyWithoutHostInput
     memes?: MemeCreateNestedManyWithoutAuthorInput
     eventsOrganized?: EventCreateNestedManyWithoutOrganizerInput
+    articles?: ArticleCreateNestedManyWithoutAuthorInput
+    articleReads?: ArticleReadCreateNestedManyWithoutUserInput
+    pointActions?: PointActionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutLobbiesHostedInput = {
@@ -10953,12 +15744,16 @@ export namespace Prisma {
     role?: $Enums.Role
     techStack?: NullableJsonNullValueInput | InputJsonValue
     points?: number
+    lastLoginAt?: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
     lobbyParticipation?: LobbyParticipantUncheckedCreateNestedManyWithoutUserInput
     podcasts?: PodcastUncheckedCreateNestedManyWithoutHostInput
     memes?: MemeUncheckedCreateNestedManyWithoutAuthorInput
     eventsOrganized?: EventUncheckedCreateNestedManyWithoutOrganizerInput
+    articles?: ArticleUncheckedCreateNestedManyWithoutAuthorInput
+    articleReads?: ArticleReadUncheckedCreateNestedManyWithoutUserInput
+    pointActions?: PointActionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutLobbiesHostedInput = {
@@ -11010,12 +15805,16 @@ export namespace Prisma {
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     techStack?: NullableJsonNullValueInput | InputJsonValue
     points?: IntFieldUpdateOperationsInput | number
+    lastLoginAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lobbyParticipation?: LobbyParticipantUpdateManyWithoutUserNestedInput
     podcasts?: PodcastUpdateManyWithoutHostNestedInput
     memes?: MemeUpdateManyWithoutAuthorNestedInput
     eventsOrganized?: EventUpdateManyWithoutOrganizerNestedInput
+    articles?: ArticleUpdateManyWithoutAuthorNestedInput
+    articleReads?: ArticleReadUpdateManyWithoutUserNestedInput
+    pointActions?: PointActionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutLobbiesHostedInput = {
@@ -11029,12 +15828,16 @@ export namespace Prisma {
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     techStack?: NullableJsonNullValueInput | InputJsonValue
     points?: IntFieldUpdateOperationsInput | number
+    lastLoginAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lobbyParticipation?: LobbyParticipantUncheckedUpdateManyWithoutUserNestedInput
     podcasts?: PodcastUncheckedUpdateManyWithoutHostNestedInput
     memes?: MemeUncheckedUpdateManyWithoutAuthorNestedInput
     eventsOrganized?: EventUncheckedUpdateManyWithoutOrganizerNestedInput
+    articles?: ArticleUncheckedUpdateManyWithoutAuthorNestedInput
+    articleReads?: ArticleReadUncheckedUpdateManyWithoutUserNestedInput
+    pointActions?: PointActionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type LobbyParticipantUpsertWithWhereUniqueWithoutLobbyInput = {
@@ -11095,12 +15898,16 @@ export namespace Prisma {
     role?: $Enums.Role
     techStack?: NullableJsonNullValueInput | InputJsonValue
     points?: number
+    lastLoginAt?: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
     lobbiesHosted?: LobbyCreateNestedManyWithoutOwnerInput
     podcasts?: PodcastCreateNestedManyWithoutHostInput
     memes?: MemeCreateNestedManyWithoutAuthorInput
     eventsOrganized?: EventCreateNestedManyWithoutOrganizerInput
+    articles?: ArticleCreateNestedManyWithoutAuthorInput
+    articleReads?: ArticleReadCreateNestedManyWithoutUserInput
+    pointActions?: PointActionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutLobbyParticipationInput = {
@@ -11114,12 +15921,16 @@ export namespace Prisma {
     role?: $Enums.Role
     techStack?: NullableJsonNullValueInput | InputJsonValue
     points?: number
+    lastLoginAt?: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
     lobbiesHosted?: LobbyUncheckedCreateNestedManyWithoutOwnerInput
     podcasts?: PodcastUncheckedCreateNestedManyWithoutHostInput
     memes?: MemeUncheckedCreateNestedManyWithoutAuthorInput
     eventsOrganized?: EventUncheckedCreateNestedManyWithoutOrganizerInput
+    articles?: ArticleUncheckedCreateNestedManyWithoutAuthorInput
+    articleReads?: ArticleReadUncheckedCreateNestedManyWithoutUserInput
+    pointActions?: PointActionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutLobbyParticipationInput = {
@@ -11186,12 +15997,16 @@ export namespace Prisma {
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     techStack?: NullableJsonNullValueInput | InputJsonValue
     points?: IntFieldUpdateOperationsInput | number
+    lastLoginAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lobbiesHosted?: LobbyUpdateManyWithoutOwnerNestedInput
     podcasts?: PodcastUpdateManyWithoutHostNestedInput
     memes?: MemeUpdateManyWithoutAuthorNestedInput
     eventsOrganized?: EventUpdateManyWithoutOrganizerNestedInput
+    articles?: ArticleUpdateManyWithoutAuthorNestedInput
+    articleReads?: ArticleReadUpdateManyWithoutUserNestedInput
+    pointActions?: PointActionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutLobbyParticipationInput = {
@@ -11205,12 +16020,16 @@ export namespace Prisma {
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     techStack?: NullableJsonNullValueInput | InputJsonValue
     points?: IntFieldUpdateOperationsInput | number
+    lastLoginAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lobbiesHosted?: LobbyUncheckedUpdateManyWithoutOwnerNestedInput
     podcasts?: PodcastUncheckedUpdateManyWithoutHostNestedInput
     memes?: MemeUncheckedUpdateManyWithoutAuthorNestedInput
     eventsOrganized?: EventUncheckedUpdateManyWithoutOrganizerNestedInput
+    articles?: ArticleUncheckedUpdateManyWithoutAuthorNestedInput
+    articleReads?: ArticleReadUncheckedUpdateManyWithoutUserNestedInput
+    pointActions?: PointActionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutMemesInput = {
@@ -11224,12 +16043,16 @@ export namespace Prisma {
     role?: $Enums.Role
     techStack?: NullableJsonNullValueInput | InputJsonValue
     points?: number
+    lastLoginAt?: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
     lobbiesHosted?: LobbyCreateNestedManyWithoutOwnerInput
     lobbyParticipation?: LobbyParticipantCreateNestedManyWithoutUserInput
     podcasts?: PodcastCreateNestedManyWithoutHostInput
     eventsOrganized?: EventCreateNestedManyWithoutOrganizerInput
+    articles?: ArticleCreateNestedManyWithoutAuthorInput
+    articleReads?: ArticleReadCreateNestedManyWithoutUserInput
+    pointActions?: PointActionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutMemesInput = {
@@ -11243,12 +16066,16 @@ export namespace Prisma {
     role?: $Enums.Role
     techStack?: NullableJsonNullValueInput | InputJsonValue
     points?: number
+    lastLoginAt?: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
     lobbiesHosted?: LobbyUncheckedCreateNestedManyWithoutOwnerInput
     lobbyParticipation?: LobbyParticipantUncheckedCreateNestedManyWithoutUserInput
     podcasts?: PodcastUncheckedCreateNestedManyWithoutHostInput
     eventsOrganized?: EventUncheckedCreateNestedManyWithoutOrganizerInput
+    articles?: ArticleUncheckedCreateNestedManyWithoutAuthorInput
+    articleReads?: ArticleReadUncheckedCreateNestedManyWithoutUserInput
+    pointActions?: PointActionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutMemesInput = {
@@ -11278,12 +16105,16 @@ export namespace Prisma {
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     techStack?: NullableJsonNullValueInput | InputJsonValue
     points?: IntFieldUpdateOperationsInput | number
+    lastLoginAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lobbiesHosted?: LobbyUpdateManyWithoutOwnerNestedInput
     lobbyParticipation?: LobbyParticipantUpdateManyWithoutUserNestedInput
     podcasts?: PodcastUpdateManyWithoutHostNestedInput
     eventsOrganized?: EventUpdateManyWithoutOrganizerNestedInput
+    articles?: ArticleUpdateManyWithoutAuthorNestedInput
+    articleReads?: ArticleReadUpdateManyWithoutUserNestedInput
+    pointActions?: PointActionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutMemesInput = {
@@ -11297,12 +16128,16 @@ export namespace Prisma {
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     techStack?: NullableJsonNullValueInput | InputJsonValue
     points?: IntFieldUpdateOperationsInput | number
+    lastLoginAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lobbiesHosted?: LobbyUncheckedUpdateManyWithoutOwnerNestedInput
     lobbyParticipation?: LobbyParticipantUncheckedUpdateManyWithoutUserNestedInput
     podcasts?: PodcastUncheckedUpdateManyWithoutHostNestedInput
     eventsOrganized?: EventUncheckedUpdateManyWithoutOrganizerNestedInput
+    articles?: ArticleUncheckedUpdateManyWithoutAuthorNestedInput
+    articleReads?: ArticleReadUncheckedUpdateManyWithoutUserNestedInput
+    pointActions?: PointActionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutPodcastsInput = {
@@ -11316,12 +16151,16 @@ export namespace Prisma {
     role?: $Enums.Role
     techStack?: NullableJsonNullValueInput | InputJsonValue
     points?: number
+    lastLoginAt?: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
     lobbiesHosted?: LobbyCreateNestedManyWithoutOwnerInput
     lobbyParticipation?: LobbyParticipantCreateNestedManyWithoutUserInput
     memes?: MemeCreateNestedManyWithoutAuthorInput
     eventsOrganized?: EventCreateNestedManyWithoutOrganizerInput
+    articles?: ArticleCreateNestedManyWithoutAuthorInput
+    articleReads?: ArticleReadCreateNestedManyWithoutUserInput
+    pointActions?: PointActionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutPodcastsInput = {
@@ -11335,12 +16174,16 @@ export namespace Prisma {
     role?: $Enums.Role
     techStack?: NullableJsonNullValueInput | InputJsonValue
     points?: number
+    lastLoginAt?: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
     lobbiesHosted?: LobbyUncheckedCreateNestedManyWithoutOwnerInput
     lobbyParticipation?: LobbyParticipantUncheckedCreateNestedManyWithoutUserInput
     memes?: MemeUncheckedCreateNestedManyWithoutAuthorInput
     eventsOrganized?: EventUncheckedCreateNestedManyWithoutOrganizerInput
+    articles?: ArticleUncheckedCreateNestedManyWithoutAuthorInput
+    articleReads?: ArticleReadUncheckedCreateNestedManyWithoutUserInput
+    pointActions?: PointActionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutPodcastsInput = {
@@ -11370,12 +16213,16 @@ export namespace Prisma {
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     techStack?: NullableJsonNullValueInput | InputJsonValue
     points?: IntFieldUpdateOperationsInput | number
+    lastLoginAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lobbiesHosted?: LobbyUpdateManyWithoutOwnerNestedInput
     lobbyParticipation?: LobbyParticipantUpdateManyWithoutUserNestedInput
     memes?: MemeUpdateManyWithoutAuthorNestedInput
     eventsOrganized?: EventUpdateManyWithoutOrganizerNestedInput
+    articles?: ArticleUpdateManyWithoutAuthorNestedInput
+    articleReads?: ArticleReadUpdateManyWithoutUserNestedInput
+    pointActions?: PointActionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPodcastsInput = {
@@ -11389,12 +16236,16 @@ export namespace Prisma {
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     techStack?: NullableJsonNullValueInput | InputJsonValue
     points?: IntFieldUpdateOperationsInput | number
+    lastLoginAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lobbiesHosted?: LobbyUncheckedUpdateManyWithoutOwnerNestedInput
     lobbyParticipation?: LobbyParticipantUncheckedUpdateManyWithoutUserNestedInput
     memes?: MemeUncheckedUpdateManyWithoutAuthorNestedInput
     eventsOrganized?: EventUncheckedUpdateManyWithoutOrganizerNestedInput
+    articles?: ArticleUncheckedUpdateManyWithoutAuthorNestedInput
+    articleReads?: ArticleReadUncheckedUpdateManyWithoutUserNestedInput
+    pointActions?: PointActionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutEventsOrganizedInput = {
@@ -11408,12 +16259,16 @@ export namespace Prisma {
     role?: $Enums.Role
     techStack?: NullableJsonNullValueInput | InputJsonValue
     points?: number
+    lastLoginAt?: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
     lobbiesHosted?: LobbyCreateNestedManyWithoutOwnerInput
     lobbyParticipation?: LobbyParticipantCreateNestedManyWithoutUserInput
     podcasts?: PodcastCreateNestedManyWithoutHostInput
     memes?: MemeCreateNestedManyWithoutAuthorInput
+    articles?: ArticleCreateNestedManyWithoutAuthorInput
+    articleReads?: ArticleReadCreateNestedManyWithoutUserInput
+    pointActions?: PointActionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutEventsOrganizedInput = {
@@ -11427,12 +16282,16 @@ export namespace Prisma {
     role?: $Enums.Role
     techStack?: NullableJsonNullValueInput | InputJsonValue
     points?: number
+    lastLoginAt?: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
     lobbiesHosted?: LobbyUncheckedCreateNestedManyWithoutOwnerInput
     lobbyParticipation?: LobbyParticipantUncheckedCreateNestedManyWithoutUserInput
     podcasts?: PodcastUncheckedCreateNestedManyWithoutHostInput
     memes?: MemeUncheckedCreateNestedManyWithoutAuthorInput
+    articles?: ArticleUncheckedCreateNestedManyWithoutAuthorInput
+    articleReads?: ArticleReadUncheckedCreateNestedManyWithoutUserInput
+    pointActions?: PointActionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutEventsOrganizedInput = {
@@ -11462,12 +16321,16 @@ export namespace Prisma {
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     techStack?: NullableJsonNullValueInput | InputJsonValue
     points?: IntFieldUpdateOperationsInput | number
+    lastLoginAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lobbiesHosted?: LobbyUpdateManyWithoutOwnerNestedInput
     lobbyParticipation?: LobbyParticipantUpdateManyWithoutUserNestedInput
     podcasts?: PodcastUpdateManyWithoutHostNestedInput
     memes?: MemeUpdateManyWithoutAuthorNestedInput
+    articles?: ArticleUpdateManyWithoutAuthorNestedInput
+    articleReads?: ArticleReadUpdateManyWithoutUserNestedInput
+    pointActions?: PointActionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutEventsOrganizedInput = {
@@ -11481,12 +16344,438 @@ export namespace Prisma {
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     techStack?: NullableJsonNullValueInput | InputJsonValue
     points?: IntFieldUpdateOperationsInput | number
+    lastLoginAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lobbiesHosted?: LobbyUncheckedUpdateManyWithoutOwnerNestedInput
     lobbyParticipation?: LobbyParticipantUncheckedUpdateManyWithoutUserNestedInput
     podcasts?: PodcastUncheckedUpdateManyWithoutHostNestedInput
     memes?: MemeUncheckedUpdateManyWithoutAuthorNestedInput
+    articles?: ArticleUncheckedUpdateManyWithoutAuthorNestedInput
+    articleReads?: ArticleReadUncheckedUpdateManyWithoutUserNestedInput
+    pointActions?: PointActionUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserCreateWithoutArticlesInput = {
+    id?: string
+    clerkId: string
+    email: string
+    firstName?: string | null
+    lastName?: string | null
+    imageUrl?: string | null
+    bio?: string | null
+    role?: $Enums.Role
+    techStack?: NullableJsonNullValueInput | InputJsonValue
+    points?: number
+    lastLoginAt?: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    lobbiesHosted?: LobbyCreateNestedManyWithoutOwnerInput
+    lobbyParticipation?: LobbyParticipantCreateNestedManyWithoutUserInput
+    podcasts?: PodcastCreateNestedManyWithoutHostInput
+    memes?: MemeCreateNestedManyWithoutAuthorInput
+    eventsOrganized?: EventCreateNestedManyWithoutOrganizerInput
+    articleReads?: ArticleReadCreateNestedManyWithoutUserInput
+    pointActions?: PointActionCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutArticlesInput = {
+    id?: string
+    clerkId: string
+    email: string
+    firstName?: string | null
+    lastName?: string | null
+    imageUrl?: string | null
+    bio?: string | null
+    role?: $Enums.Role
+    techStack?: NullableJsonNullValueInput | InputJsonValue
+    points?: number
+    lastLoginAt?: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    lobbiesHosted?: LobbyUncheckedCreateNestedManyWithoutOwnerInput
+    lobbyParticipation?: LobbyParticipantUncheckedCreateNestedManyWithoutUserInput
+    podcasts?: PodcastUncheckedCreateNestedManyWithoutHostInput
+    memes?: MemeUncheckedCreateNestedManyWithoutAuthorInput
+    eventsOrganized?: EventUncheckedCreateNestedManyWithoutOrganizerInput
+    articleReads?: ArticleReadUncheckedCreateNestedManyWithoutUserInput
+    pointActions?: PointActionUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutArticlesInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutArticlesInput, UserUncheckedCreateWithoutArticlesInput>
+  }
+
+  export type ArticleReadCreateWithoutArticleInput = {
+    id?: string
+    readAt?: Date | string
+    user: UserCreateNestedOneWithoutArticleReadsInput
+  }
+
+  export type ArticleReadUncheckedCreateWithoutArticleInput = {
+    id?: string
+    userId: string
+    readAt?: Date | string
+  }
+
+  export type ArticleReadCreateOrConnectWithoutArticleInput = {
+    where: ArticleReadWhereUniqueInput
+    create: XOR<ArticleReadCreateWithoutArticleInput, ArticleReadUncheckedCreateWithoutArticleInput>
+  }
+
+  export type ArticleReadCreateManyArticleInputEnvelope = {
+    data: ArticleReadCreateManyArticleInput | ArticleReadCreateManyArticleInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type UserUpsertWithoutArticlesInput = {
+    update: XOR<UserUpdateWithoutArticlesInput, UserUncheckedUpdateWithoutArticlesInput>
+    create: XOR<UserCreateWithoutArticlesInput, UserUncheckedCreateWithoutArticlesInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutArticlesInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutArticlesInput, UserUncheckedUpdateWithoutArticlesInput>
+  }
+
+  export type UserUpdateWithoutArticlesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    clerkId?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    techStack?: NullableJsonNullValueInput | InputJsonValue
+    points?: IntFieldUpdateOperationsInput | number
+    lastLoginAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lobbiesHosted?: LobbyUpdateManyWithoutOwnerNestedInput
+    lobbyParticipation?: LobbyParticipantUpdateManyWithoutUserNestedInput
+    podcasts?: PodcastUpdateManyWithoutHostNestedInput
+    memes?: MemeUpdateManyWithoutAuthorNestedInput
+    eventsOrganized?: EventUpdateManyWithoutOrganizerNestedInput
+    articleReads?: ArticleReadUpdateManyWithoutUserNestedInput
+    pointActions?: PointActionUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutArticlesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    clerkId?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    techStack?: NullableJsonNullValueInput | InputJsonValue
+    points?: IntFieldUpdateOperationsInput | number
+    lastLoginAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lobbiesHosted?: LobbyUncheckedUpdateManyWithoutOwnerNestedInput
+    lobbyParticipation?: LobbyParticipantUncheckedUpdateManyWithoutUserNestedInput
+    podcasts?: PodcastUncheckedUpdateManyWithoutHostNestedInput
+    memes?: MemeUncheckedUpdateManyWithoutAuthorNestedInput
+    eventsOrganized?: EventUncheckedUpdateManyWithoutOrganizerNestedInput
+    articleReads?: ArticleReadUncheckedUpdateManyWithoutUserNestedInput
+    pointActions?: PointActionUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type ArticleReadUpsertWithWhereUniqueWithoutArticleInput = {
+    where: ArticleReadWhereUniqueInput
+    update: XOR<ArticleReadUpdateWithoutArticleInput, ArticleReadUncheckedUpdateWithoutArticleInput>
+    create: XOR<ArticleReadCreateWithoutArticleInput, ArticleReadUncheckedCreateWithoutArticleInput>
+  }
+
+  export type ArticleReadUpdateWithWhereUniqueWithoutArticleInput = {
+    where: ArticleReadWhereUniqueInput
+    data: XOR<ArticleReadUpdateWithoutArticleInput, ArticleReadUncheckedUpdateWithoutArticleInput>
+  }
+
+  export type ArticleReadUpdateManyWithWhereWithoutArticleInput = {
+    where: ArticleReadScalarWhereInput
+    data: XOR<ArticleReadUpdateManyMutationInput, ArticleReadUncheckedUpdateManyWithoutArticleInput>
+  }
+
+  export type UserCreateWithoutArticleReadsInput = {
+    id?: string
+    clerkId: string
+    email: string
+    firstName?: string | null
+    lastName?: string | null
+    imageUrl?: string | null
+    bio?: string | null
+    role?: $Enums.Role
+    techStack?: NullableJsonNullValueInput | InputJsonValue
+    points?: number
+    lastLoginAt?: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    lobbiesHosted?: LobbyCreateNestedManyWithoutOwnerInput
+    lobbyParticipation?: LobbyParticipantCreateNestedManyWithoutUserInput
+    podcasts?: PodcastCreateNestedManyWithoutHostInput
+    memes?: MemeCreateNestedManyWithoutAuthorInput
+    eventsOrganized?: EventCreateNestedManyWithoutOrganizerInput
+    articles?: ArticleCreateNestedManyWithoutAuthorInput
+    pointActions?: PointActionCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutArticleReadsInput = {
+    id?: string
+    clerkId: string
+    email: string
+    firstName?: string | null
+    lastName?: string | null
+    imageUrl?: string | null
+    bio?: string | null
+    role?: $Enums.Role
+    techStack?: NullableJsonNullValueInput | InputJsonValue
+    points?: number
+    lastLoginAt?: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    lobbiesHosted?: LobbyUncheckedCreateNestedManyWithoutOwnerInput
+    lobbyParticipation?: LobbyParticipantUncheckedCreateNestedManyWithoutUserInput
+    podcasts?: PodcastUncheckedCreateNestedManyWithoutHostInput
+    memes?: MemeUncheckedCreateNestedManyWithoutAuthorInput
+    eventsOrganized?: EventUncheckedCreateNestedManyWithoutOrganizerInput
+    articles?: ArticleUncheckedCreateNestedManyWithoutAuthorInput
+    pointActions?: PointActionUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutArticleReadsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutArticleReadsInput, UserUncheckedCreateWithoutArticleReadsInput>
+  }
+
+  export type ArticleCreateWithoutReadersInput = {
+    id?: string
+    title: string
+    content: string
+    summary?: string | null
+    readCount?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    author: UserCreateNestedOneWithoutArticlesInput
+  }
+
+  export type ArticleUncheckedCreateWithoutReadersInput = {
+    id?: string
+    title: string
+    content: string
+    summary?: string | null
+    authorId: string
+    readCount?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ArticleCreateOrConnectWithoutReadersInput = {
+    where: ArticleWhereUniqueInput
+    create: XOR<ArticleCreateWithoutReadersInput, ArticleUncheckedCreateWithoutReadersInput>
+  }
+
+  export type UserUpsertWithoutArticleReadsInput = {
+    update: XOR<UserUpdateWithoutArticleReadsInput, UserUncheckedUpdateWithoutArticleReadsInput>
+    create: XOR<UserCreateWithoutArticleReadsInput, UserUncheckedCreateWithoutArticleReadsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutArticleReadsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutArticleReadsInput, UserUncheckedUpdateWithoutArticleReadsInput>
+  }
+
+  export type UserUpdateWithoutArticleReadsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    clerkId?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    techStack?: NullableJsonNullValueInput | InputJsonValue
+    points?: IntFieldUpdateOperationsInput | number
+    lastLoginAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lobbiesHosted?: LobbyUpdateManyWithoutOwnerNestedInput
+    lobbyParticipation?: LobbyParticipantUpdateManyWithoutUserNestedInput
+    podcasts?: PodcastUpdateManyWithoutHostNestedInput
+    memes?: MemeUpdateManyWithoutAuthorNestedInput
+    eventsOrganized?: EventUpdateManyWithoutOrganizerNestedInput
+    articles?: ArticleUpdateManyWithoutAuthorNestedInput
+    pointActions?: PointActionUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutArticleReadsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    clerkId?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    techStack?: NullableJsonNullValueInput | InputJsonValue
+    points?: IntFieldUpdateOperationsInput | number
+    lastLoginAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lobbiesHosted?: LobbyUncheckedUpdateManyWithoutOwnerNestedInput
+    lobbyParticipation?: LobbyParticipantUncheckedUpdateManyWithoutUserNestedInput
+    podcasts?: PodcastUncheckedUpdateManyWithoutHostNestedInput
+    memes?: MemeUncheckedUpdateManyWithoutAuthorNestedInput
+    eventsOrganized?: EventUncheckedUpdateManyWithoutOrganizerNestedInput
+    articles?: ArticleUncheckedUpdateManyWithoutAuthorNestedInput
+    pointActions?: PointActionUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type ArticleUpsertWithoutReadersInput = {
+    update: XOR<ArticleUpdateWithoutReadersInput, ArticleUncheckedUpdateWithoutReadersInput>
+    create: XOR<ArticleCreateWithoutReadersInput, ArticleUncheckedCreateWithoutReadersInput>
+    where?: ArticleWhereInput
+  }
+
+  export type ArticleUpdateToOneWithWhereWithoutReadersInput = {
+    where?: ArticleWhereInput
+    data: XOR<ArticleUpdateWithoutReadersInput, ArticleUncheckedUpdateWithoutReadersInput>
+  }
+
+  export type ArticleUpdateWithoutReadersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    summary?: NullableStringFieldUpdateOperationsInput | string | null
+    readCount?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    author?: UserUpdateOneRequiredWithoutArticlesNestedInput
+  }
+
+  export type ArticleUncheckedUpdateWithoutReadersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    summary?: NullableStringFieldUpdateOperationsInput | string | null
+    authorId?: StringFieldUpdateOperationsInput | string
+    readCount?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserCreateWithoutPointActionsInput = {
+    id?: string
+    clerkId: string
+    email: string
+    firstName?: string | null
+    lastName?: string | null
+    imageUrl?: string | null
+    bio?: string | null
+    role?: $Enums.Role
+    techStack?: NullableJsonNullValueInput | InputJsonValue
+    points?: number
+    lastLoginAt?: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    lobbiesHosted?: LobbyCreateNestedManyWithoutOwnerInput
+    lobbyParticipation?: LobbyParticipantCreateNestedManyWithoutUserInput
+    podcasts?: PodcastCreateNestedManyWithoutHostInput
+    memes?: MemeCreateNestedManyWithoutAuthorInput
+    eventsOrganized?: EventCreateNestedManyWithoutOrganizerInput
+    articles?: ArticleCreateNestedManyWithoutAuthorInput
+    articleReads?: ArticleReadCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutPointActionsInput = {
+    id?: string
+    clerkId: string
+    email: string
+    firstName?: string | null
+    lastName?: string | null
+    imageUrl?: string | null
+    bio?: string | null
+    role?: $Enums.Role
+    techStack?: NullableJsonNullValueInput | InputJsonValue
+    points?: number
+    lastLoginAt?: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    lobbiesHosted?: LobbyUncheckedCreateNestedManyWithoutOwnerInput
+    lobbyParticipation?: LobbyParticipantUncheckedCreateNestedManyWithoutUserInput
+    podcasts?: PodcastUncheckedCreateNestedManyWithoutHostInput
+    memes?: MemeUncheckedCreateNestedManyWithoutAuthorInput
+    eventsOrganized?: EventUncheckedCreateNestedManyWithoutOrganizerInput
+    articles?: ArticleUncheckedCreateNestedManyWithoutAuthorInput
+    articleReads?: ArticleReadUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutPointActionsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutPointActionsInput, UserUncheckedCreateWithoutPointActionsInput>
+  }
+
+  export type UserUpsertWithoutPointActionsInput = {
+    update: XOR<UserUpdateWithoutPointActionsInput, UserUncheckedUpdateWithoutPointActionsInput>
+    create: XOR<UserCreateWithoutPointActionsInput, UserUncheckedCreateWithoutPointActionsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutPointActionsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutPointActionsInput, UserUncheckedUpdateWithoutPointActionsInput>
+  }
+
+  export type UserUpdateWithoutPointActionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    clerkId?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    techStack?: NullableJsonNullValueInput | InputJsonValue
+    points?: IntFieldUpdateOperationsInput | number
+    lastLoginAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lobbiesHosted?: LobbyUpdateManyWithoutOwnerNestedInput
+    lobbyParticipation?: LobbyParticipantUpdateManyWithoutUserNestedInput
+    podcasts?: PodcastUpdateManyWithoutHostNestedInput
+    memes?: MemeUpdateManyWithoutAuthorNestedInput
+    eventsOrganized?: EventUpdateManyWithoutOrganizerNestedInput
+    articles?: ArticleUpdateManyWithoutAuthorNestedInput
+    articleReads?: ArticleReadUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutPointActionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    clerkId?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    techStack?: NullableJsonNullValueInput | InputJsonValue
+    points?: IntFieldUpdateOperationsInput | number
+    lastLoginAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lobbiesHosted?: LobbyUncheckedUpdateManyWithoutOwnerNestedInput
+    lobbyParticipation?: LobbyParticipantUncheckedUpdateManyWithoutUserNestedInput
+    podcasts?: PodcastUncheckedUpdateManyWithoutHostNestedInput
+    memes?: MemeUncheckedUpdateManyWithoutAuthorNestedInput
+    eventsOrganized?: EventUncheckedUpdateManyWithoutOrganizerNestedInput
+    articles?: ArticleUncheckedUpdateManyWithoutAuthorNestedInput
+    articleReads?: ArticleReadUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type LobbyCreateManyOwnerInput = {
@@ -11529,6 +16818,30 @@ export namespace Prisma {
     title: string
     description?: string | null
     scheduledFor: Date | string
+    createdAt?: Date | string
+  }
+
+  export type ArticleCreateManyAuthorInput = {
+    id?: string
+    title: string
+    content: string
+    summary?: string | null
+    readCount?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ArticleReadCreateManyUserInput = {
+    id?: string
+    articleId: string
+    readAt?: Date | string
+  }
+
+  export type PointActionCreateManyUserInput = {
+    id?: string
+    action: $Enums.PointActionType
+    points: number
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
   }
 
@@ -11663,6 +16976,80 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type ArticleUpdateWithoutAuthorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    summary?: NullableStringFieldUpdateOperationsInput | string | null
+    readCount?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    readers?: ArticleReadUpdateManyWithoutArticleNestedInput
+  }
+
+  export type ArticleUncheckedUpdateWithoutAuthorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    summary?: NullableStringFieldUpdateOperationsInput | string | null
+    readCount?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    readers?: ArticleReadUncheckedUpdateManyWithoutArticleNestedInput
+  }
+
+  export type ArticleUncheckedUpdateManyWithoutAuthorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    summary?: NullableStringFieldUpdateOperationsInput | string | null
+    readCount?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ArticleReadUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    readAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    article?: ArticleUpdateOneRequiredWithoutReadersNestedInput
+  }
+
+  export type ArticleReadUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    articleId?: StringFieldUpdateOperationsInput | string
+    readAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ArticleReadUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    articleId?: StringFieldUpdateOperationsInput | string
+    readAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PointActionUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    action?: EnumPointActionTypeFieldUpdateOperationsInput | $Enums.PointActionType
+    points?: IntFieldUpdateOperationsInput | number
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PointActionUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    action?: EnumPointActionTypeFieldUpdateOperationsInput | $Enums.PointActionType
+    points?: IntFieldUpdateOperationsInput | number
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PointActionUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    action?: EnumPointActionTypeFieldUpdateOperationsInput | $Enums.PointActionType
+    points?: IntFieldUpdateOperationsInput | number
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type LobbyParticipantCreateManyLobbyInput = {
     userId: string
     role?: $Enums.ParticipantRole
@@ -11685,6 +17072,30 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     role?: EnumParticipantRoleFieldUpdateOperationsInput | $Enums.ParticipantRole
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ArticleReadCreateManyArticleInput = {
+    id?: string
+    userId: string
+    readAt?: Date | string
+  }
+
+  export type ArticleReadUpdateWithoutArticleInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    readAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutArticleReadsNestedInput
+  }
+
+  export type ArticleReadUncheckedUpdateWithoutArticleInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    readAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ArticleReadUncheckedUpdateManyWithoutArticleInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    readAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 

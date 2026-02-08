@@ -4,17 +4,18 @@ import LobbyRoom from "./_components/LobbyRoom";
 import { currentUser } from "@clerk/nextjs/server";
 
 interface Props {
-    params: {
+    params: Promise<{
         id: string;
-    };
+    }>;
 }
 
 export default async function LobbyPage({ params }: Props) {
+    const { id } = await params;
     const user = await currentUser();
     if (!user) return <div>Please sign in to join lobbies.</div>;
 
     const lobby = await db.lobby.findUnique({
-        where: { id: params.id },
+        where: { id },
         include: {
             participants: {
                 include: { user: true }

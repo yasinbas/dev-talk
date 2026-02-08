@@ -24,6 +24,15 @@ enum ParticipantRole {
   LISTENER
 }
 
+enum PointActionType {
+  ARTICLE_READ
+  ARTICLE_PUBLISHED
+  PODCAST_PUBLISHED
+  MEME_PUBLISHED
+  LOBBY_HOSTED
+  DECAY
+}
+
 model User {
   id        String  @id @default(cuid())
   clerkId   String  @unique
@@ -33,9 +42,10 @@ model User {
   imageUrl  String?
   bio       String?
 
-  role      Role  @default(DEVELOPER)
-  techStack Json? // Flexible storage for languages/frameworks
-  points    Int   @default(0)
+  role        Role     @default(DEVELOPER)
+  techStack   Json?
+  points      Int      @default(0)
+  lastLoginAt DateTime @default(now())
 
   // Relations
   lobbiesHosted      Lobby[]
@@ -43,6 +53,9 @@ model User {
   podcasts           Podcast[]
   memes              Meme[]
   eventsOrganized    Event[]
+  articles           Article[]
+  articleReads       ArticleRead[]
+  pointActions       PointAction[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -97,7 +110,7 @@ model Meme {
 
   createdAt DateTime @default(now())
 
-  @@index([createdAt]) // Trending feeds
+  @@index([createdAt])
 }
 
 model Podcast {
@@ -105,7 +118,7 @@ model Podcast {
   title       String
   description String?
   audioUrl    String
-  duration    Int? // Seconds
+  duration    Int?
 
   hostId String
   host   User   @relation(fields: [hostId], references: [id], onDelete: Cascade)
@@ -125,4 +138,52 @@ model Event {
   createdAt DateTime @default(now())
 
   @@index([scheduledFor])
+}
+
+model Article {
+  id      String  @id @default(cuid())
+  title   String
+  content String
+  summary String?
+
+  authorId String
+  author   User   @relation(fields: [authorId], references: [id], onDelete: Cascade)
+
+  readCount Int           @default(0)
+  readers   ArticleRead[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([createdAt])
+}
+
+model ArticleRead {
+  id String @id @default(cuid())
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  articleId String
+  article   Article @relation(fields: [articleId], references: [id], onDelete: Cascade)
+
+  readAt DateTime @default(now())
+
+  @@unique([userId, articleId])
+}
+
+model PointAction {
+  id String @id @default(cuid())
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  action   PointActionType
+  points   Int
+  metadata Json?
+
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@index([createdAt])
 }
