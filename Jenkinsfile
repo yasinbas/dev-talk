@@ -66,8 +66,13 @@ pipeline {
                 script {
                     echo "Waiting for DB..."
                     sh 'sleep 20'
-                    // Sırları sh seviyesinde tutuyoruz
-                    sh 'export PATH=$PATH:/usr/local/bin:/usr/bin && docker exec -e DATABASE_URL="${DATABASE_URL}" devtalk-app npx prisma db push --accept-data-loss'
+                    // DATABASE_URL'i her ihtimale karşı temizleyip (trim) öyle geçiyoruz
+                    sh '''
+                    export PATH=$PATH:/usr/local/bin:/usr/bin
+                    # DATABASE_URL'i her ihtimale karşı temizleyip (trim) öyle geçiyoruz
+                    CLEAN_DB_URL=$(echo "${DATABASE_URL}" | xargs)
+                    docker exec -e DATABASE_URL="${CLEAN_DB_URL}" devtalk-app npx prisma db push --url "${CLEAN_DB_URL}" --accept-data-loss
+                    '''
                 }
             }
         }
