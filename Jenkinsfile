@@ -73,7 +73,9 @@ pipeline {
                     // DATABASE_URL'i her ihtimale karşı temizleyip (trim) öyle geçiyoruz
                     sh '''
                     export PATH=$PATH:/usr/local/bin:/usr/bin
-                    docker exec devtalk-app npx prisma db push --accept-data-loss
+                    # Force internal URL to ensure it doesn't use any leaked .env or host-based IP
+                    INTERNAL_DB_URL="postgresql://devtalk_user:${DB_PASSWORD:-devtalk_pass}@db:5432/devtalk?schema=public"
+                    docker exec -e DATABASE_URL="${INTERNAL_DB_URL}" devtalk-app npx prisma db push --accept-data-loss
                     '''
                     
                 }
