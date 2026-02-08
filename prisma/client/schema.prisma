@@ -55,6 +55,7 @@ model User {
   eventsOrganized    Event[]
   articles           Article[]
   articleReads       ArticleRead[]
+  likes              ArticleLike[]
   pointActions       PointAction[]
 
   createdAt DateTime @default(now())
@@ -149,8 +150,10 @@ model Article {
   authorId String
   author   User   @relation(fields: [authorId], references: [id], onDelete: Cascade)
 
-  readCount Int           @default(0)
-  readers   ArticleRead[]
+  readCount  Int           @default(0)
+  readers    ArticleRead[]
+  likesCount Int           @default(0)
+  likes      ArticleLike[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -168,6 +171,20 @@ model ArticleRead {
   article   Article @relation(fields: [articleId], references: [id], onDelete: Cascade)
 
   readAt DateTime @default(now())
+
+  @@unique([userId, articleId])
+}
+
+model ArticleLike {
+  id String @id @default(cuid())
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  articleId String
+  article   Article @relation(fields: [articleId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
 
   @@unique([userId, articleId])
 }

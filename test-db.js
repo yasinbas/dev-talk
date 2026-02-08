@@ -1,4 +1,6 @@
+/* eslint-disable */
 const { Client } = require('pg');
+
 
 const client = new Client({
     connectionString: 'postgresql://devtalk:password123@localhost:5433/devtalk?schema=public',

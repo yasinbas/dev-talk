@@ -54,6 +54,11 @@ export type Article = $Result.DefaultSelection<Prisma.$ArticlePayload>
  */
 export type ArticleRead = $Result.DefaultSelection<Prisma.$ArticleReadPayload>
 /**
+ * Model ArticleLike
+ * 
+ */
+export type ArticleLike = $Result.DefaultSelection<Prisma.$ArticleLikePayload>
+/**
  * Model PointAction
  * 
  */
@@ -314,6 +319,16 @@ export class PrismaClient<
     * ```
     */
   get articleRead(): Prisma.ArticleReadDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.articleLike`: Exposes CRUD operations for the **ArticleLike** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ArticleLikes
+    * const articleLikes = await prisma.articleLike.findMany()
+    * ```
+    */
+  get articleLike(): Prisma.ArticleLikeDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.pointAction`: Exposes CRUD operations for the **PointAction** model.
@@ -766,6 +781,7 @@ export namespace Prisma {
     Event: 'Event',
     Article: 'Article',
     ArticleRead: 'ArticleRead',
+    ArticleLike: 'ArticleLike',
     PointAction: 'PointAction'
   };
 
@@ -782,7 +798,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "lobby" | "lobbyParticipant" | "meme" | "podcast" | "event" | "article" | "articleRead" | "pointAction"
+      modelProps: "user" | "lobby" | "lobbyParticipant" | "meme" | "podcast" | "event" | "article" | "articleRead" | "articleLike" | "pointAction"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1378,6 +1394,80 @@ export namespace Prisma {
           }
         }
       }
+      ArticleLike: {
+        payload: Prisma.$ArticleLikePayload<ExtArgs>
+        fields: Prisma.ArticleLikeFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ArticleLikeFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArticleLikePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ArticleLikeFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArticleLikePayload>
+          }
+          findFirst: {
+            args: Prisma.ArticleLikeFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArticleLikePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ArticleLikeFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArticleLikePayload>
+          }
+          findMany: {
+            args: Prisma.ArticleLikeFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArticleLikePayload>[]
+          }
+          create: {
+            args: Prisma.ArticleLikeCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArticleLikePayload>
+          }
+          createMany: {
+            args: Prisma.ArticleLikeCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ArticleLikeCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArticleLikePayload>[]
+          }
+          delete: {
+            args: Prisma.ArticleLikeDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArticleLikePayload>
+          }
+          update: {
+            args: Prisma.ArticleLikeUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArticleLikePayload>
+          }
+          deleteMany: {
+            args: Prisma.ArticleLikeDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ArticleLikeUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ArticleLikeUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArticleLikePayload>[]
+          }
+          upsert: {
+            args: Prisma.ArticleLikeUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArticleLikePayload>
+          }
+          aggregate: {
+            args: Prisma.ArticleLikeAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateArticleLike>
+          }
+          groupBy: {
+            args: Prisma.ArticleLikeGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ArticleLikeGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ArticleLikeCountArgs<ExtArgs>
+            result: $Utils.Optional<ArticleLikeCountAggregateOutputType> | number
+          }
+        }
+      }
       PointAction: {
         payload: Prisma.$PointActionPayload<ExtArgs>
         fields: Prisma.PointActionFieldRefs
@@ -1568,6 +1658,7 @@ export namespace Prisma {
     event?: EventOmit
     article?: ArticleOmit
     articleRead?: ArticleReadOmit
+    articleLike?: ArticleLikeOmit
     pointAction?: PointActionOmit
   }
 
@@ -1656,6 +1747,7 @@ export namespace Prisma {
     eventsOrganized: number
     articles: number
     articleReads: number
+    likes: number
     pointActions: number
   }
 
@@ -1667,6 +1759,7 @@ export namespace Prisma {
     eventsOrganized?: boolean | UserCountOutputTypeCountEventsOrganizedArgs
     articles?: boolean | UserCountOutputTypeCountArticlesArgs
     articleReads?: boolean | UserCountOutputTypeCountArticleReadsArgs
+    likes?: boolean | UserCountOutputTypeCountLikesArgs
     pointActions?: boolean | UserCountOutputTypeCountPointActionsArgs
   }
 
@@ -1733,6 +1826,13 @@ export namespace Prisma {
   /**
    * UserCountOutputType without action
    */
+  export type UserCountOutputTypeCountLikesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ArticleLikeWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
   export type UserCountOutputTypeCountPointActionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: PointActionWhereInput
   }
@@ -1775,10 +1875,12 @@ export namespace Prisma {
 
   export type ArticleCountOutputType = {
     readers: number
+    likes: number
   }
 
   export type ArticleCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     readers?: boolean | ArticleCountOutputTypeCountReadersArgs
+    likes?: boolean | ArticleCountOutputTypeCountLikesArgs
   }
 
   // Custom InputTypes
@@ -1797,6 +1899,13 @@ export namespace Prisma {
    */
   export type ArticleCountOutputTypeCountReadersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ArticleReadWhereInput
+  }
+
+  /**
+   * ArticleCountOutputType without action
+   */
+  export type ArticleCountOutputTypeCountLikesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ArticleLikeWhereInput
   }
 
 
@@ -2069,6 +2178,7 @@ export namespace Prisma {
     eventsOrganized?: boolean | User$eventsOrganizedArgs<ExtArgs>
     articles?: boolean | User$articlesArgs<ExtArgs>
     articleReads?: boolean | User$articleReadsArgs<ExtArgs>
+    likes?: boolean | User$likesArgs<ExtArgs>
     pointActions?: boolean | User$pointActionsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
@@ -2130,6 +2240,7 @@ export namespace Prisma {
     eventsOrganized?: boolean | User$eventsOrganizedArgs<ExtArgs>
     articles?: boolean | User$articlesArgs<ExtArgs>
     articleReads?: boolean | User$articleReadsArgs<ExtArgs>
+    likes?: boolean | User$likesArgs<ExtArgs>
     pointActions?: boolean | User$pointActionsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
@@ -2146,6 +2257,7 @@ export namespace Prisma {
       eventsOrganized: Prisma.$EventPayload<ExtArgs>[]
       articles: Prisma.$ArticlePayload<ExtArgs>[]
       articleReads: Prisma.$ArticleReadPayload<ExtArgs>[]
+      likes: Prisma.$ArticleLikePayload<ExtArgs>[]
       pointActions: Prisma.$PointActionPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -2563,6 +2675,7 @@ export namespace Prisma {
     eventsOrganized<T extends User$eventsOrganizedArgs<ExtArgs> = {}>(args?: Subset<T, User$eventsOrganizedArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     articles<T extends User$articlesArgs<ExtArgs> = {}>(args?: Subset<T, User$articlesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ArticlePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     articleReads<T extends User$articleReadsArgs<ExtArgs> = {}>(args?: Subset<T, User$articleReadsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ArticleReadPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    likes<T extends User$likesArgs<ExtArgs> = {}>(args?: Subset<T, User$likesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ArticleLikePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     pointActions<T extends User$pointActionsArgs<ExtArgs> = {}>(args?: Subset<T, User$pointActionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PointActionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -3159,6 +3272,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: ArticleReadScalarFieldEnum | ArticleReadScalarFieldEnum[]
+  }
+
+  /**
+   * User.likes
+   */
+  export type User$likesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ArticleLike
+     */
+    select?: ArticleLikeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ArticleLike
+     */
+    omit?: ArticleLikeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArticleLikeInclude<ExtArgs> | null
+    where?: ArticleLikeWhereInput
+    orderBy?: ArticleLikeOrderByWithRelationInput | ArticleLikeOrderByWithRelationInput[]
+    cursor?: ArticleLikeWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ArticleLikeScalarFieldEnum | ArticleLikeScalarFieldEnum[]
   }
 
   /**
@@ -8752,10 +8889,12 @@ export namespace Prisma {
 
   export type ArticleAvgAggregateOutputType = {
     readCount: number | null
+    likesCount: number | null
   }
 
   export type ArticleSumAggregateOutputType = {
     readCount: number | null
+    likesCount: number | null
   }
 
   export type ArticleMinAggregateOutputType = {
@@ -8765,6 +8904,7 @@ export namespace Prisma {
     summary: string | null
     authorId: string | null
     readCount: number | null
+    likesCount: number | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -8776,6 +8916,7 @@ export namespace Prisma {
     summary: string | null
     authorId: string | null
     readCount: number | null
+    likesCount: number | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -8787,6 +8928,7 @@ export namespace Prisma {
     summary: number
     authorId: number
     readCount: number
+    likesCount: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -8795,10 +8937,12 @@ export namespace Prisma {
 
   export type ArticleAvgAggregateInputType = {
     readCount?: true
+    likesCount?: true
   }
 
   export type ArticleSumAggregateInputType = {
     readCount?: true
+    likesCount?: true
   }
 
   export type ArticleMinAggregateInputType = {
@@ -8808,6 +8952,7 @@ export namespace Prisma {
     summary?: true
     authorId?: true
     readCount?: true
+    likesCount?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -8819,6 +8964,7 @@ export namespace Prisma {
     summary?: true
     authorId?: true
     readCount?: true
+    likesCount?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -8830,6 +8976,7 @@ export namespace Prisma {
     summary?: true
     authorId?: true
     readCount?: true
+    likesCount?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -8928,6 +9075,7 @@ export namespace Prisma {
     summary: string | null
     authorId: string
     readCount: number
+    likesCount: number
     createdAt: Date
     updatedAt: Date
     _count: ArticleCountAggregateOutputType | null
@@ -8958,10 +9106,12 @@ export namespace Prisma {
     summary?: boolean
     authorId?: boolean
     readCount?: boolean
+    likesCount?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     author?: boolean | UserDefaultArgs<ExtArgs>
     readers?: boolean | Article$readersArgs<ExtArgs>
+    likes?: boolean | Article$likesArgs<ExtArgs>
     _count?: boolean | ArticleCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["article"]>
 
@@ -8972,6 +9122,7 @@ export namespace Prisma {
     summary?: boolean
     authorId?: boolean
     readCount?: boolean
+    likesCount?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     author?: boolean | UserDefaultArgs<ExtArgs>
@@ -8984,6 +9135,7 @@ export namespace Prisma {
     summary?: boolean
     authorId?: boolean
     readCount?: boolean
+    likesCount?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     author?: boolean | UserDefaultArgs<ExtArgs>
@@ -8996,14 +9148,16 @@ export namespace Prisma {
     summary?: boolean
     authorId?: boolean
     readCount?: boolean
+    likesCount?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type ArticleOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "content" | "summary" | "authorId" | "readCount" | "createdAt" | "updatedAt", ExtArgs["result"]["article"]>
+  export type ArticleOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "content" | "summary" | "authorId" | "readCount" | "likesCount" | "createdAt" | "updatedAt", ExtArgs["result"]["article"]>
   export type ArticleInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     author?: boolean | UserDefaultArgs<ExtArgs>
     readers?: boolean | Article$readersArgs<ExtArgs>
+    likes?: boolean | Article$likesArgs<ExtArgs>
     _count?: boolean | ArticleCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ArticleIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -9018,6 +9172,7 @@ export namespace Prisma {
     objects: {
       author: Prisma.$UserPayload<ExtArgs>
       readers: Prisma.$ArticleReadPayload<ExtArgs>[]
+      likes: Prisma.$ArticleLikePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -9026,6 +9181,7 @@ export namespace Prisma {
       summary: string | null
       authorId: string
       readCount: number
+      likesCount: number
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["article"]>
@@ -9424,6 +9580,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     author<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     readers<T extends Article$readersArgs<ExtArgs> = {}>(args?: Subset<T, Article$readersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ArticleReadPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    likes<T extends Article$likesArgs<ExtArgs> = {}>(args?: Subset<T, Article$likesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ArticleLikePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -9459,6 +9616,7 @@ export namespace Prisma {
     readonly summary: FieldRef<"Article", 'String'>
     readonly authorId: FieldRef<"Article", 'String'>
     readonly readCount: FieldRef<"Article", 'Int'>
+    readonly likesCount: FieldRef<"Article", 'Int'>
     readonly createdAt: FieldRef<"Article", 'DateTime'>
     readonly updatedAt: FieldRef<"Article", 'DateTime'>
   }
@@ -9878,6 +10036,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: ArticleReadScalarFieldEnum | ArticleReadScalarFieldEnum[]
+  }
+
+  /**
+   * Article.likes
+   */
+  export type Article$likesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ArticleLike
+     */
+    select?: ArticleLikeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ArticleLike
+     */
+    omit?: ArticleLikeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArticleLikeInclude<ExtArgs> | null
+    where?: ArticleLikeWhereInput
+    orderBy?: ArticleLikeOrderByWithRelationInput | ArticleLikeOrderByWithRelationInput[]
+    cursor?: ArticleLikeWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ArticleLikeScalarFieldEnum | ArticleLikeScalarFieldEnum[]
   }
 
   /**
@@ -10949,6 +11131,1059 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: ArticleReadInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model ArticleLike
+   */
+
+  export type AggregateArticleLike = {
+    _count: ArticleLikeCountAggregateOutputType | null
+    _min: ArticleLikeMinAggregateOutputType | null
+    _max: ArticleLikeMaxAggregateOutputType | null
+  }
+
+  export type ArticleLikeMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    articleId: string | null
+    createdAt: Date | null
+  }
+
+  export type ArticleLikeMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    articleId: string | null
+    createdAt: Date | null
+  }
+
+  export type ArticleLikeCountAggregateOutputType = {
+    id: number
+    userId: number
+    articleId: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type ArticleLikeMinAggregateInputType = {
+    id?: true
+    userId?: true
+    articleId?: true
+    createdAt?: true
+  }
+
+  export type ArticleLikeMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    articleId?: true
+    createdAt?: true
+  }
+
+  export type ArticleLikeCountAggregateInputType = {
+    id?: true
+    userId?: true
+    articleId?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type ArticleLikeAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ArticleLike to aggregate.
+     */
+    where?: ArticleLikeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ArticleLikes to fetch.
+     */
+    orderBy?: ArticleLikeOrderByWithRelationInput | ArticleLikeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ArticleLikeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ArticleLikes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ArticleLikes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ArticleLikes
+    **/
+    _count?: true | ArticleLikeCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ArticleLikeMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ArticleLikeMaxAggregateInputType
+  }
+
+  export type GetArticleLikeAggregateType<T extends ArticleLikeAggregateArgs> = {
+        [P in keyof T & keyof AggregateArticleLike]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateArticleLike[P]>
+      : GetScalarType<T[P], AggregateArticleLike[P]>
+  }
+
+
+
+
+  export type ArticleLikeGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ArticleLikeWhereInput
+    orderBy?: ArticleLikeOrderByWithAggregationInput | ArticleLikeOrderByWithAggregationInput[]
+    by: ArticleLikeScalarFieldEnum[] | ArticleLikeScalarFieldEnum
+    having?: ArticleLikeScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ArticleLikeCountAggregateInputType | true
+    _min?: ArticleLikeMinAggregateInputType
+    _max?: ArticleLikeMaxAggregateInputType
+  }
+
+  export type ArticleLikeGroupByOutputType = {
+    id: string
+    userId: string
+    articleId: string
+    createdAt: Date
+    _count: ArticleLikeCountAggregateOutputType | null
+    _min: ArticleLikeMinAggregateOutputType | null
+    _max: ArticleLikeMaxAggregateOutputType | null
+  }
+
+  type GetArticleLikeGroupByPayload<T extends ArticleLikeGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ArticleLikeGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ArticleLikeGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ArticleLikeGroupByOutputType[P]>
+            : GetScalarType<T[P], ArticleLikeGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ArticleLikeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    articleId?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    article?: boolean | ArticleDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["articleLike"]>
+
+  export type ArticleLikeSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    articleId?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    article?: boolean | ArticleDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["articleLike"]>
+
+  export type ArticleLikeSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    articleId?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    article?: boolean | ArticleDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["articleLike"]>
+
+  export type ArticleLikeSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    articleId?: boolean
+    createdAt?: boolean
+  }
+
+  export type ArticleLikeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "articleId" | "createdAt", ExtArgs["result"]["articleLike"]>
+  export type ArticleLikeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    article?: boolean | ArticleDefaultArgs<ExtArgs>
+  }
+  export type ArticleLikeIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    article?: boolean | ArticleDefaultArgs<ExtArgs>
+  }
+  export type ArticleLikeIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    article?: boolean | ArticleDefaultArgs<ExtArgs>
+  }
+
+  export type $ArticleLikePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ArticleLike"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+      article: Prisma.$ArticlePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      articleId: string
+      createdAt: Date
+    }, ExtArgs["result"]["articleLike"]>
+    composites: {}
+  }
+
+  type ArticleLikeGetPayload<S extends boolean | null | undefined | ArticleLikeDefaultArgs> = $Result.GetResult<Prisma.$ArticleLikePayload, S>
+
+  type ArticleLikeCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ArticleLikeFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ArticleLikeCountAggregateInputType | true
+    }
+
+  export interface ArticleLikeDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ArticleLike'], meta: { name: 'ArticleLike' } }
+    /**
+     * Find zero or one ArticleLike that matches the filter.
+     * @param {ArticleLikeFindUniqueArgs} args - Arguments to find a ArticleLike
+     * @example
+     * // Get one ArticleLike
+     * const articleLike = await prisma.articleLike.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ArticleLikeFindUniqueArgs>(args: SelectSubset<T, ArticleLikeFindUniqueArgs<ExtArgs>>): Prisma__ArticleLikeClient<$Result.GetResult<Prisma.$ArticleLikePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one ArticleLike that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ArticleLikeFindUniqueOrThrowArgs} args - Arguments to find a ArticleLike
+     * @example
+     * // Get one ArticleLike
+     * const articleLike = await prisma.articleLike.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ArticleLikeFindUniqueOrThrowArgs>(args: SelectSubset<T, ArticleLikeFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ArticleLikeClient<$Result.GetResult<Prisma.$ArticleLikePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ArticleLike that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ArticleLikeFindFirstArgs} args - Arguments to find a ArticleLike
+     * @example
+     * // Get one ArticleLike
+     * const articleLike = await prisma.articleLike.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ArticleLikeFindFirstArgs>(args?: SelectSubset<T, ArticleLikeFindFirstArgs<ExtArgs>>): Prisma__ArticleLikeClient<$Result.GetResult<Prisma.$ArticleLikePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ArticleLike that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ArticleLikeFindFirstOrThrowArgs} args - Arguments to find a ArticleLike
+     * @example
+     * // Get one ArticleLike
+     * const articleLike = await prisma.articleLike.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ArticleLikeFindFirstOrThrowArgs>(args?: SelectSubset<T, ArticleLikeFindFirstOrThrowArgs<ExtArgs>>): Prisma__ArticleLikeClient<$Result.GetResult<Prisma.$ArticleLikePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more ArticleLikes that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ArticleLikeFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ArticleLikes
+     * const articleLikes = await prisma.articleLike.findMany()
+     * 
+     * // Get first 10 ArticleLikes
+     * const articleLikes = await prisma.articleLike.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const articleLikeWithIdOnly = await prisma.articleLike.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ArticleLikeFindManyArgs>(args?: SelectSubset<T, ArticleLikeFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ArticleLikePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a ArticleLike.
+     * @param {ArticleLikeCreateArgs} args - Arguments to create a ArticleLike.
+     * @example
+     * // Create one ArticleLike
+     * const ArticleLike = await prisma.articleLike.create({
+     *   data: {
+     *     // ... data to create a ArticleLike
+     *   }
+     * })
+     * 
+     */
+    create<T extends ArticleLikeCreateArgs>(args: SelectSubset<T, ArticleLikeCreateArgs<ExtArgs>>): Prisma__ArticleLikeClient<$Result.GetResult<Prisma.$ArticleLikePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many ArticleLikes.
+     * @param {ArticleLikeCreateManyArgs} args - Arguments to create many ArticleLikes.
+     * @example
+     * // Create many ArticleLikes
+     * const articleLike = await prisma.articleLike.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ArticleLikeCreateManyArgs>(args?: SelectSubset<T, ArticleLikeCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many ArticleLikes and returns the data saved in the database.
+     * @param {ArticleLikeCreateManyAndReturnArgs} args - Arguments to create many ArticleLikes.
+     * @example
+     * // Create many ArticleLikes
+     * const articleLike = await prisma.articleLike.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many ArticleLikes and only return the `id`
+     * const articleLikeWithIdOnly = await prisma.articleLike.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ArticleLikeCreateManyAndReturnArgs>(args?: SelectSubset<T, ArticleLikeCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ArticleLikePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a ArticleLike.
+     * @param {ArticleLikeDeleteArgs} args - Arguments to delete one ArticleLike.
+     * @example
+     * // Delete one ArticleLike
+     * const ArticleLike = await prisma.articleLike.delete({
+     *   where: {
+     *     // ... filter to delete one ArticleLike
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ArticleLikeDeleteArgs>(args: SelectSubset<T, ArticleLikeDeleteArgs<ExtArgs>>): Prisma__ArticleLikeClient<$Result.GetResult<Prisma.$ArticleLikePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one ArticleLike.
+     * @param {ArticleLikeUpdateArgs} args - Arguments to update one ArticleLike.
+     * @example
+     * // Update one ArticleLike
+     * const articleLike = await prisma.articleLike.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ArticleLikeUpdateArgs>(args: SelectSubset<T, ArticleLikeUpdateArgs<ExtArgs>>): Prisma__ArticleLikeClient<$Result.GetResult<Prisma.$ArticleLikePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more ArticleLikes.
+     * @param {ArticleLikeDeleteManyArgs} args - Arguments to filter ArticleLikes to delete.
+     * @example
+     * // Delete a few ArticleLikes
+     * const { count } = await prisma.articleLike.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ArticleLikeDeleteManyArgs>(args?: SelectSubset<T, ArticleLikeDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ArticleLikes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ArticleLikeUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ArticleLikes
+     * const articleLike = await prisma.articleLike.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ArticleLikeUpdateManyArgs>(args: SelectSubset<T, ArticleLikeUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ArticleLikes and returns the data updated in the database.
+     * @param {ArticleLikeUpdateManyAndReturnArgs} args - Arguments to update many ArticleLikes.
+     * @example
+     * // Update many ArticleLikes
+     * const articleLike = await prisma.articleLike.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more ArticleLikes and only return the `id`
+     * const articleLikeWithIdOnly = await prisma.articleLike.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ArticleLikeUpdateManyAndReturnArgs>(args: SelectSubset<T, ArticleLikeUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ArticleLikePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one ArticleLike.
+     * @param {ArticleLikeUpsertArgs} args - Arguments to update or create a ArticleLike.
+     * @example
+     * // Update or create a ArticleLike
+     * const articleLike = await prisma.articleLike.upsert({
+     *   create: {
+     *     // ... data to create a ArticleLike
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ArticleLike we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ArticleLikeUpsertArgs>(args: SelectSubset<T, ArticleLikeUpsertArgs<ExtArgs>>): Prisma__ArticleLikeClient<$Result.GetResult<Prisma.$ArticleLikePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of ArticleLikes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ArticleLikeCountArgs} args - Arguments to filter ArticleLikes to count.
+     * @example
+     * // Count the number of ArticleLikes
+     * const count = await prisma.articleLike.count({
+     *   where: {
+     *     // ... the filter for the ArticleLikes we want to count
+     *   }
+     * })
+    **/
+    count<T extends ArticleLikeCountArgs>(
+      args?: Subset<T, ArticleLikeCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ArticleLikeCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ArticleLike.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ArticleLikeAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ArticleLikeAggregateArgs>(args: Subset<T, ArticleLikeAggregateArgs>): Prisma.PrismaPromise<GetArticleLikeAggregateType<T>>
+
+    /**
+     * Group by ArticleLike.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ArticleLikeGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ArticleLikeGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ArticleLikeGroupByArgs['orderBy'] }
+        : { orderBy?: ArticleLikeGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ArticleLikeGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetArticleLikeGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ArticleLike model
+   */
+  readonly fields: ArticleLikeFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ArticleLike.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ArticleLikeClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    article<T extends ArticleDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ArticleDefaultArgs<ExtArgs>>): Prisma__ArticleClient<$Result.GetResult<Prisma.$ArticlePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ArticleLike model
+   */
+  interface ArticleLikeFieldRefs {
+    readonly id: FieldRef<"ArticleLike", 'String'>
+    readonly userId: FieldRef<"ArticleLike", 'String'>
+    readonly articleId: FieldRef<"ArticleLike", 'String'>
+    readonly createdAt: FieldRef<"ArticleLike", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ArticleLike findUnique
+   */
+  export type ArticleLikeFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ArticleLike
+     */
+    select?: ArticleLikeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ArticleLike
+     */
+    omit?: ArticleLikeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArticleLikeInclude<ExtArgs> | null
+    /**
+     * Filter, which ArticleLike to fetch.
+     */
+    where: ArticleLikeWhereUniqueInput
+  }
+
+  /**
+   * ArticleLike findUniqueOrThrow
+   */
+  export type ArticleLikeFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ArticleLike
+     */
+    select?: ArticleLikeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ArticleLike
+     */
+    omit?: ArticleLikeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArticleLikeInclude<ExtArgs> | null
+    /**
+     * Filter, which ArticleLike to fetch.
+     */
+    where: ArticleLikeWhereUniqueInput
+  }
+
+  /**
+   * ArticleLike findFirst
+   */
+  export type ArticleLikeFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ArticleLike
+     */
+    select?: ArticleLikeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ArticleLike
+     */
+    omit?: ArticleLikeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArticleLikeInclude<ExtArgs> | null
+    /**
+     * Filter, which ArticleLike to fetch.
+     */
+    where?: ArticleLikeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ArticleLikes to fetch.
+     */
+    orderBy?: ArticleLikeOrderByWithRelationInput | ArticleLikeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ArticleLikes.
+     */
+    cursor?: ArticleLikeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ArticleLikes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ArticleLikes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ArticleLikes.
+     */
+    distinct?: ArticleLikeScalarFieldEnum | ArticleLikeScalarFieldEnum[]
+  }
+
+  /**
+   * ArticleLike findFirstOrThrow
+   */
+  export type ArticleLikeFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ArticleLike
+     */
+    select?: ArticleLikeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ArticleLike
+     */
+    omit?: ArticleLikeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArticleLikeInclude<ExtArgs> | null
+    /**
+     * Filter, which ArticleLike to fetch.
+     */
+    where?: ArticleLikeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ArticleLikes to fetch.
+     */
+    orderBy?: ArticleLikeOrderByWithRelationInput | ArticleLikeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ArticleLikes.
+     */
+    cursor?: ArticleLikeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ArticleLikes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ArticleLikes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ArticleLikes.
+     */
+    distinct?: ArticleLikeScalarFieldEnum | ArticleLikeScalarFieldEnum[]
+  }
+
+  /**
+   * ArticleLike findMany
+   */
+  export type ArticleLikeFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ArticleLike
+     */
+    select?: ArticleLikeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ArticleLike
+     */
+    omit?: ArticleLikeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArticleLikeInclude<ExtArgs> | null
+    /**
+     * Filter, which ArticleLikes to fetch.
+     */
+    where?: ArticleLikeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ArticleLikes to fetch.
+     */
+    orderBy?: ArticleLikeOrderByWithRelationInput | ArticleLikeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ArticleLikes.
+     */
+    cursor?: ArticleLikeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ArticleLikes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ArticleLikes.
+     */
+    skip?: number
+    distinct?: ArticleLikeScalarFieldEnum | ArticleLikeScalarFieldEnum[]
+  }
+
+  /**
+   * ArticleLike create
+   */
+  export type ArticleLikeCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ArticleLike
+     */
+    select?: ArticleLikeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ArticleLike
+     */
+    omit?: ArticleLikeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArticleLikeInclude<ExtArgs> | null
+    /**
+     * The data needed to create a ArticleLike.
+     */
+    data: XOR<ArticleLikeCreateInput, ArticleLikeUncheckedCreateInput>
+  }
+
+  /**
+   * ArticleLike createMany
+   */
+  export type ArticleLikeCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ArticleLikes.
+     */
+    data: ArticleLikeCreateManyInput | ArticleLikeCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ArticleLike createManyAndReturn
+   */
+  export type ArticleLikeCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ArticleLike
+     */
+    select?: ArticleLikeSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ArticleLike
+     */
+    omit?: ArticleLikeOmit<ExtArgs> | null
+    /**
+     * The data used to create many ArticleLikes.
+     */
+    data: ArticleLikeCreateManyInput | ArticleLikeCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArticleLikeIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ArticleLike update
+   */
+  export type ArticleLikeUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ArticleLike
+     */
+    select?: ArticleLikeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ArticleLike
+     */
+    omit?: ArticleLikeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArticleLikeInclude<ExtArgs> | null
+    /**
+     * The data needed to update a ArticleLike.
+     */
+    data: XOR<ArticleLikeUpdateInput, ArticleLikeUncheckedUpdateInput>
+    /**
+     * Choose, which ArticleLike to update.
+     */
+    where: ArticleLikeWhereUniqueInput
+  }
+
+  /**
+   * ArticleLike updateMany
+   */
+  export type ArticleLikeUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ArticleLikes.
+     */
+    data: XOR<ArticleLikeUpdateManyMutationInput, ArticleLikeUncheckedUpdateManyInput>
+    /**
+     * Filter which ArticleLikes to update
+     */
+    where?: ArticleLikeWhereInput
+    /**
+     * Limit how many ArticleLikes to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * ArticleLike updateManyAndReturn
+   */
+  export type ArticleLikeUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ArticleLike
+     */
+    select?: ArticleLikeSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ArticleLike
+     */
+    omit?: ArticleLikeOmit<ExtArgs> | null
+    /**
+     * The data used to update ArticleLikes.
+     */
+    data: XOR<ArticleLikeUpdateManyMutationInput, ArticleLikeUncheckedUpdateManyInput>
+    /**
+     * Filter which ArticleLikes to update
+     */
+    where?: ArticleLikeWhereInput
+    /**
+     * Limit how many ArticleLikes to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArticleLikeIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ArticleLike upsert
+   */
+  export type ArticleLikeUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ArticleLike
+     */
+    select?: ArticleLikeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ArticleLike
+     */
+    omit?: ArticleLikeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArticleLikeInclude<ExtArgs> | null
+    /**
+     * The filter to search for the ArticleLike to update in case it exists.
+     */
+    where: ArticleLikeWhereUniqueInput
+    /**
+     * In case the ArticleLike found by the `where` argument doesn't exist, create a new ArticleLike with this data.
+     */
+    create: XOR<ArticleLikeCreateInput, ArticleLikeUncheckedCreateInput>
+    /**
+     * In case the ArticleLike was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ArticleLikeUpdateInput, ArticleLikeUncheckedUpdateInput>
+  }
+
+  /**
+   * ArticleLike delete
+   */
+  export type ArticleLikeDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ArticleLike
+     */
+    select?: ArticleLikeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ArticleLike
+     */
+    omit?: ArticleLikeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArticleLikeInclude<ExtArgs> | null
+    /**
+     * Filter which ArticleLike to delete.
+     */
+    where: ArticleLikeWhereUniqueInput
+  }
+
+  /**
+   * ArticleLike deleteMany
+   */
+  export type ArticleLikeDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ArticleLikes to delete
+     */
+    where?: ArticleLikeWhereInput
+    /**
+     * Limit how many ArticleLikes to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * ArticleLike without action
+   */
+  export type ArticleLikeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ArticleLike
+     */
+    select?: ArticleLikeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ArticleLike
+     */
+    omit?: ArticleLikeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArticleLikeInclude<ExtArgs> | null
   }
 
 
@@ -12156,6 +13391,7 @@ export namespace Prisma {
     summary: 'summary',
     authorId: 'authorId',
     readCount: 'readCount',
+    likesCount: 'likesCount',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -12171,6 +13407,16 @@ export namespace Prisma {
   };
 
   export type ArticleReadScalarFieldEnum = (typeof ArticleReadScalarFieldEnum)[keyof typeof ArticleReadScalarFieldEnum]
+
+
+  export const ArticleLikeScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    articleId: 'articleId',
+    createdAt: 'createdAt'
+  };
+
+  export type ArticleLikeScalarFieldEnum = (typeof ArticleLikeScalarFieldEnum)[keyof typeof ArticleLikeScalarFieldEnum]
 
 
   export const PointActionScalarFieldEnum: {
@@ -12384,6 +13630,7 @@ export namespace Prisma {
     eventsOrganized?: EventListRelationFilter
     articles?: ArticleListRelationFilter
     articleReads?: ArticleReadListRelationFilter
+    likes?: ArticleLikeListRelationFilter
     pointActions?: PointActionListRelationFilter
   }
 
@@ -12408,6 +13655,7 @@ export namespace Prisma {
     eventsOrganized?: EventOrderByRelationAggregateInput
     articles?: ArticleOrderByRelationAggregateInput
     articleReads?: ArticleReadOrderByRelationAggregateInput
+    likes?: ArticleLikeOrderByRelationAggregateInput
     pointActions?: PointActionOrderByRelationAggregateInput
   }
 
@@ -12435,6 +13683,7 @@ export namespace Prisma {
     eventsOrganized?: EventListRelationFilter
     articles?: ArticleListRelationFilter
     articleReads?: ArticleReadListRelationFilter
+    likes?: ArticleLikeListRelationFilter
     pointActions?: PointActionListRelationFilter
   }, "id" | "clerkId" | "email">
 
@@ -12816,10 +14065,12 @@ export namespace Prisma {
     summary?: StringNullableFilter<"Article"> | string | null
     authorId?: StringFilter<"Article"> | string
     readCount?: IntFilter<"Article"> | number
+    likesCount?: IntFilter<"Article"> | number
     createdAt?: DateTimeFilter<"Article"> | Date | string
     updatedAt?: DateTimeFilter<"Article"> | Date | string
     author?: XOR<UserScalarRelationFilter, UserWhereInput>
     readers?: ArticleReadListRelationFilter
+    likes?: ArticleLikeListRelationFilter
   }
 
   export type ArticleOrderByWithRelationInput = {
@@ -12829,10 +14080,12 @@ export namespace Prisma {
     summary?: SortOrderInput | SortOrder
     authorId?: SortOrder
     readCount?: SortOrder
+    likesCount?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     author?: UserOrderByWithRelationInput
     readers?: ArticleReadOrderByRelationAggregateInput
+    likes?: ArticleLikeOrderByRelationAggregateInput
   }
 
   export type ArticleWhereUniqueInput = Prisma.AtLeast<{
@@ -12845,10 +14098,12 @@ export namespace Prisma {
     summary?: StringNullableFilter<"Article"> | string | null
     authorId?: StringFilter<"Article"> | string
     readCount?: IntFilter<"Article"> | number
+    likesCount?: IntFilter<"Article"> | number
     createdAt?: DateTimeFilter<"Article"> | Date | string
     updatedAt?: DateTimeFilter<"Article"> | Date | string
     author?: XOR<UserScalarRelationFilter, UserWhereInput>
     readers?: ArticleReadListRelationFilter
+    likes?: ArticleLikeListRelationFilter
   }, "id">
 
   export type ArticleOrderByWithAggregationInput = {
@@ -12858,6 +14113,7 @@ export namespace Prisma {
     summary?: SortOrderInput | SortOrder
     authorId?: SortOrder
     readCount?: SortOrder
+    likesCount?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: ArticleCountOrderByAggregateInput
@@ -12877,6 +14133,7 @@ export namespace Prisma {
     summary?: StringNullableWithAggregatesFilter<"Article"> | string | null
     authorId?: StringWithAggregatesFilter<"Article"> | string
     readCount?: IntWithAggregatesFilter<"Article"> | number
+    likesCount?: IntWithAggregatesFilter<"Article"> | number
     createdAt?: DateTimeWithAggregatesFilter<"Article"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Article"> | Date | string
   }
@@ -12933,6 +14190,60 @@ export namespace Prisma {
     userId?: StringWithAggregatesFilter<"ArticleRead"> | string
     articleId?: StringWithAggregatesFilter<"ArticleRead"> | string
     readAt?: DateTimeWithAggregatesFilter<"ArticleRead"> | Date | string
+  }
+
+  export type ArticleLikeWhereInput = {
+    AND?: ArticleLikeWhereInput | ArticleLikeWhereInput[]
+    OR?: ArticleLikeWhereInput[]
+    NOT?: ArticleLikeWhereInput | ArticleLikeWhereInput[]
+    id?: StringFilter<"ArticleLike"> | string
+    userId?: StringFilter<"ArticleLike"> | string
+    articleId?: StringFilter<"ArticleLike"> | string
+    createdAt?: DateTimeFilter<"ArticleLike"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    article?: XOR<ArticleScalarRelationFilter, ArticleWhereInput>
+  }
+
+  export type ArticleLikeOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    articleId?: SortOrder
+    createdAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+    article?: ArticleOrderByWithRelationInput
+  }
+
+  export type ArticleLikeWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    userId_articleId?: ArticleLikeUserIdArticleIdCompoundUniqueInput
+    AND?: ArticleLikeWhereInput | ArticleLikeWhereInput[]
+    OR?: ArticleLikeWhereInput[]
+    NOT?: ArticleLikeWhereInput | ArticleLikeWhereInput[]
+    userId?: StringFilter<"ArticleLike"> | string
+    articleId?: StringFilter<"ArticleLike"> | string
+    createdAt?: DateTimeFilter<"ArticleLike"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    article?: XOR<ArticleScalarRelationFilter, ArticleWhereInput>
+  }, "id" | "userId_articleId">
+
+  export type ArticleLikeOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    articleId?: SortOrder
+    createdAt?: SortOrder
+    _count?: ArticleLikeCountOrderByAggregateInput
+    _max?: ArticleLikeMaxOrderByAggregateInput
+    _min?: ArticleLikeMinOrderByAggregateInput
+  }
+
+  export type ArticleLikeScalarWhereWithAggregatesInput = {
+    AND?: ArticleLikeScalarWhereWithAggregatesInput | ArticleLikeScalarWhereWithAggregatesInput[]
+    OR?: ArticleLikeScalarWhereWithAggregatesInput[]
+    NOT?: ArticleLikeScalarWhereWithAggregatesInput | ArticleLikeScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"ArticleLike"> | string
+    userId?: StringWithAggregatesFilter<"ArticleLike"> | string
+    articleId?: StringWithAggregatesFilter<"ArticleLike"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"ArticleLike"> | Date | string
   }
 
   export type PointActionWhereInput = {
@@ -13018,6 +14329,7 @@ export namespace Prisma {
     eventsOrganized?: EventCreateNestedManyWithoutOrganizerInput
     articles?: ArticleCreateNestedManyWithoutAuthorInput
     articleReads?: ArticleReadCreateNestedManyWithoutUserInput
+    likes?: ArticleLikeCreateNestedManyWithoutUserInput
     pointActions?: PointActionCreateNestedManyWithoutUserInput
   }
 
@@ -13042,6 +14354,7 @@ export namespace Prisma {
     eventsOrganized?: EventUncheckedCreateNestedManyWithoutOrganizerInput
     articles?: ArticleUncheckedCreateNestedManyWithoutAuthorInput
     articleReads?: ArticleReadUncheckedCreateNestedManyWithoutUserInput
+    likes?: ArticleLikeUncheckedCreateNestedManyWithoutUserInput
     pointActions?: PointActionUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -13066,6 +14379,7 @@ export namespace Prisma {
     eventsOrganized?: EventUpdateManyWithoutOrganizerNestedInput
     articles?: ArticleUpdateManyWithoutAuthorNestedInput
     articleReads?: ArticleReadUpdateManyWithoutUserNestedInput
+    likes?: ArticleLikeUpdateManyWithoutUserNestedInput
     pointActions?: PointActionUpdateManyWithoutUserNestedInput
   }
 
@@ -13090,6 +14404,7 @@ export namespace Prisma {
     eventsOrganized?: EventUncheckedUpdateManyWithoutOrganizerNestedInput
     articles?: ArticleUncheckedUpdateManyWithoutAuthorNestedInput
     articleReads?: ArticleReadUncheckedUpdateManyWithoutUserNestedInput
+    likes?: ArticleLikeUncheckedUpdateManyWithoutUserNestedInput
     pointActions?: PointActionUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -13481,10 +14796,12 @@ export namespace Prisma {
     content: string
     summary?: string | null
     readCount?: number
+    likesCount?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     author: UserCreateNestedOneWithoutArticlesInput
     readers?: ArticleReadCreateNestedManyWithoutArticleInput
+    likes?: ArticleLikeCreateNestedManyWithoutArticleInput
   }
 
   export type ArticleUncheckedCreateInput = {
@@ -13494,9 +14811,11 @@ export namespace Prisma {
     summary?: string | null
     authorId: string
     readCount?: number
+    likesCount?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     readers?: ArticleReadUncheckedCreateNestedManyWithoutArticleInput
+    likes?: ArticleLikeUncheckedCreateNestedManyWithoutArticleInput
   }
 
   export type ArticleUpdateInput = {
@@ -13505,10 +14824,12 @@ export namespace Prisma {
     content?: StringFieldUpdateOperationsInput | string
     summary?: NullableStringFieldUpdateOperationsInput | string | null
     readCount?: IntFieldUpdateOperationsInput | number
+    likesCount?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     author?: UserUpdateOneRequiredWithoutArticlesNestedInput
     readers?: ArticleReadUpdateManyWithoutArticleNestedInput
+    likes?: ArticleLikeUpdateManyWithoutArticleNestedInput
   }
 
   export type ArticleUncheckedUpdateInput = {
@@ -13518,9 +14839,11 @@ export namespace Prisma {
     summary?: NullableStringFieldUpdateOperationsInput | string | null
     authorId?: StringFieldUpdateOperationsInput | string
     readCount?: IntFieldUpdateOperationsInput | number
+    likesCount?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     readers?: ArticleReadUncheckedUpdateManyWithoutArticleNestedInput
+    likes?: ArticleLikeUncheckedUpdateManyWithoutArticleNestedInput
   }
 
   export type ArticleCreateManyInput = {
@@ -13530,6 +14853,7 @@ export namespace Prisma {
     summary?: string | null
     authorId: string
     readCount?: number
+    likesCount?: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -13540,6 +14864,7 @@ export namespace Prisma {
     content?: StringFieldUpdateOperationsInput | string
     summary?: NullableStringFieldUpdateOperationsInput | string | null
     readCount?: IntFieldUpdateOperationsInput | number
+    likesCount?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -13551,6 +14876,7 @@ export namespace Prisma {
     summary?: NullableStringFieldUpdateOperationsInput | string | null
     authorId?: StringFieldUpdateOperationsInput | string
     readCount?: IntFieldUpdateOperationsInput | number
+    likesCount?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -13600,6 +14926,53 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     articleId?: StringFieldUpdateOperationsInput | string
     readAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ArticleLikeCreateInput = {
+    id?: string
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutLikesInput
+    article: ArticleCreateNestedOneWithoutLikesInput
+  }
+
+  export type ArticleLikeUncheckedCreateInput = {
+    id?: string
+    userId: string
+    articleId: string
+    createdAt?: Date | string
+  }
+
+  export type ArticleLikeUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutLikesNestedInput
+    article?: ArticleUpdateOneRequiredWithoutLikesNestedInput
+  }
+
+  export type ArticleLikeUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    articleId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ArticleLikeCreateManyInput = {
+    id?: string
+    userId: string
+    articleId: string
+    createdAt?: Date | string
+  }
+
+  export type ArticleLikeUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ArticleLikeUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    articleId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type PointActionCreateInput = {
@@ -13788,6 +15161,12 @@ export namespace Prisma {
     none?: ArticleReadWhereInput
   }
 
+  export type ArticleLikeListRelationFilter = {
+    every?: ArticleLikeWhereInput
+    some?: ArticleLikeWhereInput
+    none?: ArticleLikeWhereInput
+  }
+
   export type PointActionListRelationFilter = {
     every?: PointActionWhereInput
     some?: PointActionWhereInput
@@ -13824,6 +15203,10 @@ export namespace Prisma {
   }
 
   export type ArticleReadOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ArticleLikeOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -14263,12 +15646,14 @@ export namespace Prisma {
     summary?: SortOrder
     authorId?: SortOrder
     readCount?: SortOrder
+    likesCount?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
   export type ArticleAvgOrderByAggregateInput = {
     readCount?: SortOrder
+    likesCount?: SortOrder
   }
 
   export type ArticleMaxOrderByAggregateInput = {
@@ -14278,6 +15663,7 @@ export namespace Prisma {
     summary?: SortOrder
     authorId?: SortOrder
     readCount?: SortOrder
+    likesCount?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -14289,12 +15675,14 @@ export namespace Prisma {
     summary?: SortOrder
     authorId?: SortOrder
     readCount?: SortOrder
+    likesCount?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
   export type ArticleSumOrderByAggregateInput = {
     readCount?: SortOrder
+    likesCount?: SortOrder
   }
 
   export type ArticleScalarRelationFilter = {
@@ -14326,6 +15714,32 @@ export namespace Prisma {
     userId?: SortOrder
     articleId?: SortOrder
     readAt?: SortOrder
+  }
+
+  export type ArticleLikeUserIdArticleIdCompoundUniqueInput = {
+    userId: string
+    articleId: string
+  }
+
+  export type ArticleLikeCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    articleId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type ArticleLikeMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    articleId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type ArticleLikeMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    articleId?: SortOrder
+    createdAt?: SortOrder
   }
 
   export type EnumPointActionTypeFilter<$PrismaModel = never> = {
@@ -14427,6 +15841,13 @@ export namespace Prisma {
     connect?: ArticleReadWhereUniqueInput | ArticleReadWhereUniqueInput[]
   }
 
+  export type ArticleLikeCreateNestedManyWithoutUserInput = {
+    create?: XOR<ArticleLikeCreateWithoutUserInput, ArticleLikeUncheckedCreateWithoutUserInput> | ArticleLikeCreateWithoutUserInput[] | ArticleLikeUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ArticleLikeCreateOrConnectWithoutUserInput | ArticleLikeCreateOrConnectWithoutUserInput[]
+    createMany?: ArticleLikeCreateManyUserInputEnvelope
+    connect?: ArticleLikeWhereUniqueInput | ArticleLikeWhereUniqueInput[]
+  }
+
   export type PointActionCreateNestedManyWithoutUserInput = {
     create?: XOR<PointActionCreateWithoutUserInput, PointActionUncheckedCreateWithoutUserInput> | PointActionCreateWithoutUserInput[] | PointActionUncheckedCreateWithoutUserInput[]
     connectOrCreate?: PointActionCreateOrConnectWithoutUserInput | PointActionCreateOrConnectWithoutUserInput[]
@@ -14481,6 +15902,13 @@ export namespace Prisma {
     connectOrCreate?: ArticleReadCreateOrConnectWithoutUserInput | ArticleReadCreateOrConnectWithoutUserInput[]
     createMany?: ArticleReadCreateManyUserInputEnvelope
     connect?: ArticleReadWhereUniqueInput | ArticleReadWhereUniqueInput[]
+  }
+
+  export type ArticleLikeUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<ArticleLikeCreateWithoutUserInput, ArticleLikeUncheckedCreateWithoutUserInput> | ArticleLikeCreateWithoutUserInput[] | ArticleLikeUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ArticleLikeCreateOrConnectWithoutUserInput | ArticleLikeCreateOrConnectWithoutUserInput[]
+    createMany?: ArticleLikeCreateManyUserInputEnvelope
+    connect?: ArticleLikeWhereUniqueInput | ArticleLikeWhereUniqueInput[]
   }
 
   export type PointActionUncheckedCreateNestedManyWithoutUserInput = {
@@ -14612,6 +16040,20 @@ export namespace Prisma {
     deleteMany?: ArticleReadScalarWhereInput | ArticleReadScalarWhereInput[]
   }
 
+  export type ArticleLikeUpdateManyWithoutUserNestedInput = {
+    create?: XOR<ArticleLikeCreateWithoutUserInput, ArticleLikeUncheckedCreateWithoutUserInput> | ArticleLikeCreateWithoutUserInput[] | ArticleLikeUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ArticleLikeCreateOrConnectWithoutUserInput | ArticleLikeCreateOrConnectWithoutUserInput[]
+    upsert?: ArticleLikeUpsertWithWhereUniqueWithoutUserInput | ArticleLikeUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: ArticleLikeCreateManyUserInputEnvelope
+    set?: ArticleLikeWhereUniqueInput | ArticleLikeWhereUniqueInput[]
+    disconnect?: ArticleLikeWhereUniqueInput | ArticleLikeWhereUniqueInput[]
+    delete?: ArticleLikeWhereUniqueInput | ArticleLikeWhereUniqueInput[]
+    connect?: ArticleLikeWhereUniqueInput | ArticleLikeWhereUniqueInput[]
+    update?: ArticleLikeUpdateWithWhereUniqueWithoutUserInput | ArticleLikeUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: ArticleLikeUpdateManyWithWhereWithoutUserInput | ArticleLikeUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: ArticleLikeScalarWhereInput | ArticleLikeScalarWhereInput[]
+  }
+
   export type PointActionUpdateManyWithoutUserNestedInput = {
     create?: XOR<PointActionCreateWithoutUserInput, PointActionUncheckedCreateWithoutUserInput> | PointActionCreateWithoutUserInput[] | PointActionUncheckedCreateWithoutUserInput[]
     connectOrCreate?: PointActionCreateOrConnectWithoutUserInput | PointActionCreateOrConnectWithoutUserInput[]
@@ -14722,6 +16164,20 @@ export namespace Prisma {
     update?: ArticleReadUpdateWithWhereUniqueWithoutUserInput | ArticleReadUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: ArticleReadUpdateManyWithWhereWithoutUserInput | ArticleReadUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: ArticleReadScalarWhereInput | ArticleReadScalarWhereInput[]
+  }
+
+  export type ArticleLikeUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<ArticleLikeCreateWithoutUserInput, ArticleLikeUncheckedCreateWithoutUserInput> | ArticleLikeCreateWithoutUserInput[] | ArticleLikeUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ArticleLikeCreateOrConnectWithoutUserInput | ArticleLikeCreateOrConnectWithoutUserInput[]
+    upsert?: ArticleLikeUpsertWithWhereUniqueWithoutUserInput | ArticleLikeUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: ArticleLikeCreateManyUserInputEnvelope
+    set?: ArticleLikeWhereUniqueInput | ArticleLikeWhereUniqueInput[]
+    disconnect?: ArticleLikeWhereUniqueInput | ArticleLikeWhereUniqueInput[]
+    delete?: ArticleLikeWhereUniqueInput | ArticleLikeWhereUniqueInput[]
+    connect?: ArticleLikeWhereUniqueInput | ArticleLikeWhereUniqueInput[]
+    update?: ArticleLikeUpdateWithWhereUniqueWithoutUserInput | ArticleLikeUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: ArticleLikeUpdateManyWithWhereWithoutUserInput | ArticleLikeUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: ArticleLikeScalarWhereInput | ArticleLikeScalarWhereInput[]
   }
 
   export type PointActionUncheckedUpdateManyWithoutUserNestedInput = {
@@ -14897,11 +16353,25 @@ export namespace Prisma {
     connect?: ArticleReadWhereUniqueInput | ArticleReadWhereUniqueInput[]
   }
 
+  export type ArticleLikeCreateNestedManyWithoutArticleInput = {
+    create?: XOR<ArticleLikeCreateWithoutArticleInput, ArticleLikeUncheckedCreateWithoutArticleInput> | ArticleLikeCreateWithoutArticleInput[] | ArticleLikeUncheckedCreateWithoutArticleInput[]
+    connectOrCreate?: ArticleLikeCreateOrConnectWithoutArticleInput | ArticleLikeCreateOrConnectWithoutArticleInput[]
+    createMany?: ArticleLikeCreateManyArticleInputEnvelope
+    connect?: ArticleLikeWhereUniqueInput | ArticleLikeWhereUniqueInput[]
+  }
+
   export type ArticleReadUncheckedCreateNestedManyWithoutArticleInput = {
     create?: XOR<ArticleReadCreateWithoutArticleInput, ArticleReadUncheckedCreateWithoutArticleInput> | ArticleReadCreateWithoutArticleInput[] | ArticleReadUncheckedCreateWithoutArticleInput[]
     connectOrCreate?: ArticleReadCreateOrConnectWithoutArticleInput | ArticleReadCreateOrConnectWithoutArticleInput[]
     createMany?: ArticleReadCreateManyArticleInputEnvelope
     connect?: ArticleReadWhereUniqueInput | ArticleReadWhereUniqueInput[]
+  }
+
+  export type ArticleLikeUncheckedCreateNestedManyWithoutArticleInput = {
+    create?: XOR<ArticleLikeCreateWithoutArticleInput, ArticleLikeUncheckedCreateWithoutArticleInput> | ArticleLikeCreateWithoutArticleInput[] | ArticleLikeUncheckedCreateWithoutArticleInput[]
+    connectOrCreate?: ArticleLikeCreateOrConnectWithoutArticleInput | ArticleLikeCreateOrConnectWithoutArticleInput[]
+    createMany?: ArticleLikeCreateManyArticleInputEnvelope
+    connect?: ArticleLikeWhereUniqueInput | ArticleLikeWhereUniqueInput[]
   }
 
   export type UserUpdateOneRequiredWithoutArticlesNestedInput = {
@@ -14926,6 +16396,20 @@ export namespace Prisma {
     deleteMany?: ArticleReadScalarWhereInput | ArticleReadScalarWhereInput[]
   }
 
+  export type ArticleLikeUpdateManyWithoutArticleNestedInput = {
+    create?: XOR<ArticleLikeCreateWithoutArticleInput, ArticleLikeUncheckedCreateWithoutArticleInput> | ArticleLikeCreateWithoutArticleInput[] | ArticleLikeUncheckedCreateWithoutArticleInput[]
+    connectOrCreate?: ArticleLikeCreateOrConnectWithoutArticleInput | ArticleLikeCreateOrConnectWithoutArticleInput[]
+    upsert?: ArticleLikeUpsertWithWhereUniqueWithoutArticleInput | ArticleLikeUpsertWithWhereUniqueWithoutArticleInput[]
+    createMany?: ArticleLikeCreateManyArticleInputEnvelope
+    set?: ArticleLikeWhereUniqueInput | ArticleLikeWhereUniqueInput[]
+    disconnect?: ArticleLikeWhereUniqueInput | ArticleLikeWhereUniqueInput[]
+    delete?: ArticleLikeWhereUniqueInput | ArticleLikeWhereUniqueInput[]
+    connect?: ArticleLikeWhereUniqueInput | ArticleLikeWhereUniqueInput[]
+    update?: ArticleLikeUpdateWithWhereUniqueWithoutArticleInput | ArticleLikeUpdateWithWhereUniqueWithoutArticleInput[]
+    updateMany?: ArticleLikeUpdateManyWithWhereWithoutArticleInput | ArticleLikeUpdateManyWithWhereWithoutArticleInput[]
+    deleteMany?: ArticleLikeScalarWhereInput | ArticleLikeScalarWhereInput[]
+  }
+
   export type ArticleReadUncheckedUpdateManyWithoutArticleNestedInput = {
     create?: XOR<ArticleReadCreateWithoutArticleInput, ArticleReadUncheckedCreateWithoutArticleInput> | ArticleReadCreateWithoutArticleInput[] | ArticleReadUncheckedCreateWithoutArticleInput[]
     connectOrCreate?: ArticleReadCreateOrConnectWithoutArticleInput | ArticleReadCreateOrConnectWithoutArticleInput[]
@@ -14938,6 +16422,20 @@ export namespace Prisma {
     update?: ArticleReadUpdateWithWhereUniqueWithoutArticleInput | ArticleReadUpdateWithWhereUniqueWithoutArticleInput[]
     updateMany?: ArticleReadUpdateManyWithWhereWithoutArticleInput | ArticleReadUpdateManyWithWhereWithoutArticleInput[]
     deleteMany?: ArticleReadScalarWhereInput | ArticleReadScalarWhereInput[]
+  }
+
+  export type ArticleLikeUncheckedUpdateManyWithoutArticleNestedInput = {
+    create?: XOR<ArticleLikeCreateWithoutArticleInput, ArticleLikeUncheckedCreateWithoutArticleInput> | ArticleLikeCreateWithoutArticleInput[] | ArticleLikeUncheckedCreateWithoutArticleInput[]
+    connectOrCreate?: ArticleLikeCreateOrConnectWithoutArticleInput | ArticleLikeCreateOrConnectWithoutArticleInput[]
+    upsert?: ArticleLikeUpsertWithWhereUniqueWithoutArticleInput | ArticleLikeUpsertWithWhereUniqueWithoutArticleInput[]
+    createMany?: ArticleLikeCreateManyArticleInputEnvelope
+    set?: ArticleLikeWhereUniqueInput | ArticleLikeWhereUniqueInput[]
+    disconnect?: ArticleLikeWhereUniqueInput | ArticleLikeWhereUniqueInput[]
+    delete?: ArticleLikeWhereUniqueInput | ArticleLikeWhereUniqueInput[]
+    connect?: ArticleLikeWhereUniqueInput | ArticleLikeWhereUniqueInput[]
+    update?: ArticleLikeUpdateWithWhereUniqueWithoutArticleInput | ArticleLikeUpdateWithWhereUniqueWithoutArticleInput[]
+    updateMany?: ArticleLikeUpdateManyWithWhereWithoutArticleInput | ArticleLikeUpdateManyWithWhereWithoutArticleInput[]
+    deleteMany?: ArticleLikeScalarWhereInput | ArticleLikeScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutArticleReadsInput = {
@@ -14966,6 +16464,34 @@ export namespace Prisma {
     upsert?: ArticleUpsertWithoutReadersInput
     connect?: ArticleWhereUniqueInput
     update?: XOR<XOR<ArticleUpdateToOneWithWhereWithoutReadersInput, ArticleUpdateWithoutReadersInput>, ArticleUncheckedUpdateWithoutReadersInput>
+  }
+
+  export type UserCreateNestedOneWithoutLikesInput = {
+    create?: XOR<UserCreateWithoutLikesInput, UserUncheckedCreateWithoutLikesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutLikesInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type ArticleCreateNestedOneWithoutLikesInput = {
+    create?: XOR<ArticleCreateWithoutLikesInput, ArticleUncheckedCreateWithoutLikesInput>
+    connectOrCreate?: ArticleCreateOrConnectWithoutLikesInput
+    connect?: ArticleWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutLikesNestedInput = {
+    create?: XOR<UserCreateWithoutLikesInput, UserUncheckedCreateWithoutLikesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutLikesInput
+    upsert?: UserUpsertWithoutLikesInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutLikesInput, UserUpdateWithoutLikesInput>, UserUncheckedUpdateWithoutLikesInput>
+  }
+
+  export type ArticleUpdateOneRequiredWithoutLikesNestedInput = {
+    create?: XOR<ArticleCreateWithoutLikesInput, ArticleUncheckedCreateWithoutLikesInput>
+    connectOrCreate?: ArticleCreateOrConnectWithoutLikesInput
+    upsert?: ArticleUpsertWithoutLikesInput
+    connect?: ArticleWhereUniqueInput
+    update?: XOR<XOR<ArticleUpdateToOneWithWhereWithoutLikesInput, ArticleUpdateWithoutLikesInput>, ArticleUncheckedUpdateWithoutLikesInput>
   }
 
   export type UserCreateNestedOneWithoutPointActionsInput = {
@@ -15409,9 +16935,11 @@ export namespace Prisma {
     content: string
     summary?: string | null
     readCount?: number
+    likesCount?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     readers?: ArticleReadCreateNestedManyWithoutArticleInput
+    likes?: ArticleLikeCreateNestedManyWithoutArticleInput
   }
 
   export type ArticleUncheckedCreateWithoutAuthorInput = {
@@ -15420,9 +16948,11 @@ export namespace Prisma {
     content: string
     summary?: string | null
     readCount?: number
+    likesCount?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     readers?: ArticleReadUncheckedCreateNestedManyWithoutArticleInput
+    likes?: ArticleLikeUncheckedCreateNestedManyWithoutArticleInput
   }
 
   export type ArticleCreateOrConnectWithoutAuthorInput = {
@@ -15454,6 +16984,28 @@ export namespace Prisma {
 
   export type ArticleReadCreateManyUserInputEnvelope = {
     data: ArticleReadCreateManyUserInput | ArticleReadCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ArticleLikeCreateWithoutUserInput = {
+    id?: string
+    createdAt?: Date | string
+    article: ArticleCreateNestedOneWithoutLikesInput
+  }
+
+  export type ArticleLikeUncheckedCreateWithoutUserInput = {
+    id?: string
+    articleId: string
+    createdAt?: Date | string
+  }
+
+  export type ArticleLikeCreateOrConnectWithoutUserInput = {
+    where: ArticleLikeWhereUniqueInput
+    create: XOR<ArticleLikeCreateWithoutUserInput, ArticleLikeUncheckedCreateWithoutUserInput>
+  }
+
+  export type ArticleLikeCreateManyUserInputEnvelope = {
+    data: ArticleLikeCreateManyUserInput | ArticleLikeCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -15652,6 +17204,7 @@ export namespace Prisma {
     summary?: StringNullableFilter<"Article"> | string | null
     authorId?: StringFilter<"Article"> | string
     readCount?: IntFilter<"Article"> | number
+    likesCount?: IntFilter<"Article"> | number
     createdAt?: DateTimeFilter<"Article"> | Date | string
     updatedAt?: DateTimeFilter<"Article"> | Date | string
   }
@@ -15680,6 +17233,32 @@ export namespace Prisma {
     userId?: StringFilter<"ArticleRead"> | string
     articleId?: StringFilter<"ArticleRead"> | string
     readAt?: DateTimeFilter<"ArticleRead"> | Date | string
+  }
+
+  export type ArticleLikeUpsertWithWhereUniqueWithoutUserInput = {
+    where: ArticleLikeWhereUniqueInput
+    update: XOR<ArticleLikeUpdateWithoutUserInput, ArticleLikeUncheckedUpdateWithoutUserInput>
+    create: XOR<ArticleLikeCreateWithoutUserInput, ArticleLikeUncheckedCreateWithoutUserInput>
+  }
+
+  export type ArticleLikeUpdateWithWhereUniqueWithoutUserInput = {
+    where: ArticleLikeWhereUniqueInput
+    data: XOR<ArticleLikeUpdateWithoutUserInput, ArticleLikeUncheckedUpdateWithoutUserInput>
+  }
+
+  export type ArticleLikeUpdateManyWithWhereWithoutUserInput = {
+    where: ArticleLikeScalarWhereInput
+    data: XOR<ArticleLikeUpdateManyMutationInput, ArticleLikeUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type ArticleLikeScalarWhereInput = {
+    AND?: ArticleLikeScalarWhereInput | ArticleLikeScalarWhereInput[]
+    OR?: ArticleLikeScalarWhereInput[]
+    NOT?: ArticleLikeScalarWhereInput | ArticleLikeScalarWhereInput[]
+    id?: StringFilter<"ArticleLike"> | string
+    userId?: StringFilter<"ArticleLike"> | string
+    articleId?: StringFilter<"ArticleLike"> | string
+    createdAt?: DateTimeFilter<"ArticleLike"> | Date | string
   }
 
   export type PointActionUpsertWithWhereUniqueWithoutUserInput = {
@@ -15730,6 +17309,7 @@ export namespace Prisma {
     eventsOrganized?: EventCreateNestedManyWithoutOrganizerInput
     articles?: ArticleCreateNestedManyWithoutAuthorInput
     articleReads?: ArticleReadCreateNestedManyWithoutUserInput
+    likes?: ArticleLikeCreateNestedManyWithoutUserInput
     pointActions?: PointActionCreateNestedManyWithoutUserInput
   }
 
@@ -15753,6 +17333,7 @@ export namespace Prisma {
     eventsOrganized?: EventUncheckedCreateNestedManyWithoutOrganizerInput
     articles?: ArticleUncheckedCreateNestedManyWithoutAuthorInput
     articleReads?: ArticleReadUncheckedCreateNestedManyWithoutUserInput
+    likes?: ArticleLikeUncheckedCreateNestedManyWithoutUserInput
     pointActions?: PointActionUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -15814,6 +17395,7 @@ export namespace Prisma {
     eventsOrganized?: EventUpdateManyWithoutOrganizerNestedInput
     articles?: ArticleUpdateManyWithoutAuthorNestedInput
     articleReads?: ArticleReadUpdateManyWithoutUserNestedInput
+    likes?: ArticleLikeUpdateManyWithoutUserNestedInput
     pointActions?: PointActionUpdateManyWithoutUserNestedInput
   }
 
@@ -15837,6 +17419,7 @@ export namespace Prisma {
     eventsOrganized?: EventUncheckedUpdateManyWithoutOrganizerNestedInput
     articles?: ArticleUncheckedUpdateManyWithoutAuthorNestedInput
     articleReads?: ArticleReadUncheckedUpdateManyWithoutUserNestedInput
+    likes?: ArticleLikeUncheckedUpdateManyWithoutUserNestedInput
     pointActions?: PointActionUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -15907,6 +17490,7 @@ export namespace Prisma {
     eventsOrganized?: EventCreateNestedManyWithoutOrganizerInput
     articles?: ArticleCreateNestedManyWithoutAuthorInput
     articleReads?: ArticleReadCreateNestedManyWithoutUserInput
+    likes?: ArticleLikeCreateNestedManyWithoutUserInput
     pointActions?: PointActionCreateNestedManyWithoutUserInput
   }
 
@@ -15930,6 +17514,7 @@ export namespace Prisma {
     eventsOrganized?: EventUncheckedCreateNestedManyWithoutOrganizerInput
     articles?: ArticleUncheckedCreateNestedManyWithoutAuthorInput
     articleReads?: ArticleReadUncheckedCreateNestedManyWithoutUserInput
+    likes?: ArticleLikeUncheckedCreateNestedManyWithoutUserInput
     pointActions?: PointActionUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -16006,6 +17591,7 @@ export namespace Prisma {
     eventsOrganized?: EventUpdateManyWithoutOrganizerNestedInput
     articles?: ArticleUpdateManyWithoutAuthorNestedInput
     articleReads?: ArticleReadUpdateManyWithoutUserNestedInput
+    likes?: ArticleLikeUpdateManyWithoutUserNestedInput
     pointActions?: PointActionUpdateManyWithoutUserNestedInput
   }
 
@@ -16029,6 +17615,7 @@ export namespace Prisma {
     eventsOrganized?: EventUncheckedUpdateManyWithoutOrganizerNestedInput
     articles?: ArticleUncheckedUpdateManyWithoutAuthorNestedInput
     articleReads?: ArticleReadUncheckedUpdateManyWithoutUserNestedInput
+    likes?: ArticleLikeUncheckedUpdateManyWithoutUserNestedInput
     pointActions?: PointActionUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -16052,6 +17639,7 @@ export namespace Prisma {
     eventsOrganized?: EventCreateNestedManyWithoutOrganizerInput
     articles?: ArticleCreateNestedManyWithoutAuthorInput
     articleReads?: ArticleReadCreateNestedManyWithoutUserInput
+    likes?: ArticleLikeCreateNestedManyWithoutUserInput
     pointActions?: PointActionCreateNestedManyWithoutUserInput
   }
 
@@ -16075,6 +17663,7 @@ export namespace Prisma {
     eventsOrganized?: EventUncheckedCreateNestedManyWithoutOrganizerInput
     articles?: ArticleUncheckedCreateNestedManyWithoutAuthorInput
     articleReads?: ArticleReadUncheckedCreateNestedManyWithoutUserInput
+    likes?: ArticleLikeUncheckedCreateNestedManyWithoutUserInput
     pointActions?: PointActionUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -16114,6 +17703,7 @@ export namespace Prisma {
     eventsOrganized?: EventUpdateManyWithoutOrganizerNestedInput
     articles?: ArticleUpdateManyWithoutAuthorNestedInput
     articleReads?: ArticleReadUpdateManyWithoutUserNestedInput
+    likes?: ArticleLikeUpdateManyWithoutUserNestedInput
     pointActions?: PointActionUpdateManyWithoutUserNestedInput
   }
 
@@ -16137,6 +17727,7 @@ export namespace Prisma {
     eventsOrganized?: EventUncheckedUpdateManyWithoutOrganizerNestedInput
     articles?: ArticleUncheckedUpdateManyWithoutAuthorNestedInput
     articleReads?: ArticleReadUncheckedUpdateManyWithoutUserNestedInput
+    likes?: ArticleLikeUncheckedUpdateManyWithoutUserNestedInput
     pointActions?: PointActionUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -16160,6 +17751,7 @@ export namespace Prisma {
     eventsOrganized?: EventCreateNestedManyWithoutOrganizerInput
     articles?: ArticleCreateNestedManyWithoutAuthorInput
     articleReads?: ArticleReadCreateNestedManyWithoutUserInput
+    likes?: ArticleLikeCreateNestedManyWithoutUserInput
     pointActions?: PointActionCreateNestedManyWithoutUserInput
   }
 
@@ -16183,6 +17775,7 @@ export namespace Prisma {
     eventsOrganized?: EventUncheckedCreateNestedManyWithoutOrganizerInput
     articles?: ArticleUncheckedCreateNestedManyWithoutAuthorInput
     articleReads?: ArticleReadUncheckedCreateNestedManyWithoutUserInput
+    likes?: ArticleLikeUncheckedCreateNestedManyWithoutUserInput
     pointActions?: PointActionUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -16222,6 +17815,7 @@ export namespace Prisma {
     eventsOrganized?: EventUpdateManyWithoutOrganizerNestedInput
     articles?: ArticleUpdateManyWithoutAuthorNestedInput
     articleReads?: ArticleReadUpdateManyWithoutUserNestedInput
+    likes?: ArticleLikeUpdateManyWithoutUserNestedInput
     pointActions?: PointActionUpdateManyWithoutUserNestedInput
   }
 
@@ -16245,6 +17839,7 @@ export namespace Prisma {
     eventsOrganized?: EventUncheckedUpdateManyWithoutOrganizerNestedInput
     articles?: ArticleUncheckedUpdateManyWithoutAuthorNestedInput
     articleReads?: ArticleReadUncheckedUpdateManyWithoutUserNestedInput
+    likes?: ArticleLikeUncheckedUpdateManyWithoutUserNestedInput
     pointActions?: PointActionUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -16268,6 +17863,7 @@ export namespace Prisma {
     memes?: MemeCreateNestedManyWithoutAuthorInput
     articles?: ArticleCreateNestedManyWithoutAuthorInput
     articleReads?: ArticleReadCreateNestedManyWithoutUserInput
+    likes?: ArticleLikeCreateNestedManyWithoutUserInput
     pointActions?: PointActionCreateNestedManyWithoutUserInput
   }
 
@@ -16291,6 +17887,7 @@ export namespace Prisma {
     memes?: MemeUncheckedCreateNestedManyWithoutAuthorInput
     articles?: ArticleUncheckedCreateNestedManyWithoutAuthorInput
     articleReads?: ArticleReadUncheckedCreateNestedManyWithoutUserInput
+    likes?: ArticleLikeUncheckedCreateNestedManyWithoutUserInput
     pointActions?: PointActionUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -16330,6 +17927,7 @@ export namespace Prisma {
     memes?: MemeUpdateManyWithoutAuthorNestedInput
     articles?: ArticleUpdateManyWithoutAuthorNestedInput
     articleReads?: ArticleReadUpdateManyWithoutUserNestedInput
+    likes?: ArticleLikeUpdateManyWithoutUserNestedInput
     pointActions?: PointActionUpdateManyWithoutUserNestedInput
   }
 
@@ -16353,6 +17951,7 @@ export namespace Prisma {
     memes?: MemeUncheckedUpdateManyWithoutAuthorNestedInput
     articles?: ArticleUncheckedUpdateManyWithoutAuthorNestedInput
     articleReads?: ArticleReadUncheckedUpdateManyWithoutUserNestedInput
+    likes?: ArticleLikeUncheckedUpdateManyWithoutUserNestedInput
     pointActions?: PointActionUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -16376,6 +17975,7 @@ export namespace Prisma {
     memes?: MemeCreateNestedManyWithoutAuthorInput
     eventsOrganized?: EventCreateNestedManyWithoutOrganizerInput
     articleReads?: ArticleReadCreateNestedManyWithoutUserInput
+    likes?: ArticleLikeCreateNestedManyWithoutUserInput
     pointActions?: PointActionCreateNestedManyWithoutUserInput
   }
 
@@ -16399,6 +17999,7 @@ export namespace Prisma {
     memes?: MemeUncheckedCreateNestedManyWithoutAuthorInput
     eventsOrganized?: EventUncheckedCreateNestedManyWithoutOrganizerInput
     articleReads?: ArticleReadUncheckedCreateNestedManyWithoutUserInput
+    likes?: ArticleLikeUncheckedCreateNestedManyWithoutUserInput
     pointActions?: PointActionUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -16426,6 +18027,28 @@ export namespace Prisma {
 
   export type ArticleReadCreateManyArticleInputEnvelope = {
     data: ArticleReadCreateManyArticleInput | ArticleReadCreateManyArticleInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ArticleLikeCreateWithoutArticleInput = {
+    id?: string
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutLikesInput
+  }
+
+  export type ArticleLikeUncheckedCreateWithoutArticleInput = {
+    id?: string
+    userId: string
+    createdAt?: Date | string
+  }
+
+  export type ArticleLikeCreateOrConnectWithoutArticleInput = {
+    where: ArticleLikeWhereUniqueInput
+    create: XOR<ArticleLikeCreateWithoutArticleInput, ArticleLikeUncheckedCreateWithoutArticleInput>
+  }
+
+  export type ArticleLikeCreateManyArticleInputEnvelope = {
+    data: ArticleLikeCreateManyArticleInput | ArticleLikeCreateManyArticleInput[]
     skipDuplicates?: boolean
   }
 
@@ -16460,6 +18083,7 @@ export namespace Prisma {
     memes?: MemeUpdateManyWithoutAuthorNestedInput
     eventsOrganized?: EventUpdateManyWithoutOrganizerNestedInput
     articleReads?: ArticleReadUpdateManyWithoutUserNestedInput
+    likes?: ArticleLikeUpdateManyWithoutUserNestedInput
     pointActions?: PointActionUpdateManyWithoutUserNestedInput
   }
 
@@ -16483,6 +18107,7 @@ export namespace Prisma {
     memes?: MemeUncheckedUpdateManyWithoutAuthorNestedInput
     eventsOrganized?: EventUncheckedUpdateManyWithoutOrganizerNestedInput
     articleReads?: ArticleReadUncheckedUpdateManyWithoutUserNestedInput
+    likes?: ArticleLikeUncheckedUpdateManyWithoutUserNestedInput
     pointActions?: PointActionUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -16500,6 +18125,22 @@ export namespace Prisma {
   export type ArticleReadUpdateManyWithWhereWithoutArticleInput = {
     where: ArticleReadScalarWhereInput
     data: XOR<ArticleReadUpdateManyMutationInput, ArticleReadUncheckedUpdateManyWithoutArticleInput>
+  }
+
+  export type ArticleLikeUpsertWithWhereUniqueWithoutArticleInput = {
+    where: ArticleLikeWhereUniqueInput
+    update: XOR<ArticleLikeUpdateWithoutArticleInput, ArticleLikeUncheckedUpdateWithoutArticleInput>
+    create: XOR<ArticleLikeCreateWithoutArticleInput, ArticleLikeUncheckedCreateWithoutArticleInput>
+  }
+
+  export type ArticleLikeUpdateWithWhereUniqueWithoutArticleInput = {
+    where: ArticleLikeWhereUniqueInput
+    data: XOR<ArticleLikeUpdateWithoutArticleInput, ArticleLikeUncheckedUpdateWithoutArticleInput>
+  }
+
+  export type ArticleLikeUpdateManyWithWhereWithoutArticleInput = {
+    where: ArticleLikeScalarWhereInput
+    data: XOR<ArticleLikeUpdateManyMutationInput, ArticleLikeUncheckedUpdateManyWithoutArticleInput>
   }
 
   export type UserCreateWithoutArticleReadsInput = {
@@ -16522,6 +18163,7 @@ export namespace Prisma {
     memes?: MemeCreateNestedManyWithoutAuthorInput
     eventsOrganized?: EventCreateNestedManyWithoutOrganizerInput
     articles?: ArticleCreateNestedManyWithoutAuthorInput
+    likes?: ArticleLikeCreateNestedManyWithoutUserInput
     pointActions?: PointActionCreateNestedManyWithoutUserInput
   }
 
@@ -16545,6 +18187,7 @@ export namespace Prisma {
     memes?: MemeUncheckedCreateNestedManyWithoutAuthorInput
     eventsOrganized?: EventUncheckedCreateNestedManyWithoutOrganizerInput
     articles?: ArticleUncheckedCreateNestedManyWithoutAuthorInput
+    likes?: ArticleLikeUncheckedCreateNestedManyWithoutUserInput
     pointActions?: PointActionUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -16559,9 +18202,11 @@ export namespace Prisma {
     content: string
     summary?: string | null
     readCount?: number
+    likesCount?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     author: UserCreateNestedOneWithoutArticlesInput
+    likes?: ArticleLikeCreateNestedManyWithoutArticleInput
   }
 
   export type ArticleUncheckedCreateWithoutReadersInput = {
@@ -16571,8 +18216,10 @@ export namespace Prisma {
     summary?: string | null
     authorId: string
     readCount?: number
+    likesCount?: number
     createdAt?: Date | string
     updatedAt?: Date | string
+    likes?: ArticleLikeUncheckedCreateNestedManyWithoutArticleInput
   }
 
   export type ArticleCreateOrConnectWithoutReadersInput = {
@@ -16611,6 +18258,7 @@ export namespace Prisma {
     memes?: MemeUpdateManyWithoutAuthorNestedInput
     eventsOrganized?: EventUpdateManyWithoutOrganizerNestedInput
     articles?: ArticleUpdateManyWithoutAuthorNestedInput
+    likes?: ArticleLikeUpdateManyWithoutUserNestedInput
     pointActions?: PointActionUpdateManyWithoutUserNestedInput
   }
 
@@ -16634,6 +18282,7 @@ export namespace Prisma {
     memes?: MemeUncheckedUpdateManyWithoutAuthorNestedInput
     eventsOrganized?: EventUncheckedUpdateManyWithoutOrganizerNestedInput
     articles?: ArticleUncheckedUpdateManyWithoutAuthorNestedInput
+    likes?: ArticleLikeUncheckedUpdateManyWithoutUserNestedInput
     pointActions?: PointActionUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -16654,9 +18303,11 @@ export namespace Prisma {
     content?: StringFieldUpdateOperationsInput | string
     summary?: NullableStringFieldUpdateOperationsInput | string | null
     readCount?: IntFieldUpdateOperationsInput | number
+    likesCount?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     author?: UserUpdateOneRequiredWithoutArticlesNestedInput
+    likes?: ArticleLikeUpdateManyWithoutArticleNestedInput
   }
 
   export type ArticleUncheckedUpdateWithoutReadersInput = {
@@ -16666,8 +18317,190 @@ export namespace Prisma {
     summary?: NullableStringFieldUpdateOperationsInput | string | null
     authorId?: StringFieldUpdateOperationsInput | string
     readCount?: IntFieldUpdateOperationsInput | number
+    likesCount?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    likes?: ArticleLikeUncheckedUpdateManyWithoutArticleNestedInput
+  }
+
+  export type UserCreateWithoutLikesInput = {
+    id?: string
+    clerkId: string
+    email: string
+    firstName?: string | null
+    lastName?: string | null
+    imageUrl?: string | null
+    bio?: string | null
+    role?: $Enums.Role
+    techStack?: NullableJsonNullValueInput | InputJsonValue
+    points?: number
+    lastLoginAt?: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    lobbiesHosted?: LobbyCreateNestedManyWithoutOwnerInput
+    lobbyParticipation?: LobbyParticipantCreateNestedManyWithoutUserInput
+    podcasts?: PodcastCreateNestedManyWithoutHostInput
+    memes?: MemeCreateNestedManyWithoutAuthorInput
+    eventsOrganized?: EventCreateNestedManyWithoutOrganizerInput
+    articles?: ArticleCreateNestedManyWithoutAuthorInput
+    articleReads?: ArticleReadCreateNestedManyWithoutUserInput
+    pointActions?: PointActionCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutLikesInput = {
+    id?: string
+    clerkId: string
+    email: string
+    firstName?: string | null
+    lastName?: string | null
+    imageUrl?: string | null
+    bio?: string | null
+    role?: $Enums.Role
+    techStack?: NullableJsonNullValueInput | InputJsonValue
+    points?: number
+    lastLoginAt?: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    lobbiesHosted?: LobbyUncheckedCreateNestedManyWithoutOwnerInput
+    lobbyParticipation?: LobbyParticipantUncheckedCreateNestedManyWithoutUserInput
+    podcasts?: PodcastUncheckedCreateNestedManyWithoutHostInput
+    memes?: MemeUncheckedCreateNestedManyWithoutAuthorInput
+    eventsOrganized?: EventUncheckedCreateNestedManyWithoutOrganizerInput
+    articles?: ArticleUncheckedCreateNestedManyWithoutAuthorInput
+    articleReads?: ArticleReadUncheckedCreateNestedManyWithoutUserInput
+    pointActions?: PointActionUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutLikesInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutLikesInput, UserUncheckedCreateWithoutLikesInput>
+  }
+
+  export type ArticleCreateWithoutLikesInput = {
+    id?: string
+    title: string
+    content: string
+    summary?: string | null
+    readCount?: number
+    likesCount?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    author: UserCreateNestedOneWithoutArticlesInput
+    readers?: ArticleReadCreateNestedManyWithoutArticleInput
+  }
+
+  export type ArticleUncheckedCreateWithoutLikesInput = {
+    id?: string
+    title: string
+    content: string
+    summary?: string | null
+    authorId: string
+    readCount?: number
+    likesCount?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    readers?: ArticleReadUncheckedCreateNestedManyWithoutArticleInput
+  }
+
+  export type ArticleCreateOrConnectWithoutLikesInput = {
+    where: ArticleWhereUniqueInput
+    create: XOR<ArticleCreateWithoutLikesInput, ArticleUncheckedCreateWithoutLikesInput>
+  }
+
+  export type UserUpsertWithoutLikesInput = {
+    update: XOR<UserUpdateWithoutLikesInput, UserUncheckedUpdateWithoutLikesInput>
+    create: XOR<UserCreateWithoutLikesInput, UserUncheckedCreateWithoutLikesInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutLikesInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutLikesInput, UserUncheckedUpdateWithoutLikesInput>
+  }
+
+  export type UserUpdateWithoutLikesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    clerkId?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    techStack?: NullableJsonNullValueInput | InputJsonValue
+    points?: IntFieldUpdateOperationsInput | number
+    lastLoginAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lobbiesHosted?: LobbyUpdateManyWithoutOwnerNestedInput
+    lobbyParticipation?: LobbyParticipantUpdateManyWithoutUserNestedInput
+    podcasts?: PodcastUpdateManyWithoutHostNestedInput
+    memes?: MemeUpdateManyWithoutAuthorNestedInput
+    eventsOrganized?: EventUpdateManyWithoutOrganizerNestedInput
+    articles?: ArticleUpdateManyWithoutAuthorNestedInput
+    articleReads?: ArticleReadUpdateManyWithoutUserNestedInput
+    pointActions?: PointActionUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutLikesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    clerkId?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    techStack?: NullableJsonNullValueInput | InputJsonValue
+    points?: IntFieldUpdateOperationsInput | number
+    lastLoginAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lobbiesHosted?: LobbyUncheckedUpdateManyWithoutOwnerNestedInput
+    lobbyParticipation?: LobbyParticipantUncheckedUpdateManyWithoutUserNestedInput
+    podcasts?: PodcastUncheckedUpdateManyWithoutHostNestedInput
+    memes?: MemeUncheckedUpdateManyWithoutAuthorNestedInput
+    eventsOrganized?: EventUncheckedUpdateManyWithoutOrganizerNestedInput
+    articles?: ArticleUncheckedUpdateManyWithoutAuthorNestedInput
+    articleReads?: ArticleReadUncheckedUpdateManyWithoutUserNestedInput
+    pointActions?: PointActionUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type ArticleUpsertWithoutLikesInput = {
+    update: XOR<ArticleUpdateWithoutLikesInput, ArticleUncheckedUpdateWithoutLikesInput>
+    create: XOR<ArticleCreateWithoutLikesInput, ArticleUncheckedCreateWithoutLikesInput>
+    where?: ArticleWhereInput
+  }
+
+  export type ArticleUpdateToOneWithWhereWithoutLikesInput = {
+    where?: ArticleWhereInput
+    data: XOR<ArticleUpdateWithoutLikesInput, ArticleUncheckedUpdateWithoutLikesInput>
+  }
+
+  export type ArticleUpdateWithoutLikesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    summary?: NullableStringFieldUpdateOperationsInput | string | null
+    readCount?: IntFieldUpdateOperationsInput | number
+    likesCount?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    author?: UserUpdateOneRequiredWithoutArticlesNestedInput
+    readers?: ArticleReadUpdateManyWithoutArticleNestedInput
+  }
+
+  export type ArticleUncheckedUpdateWithoutLikesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    summary?: NullableStringFieldUpdateOperationsInput | string | null
+    authorId?: StringFieldUpdateOperationsInput | string
+    readCount?: IntFieldUpdateOperationsInput | number
+    likesCount?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    readers?: ArticleReadUncheckedUpdateManyWithoutArticleNestedInput
   }
 
   export type UserCreateWithoutPointActionsInput = {
@@ -16691,6 +18524,7 @@ export namespace Prisma {
     eventsOrganized?: EventCreateNestedManyWithoutOrganizerInput
     articles?: ArticleCreateNestedManyWithoutAuthorInput
     articleReads?: ArticleReadCreateNestedManyWithoutUserInput
+    likes?: ArticleLikeCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutPointActionsInput = {
@@ -16714,6 +18548,7 @@ export namespace Prisma {
     eventsOrganized?: EventUncheckedCreateNestedManyWithoutOrganizerInput
     articles?: ArticleUncheckedCreateNestedManyWithoutAuthorInput
     articleReads?: ArticleReadUncheckedCreateNestedManyWithoutUserInput
+    likes?: ArticleLikeUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutPointActionsInput = {
@@ -16753,6 +18588,7 @@ export namespace Prisma {
     eventsOrganized?: EventUpdateManyWithoutOrganizerNestedInput
     articles?: ArticleUpdateManyWithoutAuthorNestedInput
     articleReads?: ArticleReadUpdateManyWithoutUserNestedInput
+    likes?: ArticleLikeUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPointActionsInput = {
@@ -16776,6 +18612,7 @@ export namespace Prisma {
     eventsOrganized?: EventUncheckedUpdateManyWithoutOrganizerNestedInput
     articles?: ArticleUncheckedUpdateManyWithoutAuthorNestedInput
     articleReads?: ArticleReadUncheckedUpdateManyWithoutUserNestedInput
+    likes?: ArticleLikeUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type LobbyCreateManyOwnerInput = {
@@ -16827,6 +18664,7 @@ export namespace Prisma {
     content: string
     summary?: string | null
     readCount?: number
+    likesCount?: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -16835,6 +18673,12 @@ export namespace Prisma {
     id?: string
     articleId: string
     readAt?: Date | string
+  }
+
+  export type ArticleLikeCreateManyUserInput = {
+    id?: string
+    articleId: string
+    createdAt?: Date | string
   }
 
   export type PointActionCreateManyUserInput = {
@@ -16982,9 +18826,11 @@ export namespace Prisma {
     content?: StringFieldUpdateOperationsInput | string
     summary?: NullableStringFieldUpdateOperationsInput | string | null
     readCount?: IntFieldUpdateOperationsInput | number
+    likesCount?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     readers?: ArticleReadUpdateManyWithoutArticleNestedInput
+    likes?: ArticleLikeUpdateManyWithoutArticleNestedInput
   }
 
   export type ArticleUncheckedUpdateWithoutAuthorInput = {
@@ -16993,9 +18839,11 @@ export namespace Prisma {
     content?: StringFieldUpdateOperationsInput | string
     summary?: NullableStringFieldUpdateOperationsInput | string | null
     readCount?: IntFieldUpdateOperationsInput | number
+    likesCount?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     readers?: ArticleReadUncheckedUpdateManyWithoutArticleNestedInput
+    likes?: ArticleLikeUncheckedUpdateManyWithoutArticleNestedInput
   }
 
   export type ArticleUncheckedUpdateManyWithoutAuthorInput = {
@@ -17004,6 +18852,7 @@ export namespace Prisma {
     content?: StringFieldUpdateOperationsInput | string
     summary?: NullableStringFieldUpdateOperationsInput | string | null
     readCount?: IntFieldUpdateOperationsInput | number
+    likesCount?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -17024,6 +18873,24 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     articleId?: StringFieldUpdateOperationsInput | string
     readAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ArticleLikeUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    article?: ArticleUpdateOneRequiredWithoutLikesNestedInput
+  }
+
+  export type ArticleLikeUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    articleId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ArticleLikeUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    articleId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type PointActionUpdateWithoutUserInput = {
@@ -17080,6 +18947,12 @@ export namespace Prisma {
     readAt?: Date | string
   }
 
+  export type ArticleLikeCreateManyArticleInput = {
+    id?: string
+    userId: string
+    createdAt?: Date | string
+  }
+
   export type ArticleReadUpdateWithoutArticleInput = {
     id?: StringFieldUpdateOperationsInput | string
     readAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -17096,6 +18969,24 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     readAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ArticleLikeUpdateWithoutArticleInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutLikesNestedInput
+  }
+
+  export type ArticleLikeUncheckedUpdateWithoutArticleInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ArticleLikeUncheckedUpdateManyWithoutArticleInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 

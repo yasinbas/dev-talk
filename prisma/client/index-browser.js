@@ -191,6 +191,7 @@ exports.Prisma.ArticleScalarFieldEnum = {
   summary: 'summary',
   authorId: 'authorId',
   readCount: 'readCount',
+  likesCount: 'likesCount',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -200,6 +201,13 @@ exports.Prisma.ArticleReadScalarFieldEnum = {
   userId: 'userId',
   articleId: 'articleId',
   readAt: 'readAt'
+};
+
+exports.Prisma.ArticleLikeScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  articleId: 'articleId',
+  createdAt: 'createdAt'
 };
 
 exports.Prisma.PointActionScalarFieldEnum = {
@@ -271,6 +279,7 @@ exports.Prisma.ModelName = {
   Event: 'Event',
   Article: 'Article',
   ArticleRead: 'ArticleRead',
+  ArticleLike: 'ArticleLike',
   PointAction: 'PointAction'
 };
 
