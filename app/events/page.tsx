@@ -2,6 +2,8 @@ import { db } from "@/lib/db";
 import { EventCard } from "./_components/EventCard";
 import { CreateEventDialog } from "./_components/CreateEventDialog";
 
+export const dynamic = "force-dynamic";
+
 export default async function EventsPage() {
     const events = await db.event.findMany({
         include: { organizer: true },

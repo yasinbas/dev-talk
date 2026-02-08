@@ -2,6 +2,8 @@ import { db } from "@/lib/db";
 import { PodcastCard } from "./_components/PodcastCard";
 import { UploadPodcastDialog } from "./_components/UploadPodcastDialog";
 
+export const dynamic = "force-dynamic";
+
 export default async function PodcastsPage() {
     const podcasts = await db.podcast.findMany({
         include: { host: true },

@@ -2,6 +2,8 @@ import { db } from "@/lib/db";
 import { ArticleCard } from "./_components/ArticleCard";
 import { CreateArticleDialog } from "./_components/CreateArticleDialog";
 
+export const dynamic = "force-dynamic";
+
 export default async function ArticlesPage() {
     const articles = await db.article.findMany({
         orderBy: { createdAt: "desc" },

@@ -2,6 +2,8 @@ import { db } from "@/lib/db";
 import { LobbyCard } from "./_components/LobbyCard";
 import { CreateLobbyDialog } from "./_components/CreateLobbyDialog";
 
+export const dynamic = "force-dynamic";
+
 // Inline types (workaround for prisma generate issue)
 interface User {
     id: string;

@@ -2,6 +2,8 @@ import { db } from "@/lib/db";
 import { MemeCard } from "./_components/MemeCard";
 import { UploadMemeDialog } from "./_components/UploadMemeDialog";
 
+export const dynamic = "force-dynamic";
+
 export default async function MemesPage() {
     const memes = await db.meme.findMany({
         include: { author: true },
