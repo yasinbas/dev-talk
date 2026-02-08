@@ -27,7 +27,7 @@ export default async function EventsPage() {
                         No upcoming events. Create one!
                     </div>
                 ) : (
-                    events.map((event: any) => (
+                    events.map((event) => (
                         <EventCard key={event.id} event={event} />
                     ))
                 )}

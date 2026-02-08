@@ -1,0 +1,131 @@
+﻿curl.exe :   % Total    % Rec
+eived % Xferd  Average Speed 
+  Time    Time     Time  Curr
+ent
+At line:1 char:1
++ curl.exe -k -vI https://dev
+talk.opsdock.work 2>&1 | Out-
+File -FilePat ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo           
+   : NotSpecified: (  % Tot  
+  al    % ...  Time  Curre   
+ nt:String) [], RemoteExc    
+eption
+    + FullyQualifiedErrorId  
+   : NativeCommandError
+ 
+                             
+    Dload  Upload   Total   S
+pent    Left  Speed
+
+  0     0    0     0    0    
+ 0      0      0 --:--:-- --:
+--:-- --:--:--     0* Host de
+vtalk.opsdock.work:443 was re
+solved.
+* IPv6: (none)
+* IPv4: 45.147.47.221
+*   Trying 45.147.47.221:443.
+..
+* schannel: disabled automati
+c use of client certificate
+* ALPN: curl offers http/1.1
+* ALPN: server accepted http/
+1.1
+* Established connection to d
+evtalk.opsdock.work (45.147.4
+7.221 port 443) from 192.168.
+1.4 port 56715 
+* using HTTP/1.x
+> HEAD / HTTP/1.1
+
+> Host: devtalk.opsdock.work
+
+> User-Agent: curl/8.16.0
+
+> Accept: */*
+
+> 
+
+* Request completely sent off
+* schannel: remote party requ
+ests renegotiation
+* schannel: renegotiating SSL
+/TLS connection
+* schannel: SSL/TLS connectio
+n renegotiated
+* schannel: remote party requ
+ests renegotiation
+* schannel: renegotiating SSL
+/TLS connection
+* schannel: SSL/TLS connectio
+n renegotiated
+< HTTP/1.1 502 Bad Gateway
+
+< Server: nginx
+
+< Date: Sun, 08 Feb 2026 17:2
+4:39 GMT
+
+< Content-Type: text/html
+
+< Content-Length: 605
+
+< Connection: keep-alive
+
+< X-SSO-WAT: You've just been
+ SSOed
+
+< ETag: "687f77fd-25d"
+
+< Content-Security-Policy: up
+grade-insecure-requests
+
+< X-Content-Type-Options: nos
+niff
+
+< X-XSS-Protection: 1; mode=b
+lock
+
+< X-Download-Options: noopen
+
+< X-Permitted-Cross-Domain-Po
+licies: none
+
+< X-Frame-Options: SAMEORIGIN
+
+< Permissions-Policy: interes
+t-cohort=()
+
+< Strict-Transport-Security: 
+max-age=63072000; includeSubD
+omains; preload
+
+< 
+
+
+  0   605    0     0    0    
+ 0      0      0 --:--:-- --:
+--:-- --:--:--     0
+* Connection #0 to host devta
+lk.opsdock.work:443 left inta
+ct
+HTTP/1.1 502 Bad Gateway
+Server: nginx
+Date: Sun, 08 Feb 2026 17:24:39 GMT
+Content-Type: text/html
+Content-Length: 605
+Connection: keep-alive
+X-SSO-WAT: You've just been SSOed
+ETag: "687f77fd-25d"
+Content-Security-Policy: upgrade-insecure-requests
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+X-Download-Options: noopen
+X-Permitted-Cross-Domain-Policies: none
+X-Frame-Options: SAMEORIGIN
+Permissions-Policy: interest-cohort=()
+Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+

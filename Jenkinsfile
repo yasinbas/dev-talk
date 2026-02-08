@@ -2,17 +2,14 @@ pipeline {
     agent any
 
     environment {
-        // App Config
         IMAGE_NAME = 'devtalk-app'
-        CONTAINER_NAME = 'devtalk-app'
-        PORT = '3000'
-        
-        // Secrets
+        // Jenkins Credentials ID'leri
+        DB_PASSWORD = credentials('devtalk-db-password')
         DATABASE_URL = credentials('devtalk-database-url')
-        NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY = credentials('clerk-publishable-key')
+        CLERK_PUBLISHABLE_KEY = credentials('clerk-publishable-key')
         CLERK_SECRET_KEY = credentials('clerk-secret-key')
         PUSHER_APP_ID = credentials('pusher-app-id')
-        NEXT_PUBLIC_PUSHER_APP_KEY = credentials('pusher-app-key')
+        PUSHER_APP_KEY = credentials('pusher-app-key')
         PUSHER_SECRET = credentials('pusher-secret')
     }
 
@@ -23,94 +20,73 @@ pipeline {
             }
         }
 
-        stage('Build Docker Image') {
+        stage('Build Image') {
             steps {
                 script {
-                    // Next.js frontend build sırasında bu keylere ihtiyaç duyar
                     sh """
                     docker build \
-                    --build-arg NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY='${NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}' \
-                    --build-arg NEXT_PUBLIC_PUSHER_APP_KEY='${NEXT_PUBLIC_PUSHER_APP_KEY}' \
-                    -t ${IMAGE_NAME}:${BUILD_NUMBER} .
+                    --build-arg NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY='${CLERK_PUBLISHABLE_KEY}' \
+                    --build-arg NEXT_PUBLIC_PUSHER_APP_KEY='${PUSHER_APP_KEY}' \
+                    -t ${IMAGE_NAME}:latest .
                     """
                 }
             }
         }
 
-        stage('Deploy to Production') {
-            // DÜZELTME: 'when' bloğu kaldırıldı. Artık her başarılı build'de deploy yapacak.
+        stage('Deploy') {
             steps {
                 script {
-                    // Tagging
-                    sh "docker tag ${IMAGE_NAME}:${BUILD_NUMBER} ${IMAGE_NAME}:latest"
-                    
-                    // Stop & Remove Old Container
-                    sh "docker stop ${CONTAINER_NAME} || true"
-                    sh "docker rm ${CONTAINER_NAME} || true"
-                    
-                    // Migrate DB (Veritabanı şemasını güncelle)
+                    // Docker Compose ile her şeyi (DB dahil) ayağa kaldır
                     sh """
-                        docker run --rm \
-                        -e DATABASE_URL='${DATABASE_URL}' \
-                        ${IMAGE_NAME}:latest \
-                        npx prisma db push --accept-data-loss
-                    """
-
-                    // Start New Container
-                    sh """
-                        docker run -d \
-                        --name ${CONTAINER_NAME} \
-                        --restart always \
-                        -p ${PORT}:3000 \
-                        -e DATABASE_URL='${DATABASE_URL}' \
-                        -e NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY='${NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}' \
-                        -e CLERK_SECRET_KEY='${CLERK_SECRET_KEY}' \
-                        -e PUSHER_APP_ID='${PUSHER_APP_ID}' \
-                        -e NEXT_PUBLIC_PUSHER_APP_KEY='${NEXT_PUBLIC_PUSHER_APP_KEY}' \
-                        -e PUSHER_SECRET='${PUSHER_SECRET}' \
-                        -e NEXT_PUBLIC_APP_URL='https://devtalk.opsdock.work' \
-                        -e NEXTAUTH_URL='https://devtalk.opsdock.work' \
-                        ${IMAGE_NAME}:latest
+                    export DB_PASSWORD='${DB_PASSWORD}'
+                    export NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY='${CLERK_PUBLISHABLE_KEY}'
+                    export CLERK_SECRET_KEY='${CLERK_SECRET_KEY}'
+                    export PUSHER_APP_ID='${PUSHER_APP_ID}'
+                    export NEXT_PUBLIC_PUSHER_APP_KEY='${PUSHER_APP_KEY}'
+                    export PUSHER_SECRET='${PUSHER_SECRET}'
+                    
+                    docker-compose down || true
+                    docker-compose up -d
                     """
                 }
             }
         }
 
-        stage('Verify Deployment') {
+        stage('Database Migration') {
             steps {
                 script {
-                    echo "Waiting for application to start..."
-                    // 12 deneme * 5 saniye = Toplam 60 saniye bekleme süresi
-                    def maxRetries = 12
-                    def retryCount = 0
+                    echo "Running migrations..."
+                    // App konteyneri içinden prisma migration çalıştır
+                    sh "docker exec devtalk-app npx prisma db push --accept-data-loss"
+                }
+            }
+        }
+
+        stage('Verify') {
+            steps {
+                script {
+                    echo "Verifying deployment..."
+                    def maxRetries = 10
                     def success = false
-                    
-                    while (retryCount < maxRetries && !success) {
+                    for (int i = 0; i < maxRetries; i++) {
                         try {
-                            // curl -f: Hata durumunda (404, 500 vs) exit code 1 döner ve catch bloğuna düşer
-                            sh "curl -f http://localhost:${PORT}/api/health"
+                            sh "curl -f http://localhost:3000/api/health"
                             success = true
-                            echo "Application is healthy!"
-                        } catch (Exception e) {
-                            retryCount++
-                            echo "Health check failed (attempt ${retryCount}/${maxRetries}), waiting 5s..."
+                            break
+                        } catch (e) {
+                            echo "Waiting for app... (${i+1}/${maxRetries})"
                             sh "sleep 5"
                         }
                     }
-                    
-                    if (!success) {
-                        echo "Deployment verification failed! Checking container logs..."
-                        sh "docker logs ${CONTAINER_NAME}"
-                        error "Application failed to start correctly"
-                    }
+                    if (!success) error "Deployment failed health check"
                 }
             }
         }
-        
-        stage('Cleanup') {
-            steps {
-                sh "docker image prune -f"
-            }
+    }
+
+    post {
+        always {
+            sh "docker image prune -f"
         }
     }
 }
