@@ -72,6 +72,8 @@ pipeline {
                         -e PUSHER_APP_ID='${PUSHER_APP_ID}' \
                         -e NEXT_PUBLIC_PUSHER_APP_KEY='${NEXT_PUBLIC_PUSHER_APP_KEY}' \
                         -e PUSHER_SECRET='${PUSHER_SECRET}' \
+                        -e NEXT_PUBLIC_APP_URL='https://devtalk.opsdock.work' \
+                        -e NEXTAUTH_URL='https://devtalk.opsdock.work' \
                         ${IMAGE_NAME}:latest
                     """
                 }
