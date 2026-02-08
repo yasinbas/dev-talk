@@ -2,24 +2,14 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Button } from "@/components/ui/button";
 import { Users, LogIn } from "lucide-react";
 import Link from "next/link";
+import { Prisma } from "@prisma/client";
 
-// Inline types (workaround for prisma generate issue)
-interface User {
-    id: string;
-    firstName: string | null;
-    lastName: string | null;
-    imageUrl: string | null;
-}
-
-interface Lobby {
-    id: string;
-    topic: string;
-    maxParticipants: number;
-    owner: User;
-}
+type LobbyWithOwner = Prisma.LobbyGetPayload<{
+    include: { owner: true }
+}>;
 
 interface LobbyCardProps {
-    lobby: Lobby;
+    lobby: LobbyWithOwner;
 }
 
 export function LobbyCard({ lobby }: LobbyCardProps) {

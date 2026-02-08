@@ -1,29 +1,8 @@
 import { db } from "@/lib/db";
-import { LobbyCard } from "./_components/LobbyCard";
 import { CreateLobbyDialog } from "./_components/CreateLobbyDialog";
+import { LobbyList } from "./_components/LobbyList";
 
 export const dynamic = "force-dynamic";
-
-// Inline types (workaround for prisma generate issue)
-interface User {
-    id: string;
-    firstName: string | null;
-    lastName: string | null;
-    imageUrl: string | null;
-}
-
-interface Lobby {
-    id: string;
-    topic: string;
-    title: string;
-    status: string;
-    maxParticipants: number;
-    ownerId: string;
-    createdAt: Date;
-    owner: User;
-    participants: unknown[];
-}
-
 
 export default async function LobbiesPage() {
     const lobbies = await db.lobby.findMany({
@@ -45,17 +24,7 @@ export default async function LobbiesPage() {
                 <CreateLobbyDialog />
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {lobbies.length === 0 ? (
-                    <div className="col-span-full text-center py-12 text-muted-foreground">
-                        No active lobbies. Start one!
-                    </div>
-                ) : (
-                    (lobbies as unknown as Lobby[]).map((lobby) => (
-                        <LobbyCard key={lobby.id} lobby={lobby} />
-                    ))
-                )}
-            </div>
+            <LobbyList initialLobbies={lobbies} />
         </div>
     );
 }

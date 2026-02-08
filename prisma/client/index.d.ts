@@ -4543,6 +4543,7 @@ export namespace Prisma {
     userId: string | null
     role: $Enums.ParticipantRole | null
     joinedAt: Date | null
+    createdAt: Date | null
   }
 
   export type LobbyParticipantMaxAggregateOutputType = {
@@ -4550,6 +4551,7 @@ export namespace Prisma {
     userId: string | null
     role: $Enums.ParticipantRole | null
     joinedAt: Date | null
+    createdAt: Date | null
   }
 
   export type LobbyParticipantCountAggregateOutputType = {
@@ -4557,6 +4559,7 @@ export namespace Prisma {
     userId: number
     role: number
     joinedAt: number
+    createdAt: number
     _all: number
   }
 
@@ -4566,6 +4569,7 @@ export namespace Prisma {
     userId?: true
     role?: true
     joinedAt?: true
+    createdAt?: true
   }
 
   export type LobbyParticipantMaxAggregateInputType = {
@@ -4573,6 +4577,7 @@ export namespace Prisma {
     userId?: true
     role?: true
     joinedAt?: true
+    createdAt?: true
   }
 
   export type LobbyParticipantCountAggregateInputType = {
@@ -4580,6 +4585,7 @@ export namespace Prisma {
     userId?: true
     role?: true
     joinedAt?: true
+    createdAt?: true
     _all?: true
   }
 
@@ -4660,6 +4666,7 @@ export namespace Prisma {
     userId: string
     role: $Enums.ParticipantRole
     joinedAt: Date
+    createdAt: Date
     _count: LobbyParticipantCountAggregateOutputType | null
     _min: LobbyParticipantMinAggregateOutputType | null
     _max: LobbyParticipantMaxAggregateOutputType | null
@@ -4684,6 +4691,7 @@ export namespace Prisma {
     userId?: boolean
     role?: boolean
     joinedAt?: boolean
+    createdAt?: boolean
     lobby?: boolean | LobbyDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["lobbyParticipant"]>
@@ -4693,6 +4701,7 @@ export namespace Prisma {
     userId?: boolean
     role?: boolean
     joinedAt?: boolean
+    createdAt?: boolean
     lobby?: boolean | LobbyDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["lobbyParticipant"]>
@@ -4702,6 +4711,7 @@ export namespace Prisma {
     userId?: boolean
     role?: boolean
     joinedAt?: boolean
+    createdAt?: boolean
     lobby?: boolean | LobbyDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["lobbyParticipant"]>
@@ -4711,9 +4721,10 @@ export namespace Prisma {
     userId?: boolean
     role?: boolean
     joinedAt?: boolean
+    createdAt?: boolean
   }
 
-  export type LobbyParticipantOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"lobbyId" | "userId" | "role" | "joinedAt", ExtArgs["result"]["lobbyParticipant"]>
+  export type LobbyParticipantOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"lobbyId" | "userId" | "role" | "joinedAt" | "createdAt", ExtArgs["result"]["lobbyParticipant"]>
   export type LobbyParticipantInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     lobby?: boolean | LobbyDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -4738,6 +4749,7 @@ export namespace Prisma {
       userId: string
       role: $Enums.ParticipantRole
       joinedAt: Date
+      createdAt: Date
     }, ExtArgs["result"]["lobbyParticipant"]>
     composites: {}
   }
@@ -5167,6 +5179,7 @@ export namespace Prisma {
     readonly userId: FieldRef<"LobbyParticipant", 'String'>
     readonly role: FieldRef<"LobbyParticipant", 'ParticipantRole'>
     readonly joinedAt: FieldRef<"LobbyParticipant", 'DateTime'>
+    readonly createdAt: FieldRef<"LobbyParticipant", 'DateTime'>
   }
     
 
@@ -10096,6 +10109,7 @@ export namespace Prisma {
     userId: string | null
     articleId: string | null
     readAt: Date | null
+    createdAt: Date | null
   }
 
   export type ArticleReadMaxAggregateOutputType = {
@@ -10103,6 +10117,7 @@ export namespace Prisma {
     userId: string | null
     articleId: string | null
     readAt: Date | null
+    createdAt: Date | null
   }
 
   export type ArticleReadCountAggregateOutputType = {
@@ -10110,6 +10125,7 @@ export namespace Prisma {
     userId: number
     articleId: number
     readAt: number
+    createdAt: number
     _all: number
   }
 
@@ -10119,6 +10135,7 @@ export namespace Prisma {
     userId?: true
     articleId?: true
     readAt?: true
+    createdAt?: true
   }
 
   export type ArticleReadMaxAggregateInputType = {
@@ -10126,6 +10143,7 @@ export namespace Prisma {
     userId?: true
     articleId?: true
     readAt?: true
+    createdAt?: true
   }
 
   export type ArticleReadCountAggregateInputType = {
@@ -10133,6 +10151,7 @@ export namespace Prisma {
     userId?: true
     articleId?: true
     readAt?: true
+    createdAt?: true
     _all?: true
   }
 
@@ -10213,6 +10232,7 @@ export namespace Prisma {
     userId: string
     articleId: string
     readAt: Date
+    createdAt: Date
     _count: ArticleReadCountAggregateOutputType | null
     _min: ArticleReadMinAggregateOutputType | null
     _max: ArticleReadMaxAggregateOutputType | null
@@ -10237,6 +10257,7 @@ export namespace Prisma {
     userId?: boolean
     articleId?: boolean
     readAt?: boolean
+    createdAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     article?: boolean | ArticleDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["articleRead"]>
@@ -10246,6 +10267,7 @@ export namespace Prisma {
     userId?: boolean
     articleId?: boolean
     readAt?: boolean
+    createdAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     article?: boolean | ArticleDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["articleRead"]>
@@ -10255,6 +10277,7 @@ export namespace Prisma {
     userId?: boolean
     articleId?: boolean
     readAt?: boolean
+    createdAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     article?: boolean | ArticleDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["articleRead"]>
@@ -10264,9 +10287,10 @@ export namespace Prisma {
     userId?: boolean
     articleId?: boolean
     readAt?: boolean
+    createdAt?: boolean
   }
 
-  export type ArticleReadOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "articleId" | "readAt", ExtArgs["result"]["articleRead"]>
+  export type ArticleReadOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "articleId" | "readAt" | "createdAt", ExtArgs["result"]["articleRead"]>
   export type ArticleReadInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     article?: boolean | ArticleDefaultArgs<ExtArgs>
@@ -10291,6 +10315,7 @@ export namespace Prisma {
       userId: string
       articleId: string
       readAt: Date
+      createdAt: Date
     }, ExtArgs["result"]["articleRead"]>
     composites: {}
   }
@@ -10720,6 +10745,7 @@ export namespace Prisma {
     readonly userId: FieldRef<"ArticleRead", 'String'>
     readonly articleId: FieldRef<"ArticleRead", 'String'>
     readonly readAt: FieldRef<"ArticleRead", 'DateTime'>
+    readonly createdAt: FieldRef<"ArticleRead", 'DateTime'>
   }
     
 
@@ -13341,7 +13367,8 @@ export namespace Prisma {
     lobbyId: 'lobbyId',
     userId: 'userId',
     role: 'role',
-    joinedAt: 'joinedAt'
+    joinedAt: 'joinedAt',
+    createdAt: 'createdAt'
   };
 
   export type LobbyParticipantScalarFieldEnum = (typeof LobbyParticipantScalarFieldEnum)[keyof typeof LobbyParticipantScalarFieldEnum]
@@ -13403,7 +13430,8 @@ export namespace Prisma {
     id: 'id',
     userId: 'userId',
     articleId: 'articleId',
-    readAt: 'readAt'
+    readAt: 'readAt',
+    createdAt: 'createdAt'
   };
 
   export type ArticleReadScalarFieldEnum = (typeof ArticleReadScalarFieldEnum)[keyof typeof ArticleReadScalarFieldEnum]
@@ -13820,6 +13848,7 @@ export namespace Prisma {
     userId?: StringFilter<"LobbyParticipant"> | string
     role?: EnumParticipantRoleFilter<"LobbyParticipant"> | $Enums.ParticipantRole
     joinedAt?: DateTimeFilter<"LobbyParticipant"> | Date | string
+    createdAt?: DateTimeFilter<"LobbyParticipant"> | Date | string
     lobby?: XOR<LobbyScalarRelationFilter, LobbyWhereInput>
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
@@ -13829,6 +13858,7 @@ export namespace Prisma {
     userId?: SortOrder
     role?: SortOrder
     joinedAt?: SortOrder
+    createdAt?: SortOrder
     lobby?: LobbyOrderByWithRelationInput
     user?: UserOrderByWithRelationInput
   }
@@ -13842,6 +13872,7 @@ export namespace Prisma {
     userId?: StringFilter<"LobbyParticipant"> | string
     role?: EnumParticipantRoleFilter<"LobbyParticipant"> | $Enums.ParticipantRole
     joinedAt?: DateTimeFilter<"LobbyParticipant"> | Date | string
+    createdAt?: DateTimeFilter<"LobbyParticipant"> | Date | string
     lobby?: XOR<LobbyScalarRelationFilter, LobbyWhereInput>
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "lobbyId_userId">
@@ -13851,6 +13882,7 @@ export namespace Prisma {
     userId?: SortOrder
     role?: SortOrder
     joinedAt?: SortOrder
+    createdAt?: SortOrder
     _count?: LobbyParticipantCountOrderByAggregateInput
     _max?: LobbyParticipantMaxOrderByAggregateInput
     _min?: LobbyParticipantMinOrderByAggregateInput
@@ -13864,6 +13896,7 @@ export namespace Prisma {
     userId?: StringWithAggregatesFilter<"LobbyParticipant"> | string
     role?: EnumParticipantRoleWithAggregatesFilter<"LobbyParticipant"> | $Enums.ParticipantRole
     joinedAt?: DateTimeWithAggregatesFilter<"LobbyParticipant"> | Date | string
+    createdAt?: DateTimeWithAggregatesFilter<"LobbyParticipant"> | Date | string
   }
 
   export type MemeWhereInput = {
@@ -14146,6 +14179,7 @@ export namespace Prisma {
     userId?: StringFilter<"ArticleRead"> | string
     articleId?: StringFilter<"ArticleRead"> | string
     readAt?: DateTimeFilter<"ArticleRead"> | Date | string
+    createdAt?: DateTimeFilter<"ArticleRead"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     article?: XOR<ArticleScalarRelationFilter, ArticleWhereInput>
   }
@@ -14155,6 +14189,7 @@ export namespace Prisma {
     userId?: SortOrder
     articleId?: SortOrder
     readAt?: SortOrder
+    createdAt?: SortOrder
     user?: UserOrderByWithRelationInput
     article?: ArticleOrderByWithRelationInput
   }
@@ -14168,6 +14203,7 @@ export namespace Prisma {
     userId?: StringFilter<"ArticleRead"> | string
     articleId?: StringFilter<"ArticleRead"> | string
     readAt?: DateTimeFilter<"ArticleRead"> | Date | string
+    createdAt?: DateTimeFilter<"ArticleRead"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     article?: XOR<ArticleScalarRelationFilter, ArticleWhereInput>
   }, "id" | "userId_articleId">
@@ -14177,6 +14213,7 @@ export namespace Prisma {
     userId?: SortOrder
     articleId?: SortOrder
     readAt?: SortOrder
+    createdAt?: SortOrder
     _count?: ArticleReadCountOrderByAggregateInput
     _max?: ArticleReadMaxOrderByAggregateInput
     _min?: ArticleReadMinOrderByAggregateInput
@@ -14190,6 +14227,7 @@ export namespace Prisma {
     userId?: StringWithAggregatesFilter<"ArticleRead"> | string
     articleId?: StringWithAggregatesFilter<"ArticleRead"> | string
     readAt?: DateTimeWithAggregatesFilter<"ArticleRead"> | Date | string
+    createdAt?: DateTimeWithAggregatesFilter<"ArticleRead"> | Date | string
   }
 
   export type ArticleLikeWhereInput = {
@@ -14553,6 +14591,7 @@ export namespace Prisma {
   export type LobbyParticipantCreateInput = {
     role?: $Enums.ParticipantRole
     joinedAt?: Date | string
+    createdAt?: Date | string
     lobby: LobbyCreateNestedOneWithoutParticipantsInput
     user: UserCreateNestedOneWithoutLobbyParticipationInput
   }
@@ -14562,11 +14601,13 @@ export namespace Prisma {
     userId: string
     role?: $Enums.ParticipantRole
     joinedAt?: Date | string
+    createdAt?: Date | string
   }
 
   export type LobbyParticipantUpdateInput = {
     role?: EnumParticipantRoleFieldUpdateOperationsInput | $Enums.ParticipantRole
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lobby?: LobbyUpdateOneRequiredWithoutParticipantsNestedInput
     user?: UserUpdateOneRequiredWithoutLobbyParticipationNestedInput
   }
@@ -14576,6 +14617,7 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     role?: EnumParticipantRoleFieldUpdateOperationsInput | $Enums.ParticipantRole
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type LobbyParticipantCreateManyInput = {
@@ -14583,11 +14625,13 @@ export namespace Prisma {
     userId: string
     role?: $Enums.ParticipantRole
     joinedAt?: Date | string
+    createdAt?: Date | string
   }
 
   export type LobbyParticipantUpdateManyMutationInput = {
     role?: EnumParticipantRoleFieldUpdateOperationsInput | $Enums.ParticipantRole
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type LobbyParticipantUncheckedUpdateManyInput = {
@@ -14595,6 +14639,7 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     role?: EnumParticipantRoleFieldUpdateOperationsInput | $Enums.ParticipantRole
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type MemeCreateInput = {
@@ -14884,6 +14929,7 @@ export namespace Prisma {
   export type ArticleReadCreateInput = {
     id?: string
     readAt?: Date | string
+    createdAt?: Date | string
     user: UserCreateNestedOneWithoutArticleReadsInput
     article: ArticleCreateNestedOneWithoutReadersInput
   }
@@ -14893,11 +14939,13 @@ export namespace Prisma {
     userId: string
     articleId: string
     readAt?: Date | string
+    createdAt?: Date | string
   }
 
   export type ArticleReadUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     readAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutArticleReadsNestedInput
     article?: ArticleUpdateOneRequiredWithoutReadersNestedInput
   }
@@ -14907,6 +14955,7 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     articleId?: StringFieldUpdateOperationsInput | string
     readAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ArticleReadCreateManyInput = {
@@ -14914,11 +14963,13 @@ export namespace Prisma {
     userId: string
     articleId: string
     readAt?: Date | string
+    createdAt?: Date | string
   }
 
   export type ArticleReadUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     readAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ArticleReadUncheckedUpdateManyInput = {
@@ -14926,6 +14977,7 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     articleId?: StringFieldUpdateOperationsInput | string
     readAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ArticleLikeCreateInput = {
@@ -15486,6 +15538,7 @@ export namespace Prisma {
     userId?: SortOrder
     role?: SortOrder
     joinedAt?: SortOrder
+    createdAt?: SortOrder
   }
 
   export type LobbyParticipantMaxOrderByAggregateInput = {
@@ -15493,6 +15546,7 @@ export namespace Prisma {
     userId?: SortOrder
     role?: SortOrder
     joinedAt?: SortOrder
+    createdAt?: SortOrder
   }
 
   export type LobbyParticipantMinOrderByAggregateInput = {
@@ -15500,6 +15554,7 @@ export namespace Prisma {
     userId?: SortOrder
     role?: SortOrder
     joinedAt?: SortOrder
+    createdAt?: SortOrder
   }
 
   export type EnumParticipantRoleWithAggregatesFilter<$PrismaModel = never> = {
@@ -15700,6 +15755,7 @@ export namespace Prisma {
     userId?: SortOrder
     articleId?: SortOrder
     readAt?: SortOrder
+    createdAt?: SortOrder
   }
 
   export type ArticleReadMaxOrderByAggregateInput = {
@@ -15707,6 +15763,7 @@ export namespace Prisma {
     userId?: SortOrder
     articleId?: SortOrder
     readAt?: SortOrder
+    createdAt?: SortOrder
   }
 
   export type ArticleReadMinOrderByAggregateInput = {
@@ -15714,6 +15771,7 @@ export namespace Prisma {
     userId?: SortOrder
     articleId?: SortOrder
     readAt?: SortOrder
+    createdAt?: SortOrder
   }
 
   export type ArticleLikeUserIdArticleIdCompoundUniqueInput = {
@@ -16830,6 +16888,7 @@ export namespace Prisma {
   export type LobbyParticipantCreateWithoutUserInput = {
     role?: $Enums.ParticipantRole
     joinedAt?: Date | string
+    createdAt?: Date | string
     lobby: LobbyCreateNestedOneWithoutParticipantsInput
   }
 
@@ -16837,6 +16896,7 @@ export namespace Prisma {
     lobbyId: string
     role?: $Enums.ParticipantRole
     joinedAt?: Date | string
+    createdAt?: Date | string
   }
 
   export type LobbyParticipantCreateOrConnectWithoutUserInput = {
@@ -16968,6 +17028,7 @@ export namespace Prisma {
   export type ArticleReadCreateWithoutUserInput = {
     id?: string
     readAt?: Date | string
+    createdAt?: Date | string
     article: ArticleCreateNestedOneWithoutReadersInput
   }
 
@@ -16975,6 +17036,7 @@ export namespace Prisma {
     id?: string
     articleId: string
     readAt?: Date | string
+    createdAt?: Date | string
   }
 
   export type ArticleReadCreateOrConnectWithoutUserInput = {
@@ -17091,6 +17153,7 @@ export namespace Prisma {
     userId?: StringFilter<"LobbyParticipant"> | string
     role?: EnumParticipantRoleFilter<"LobbyParticipant"> | $Enums.ParticipantRole
     joinedAt?: DateTimeFilter<"LobbyParticipant"> | Date | string
+    createdAt?: DateTimeFilter<"LobbyParticipant"> | Date | string
   }
 
   export type PodcastUpsertWithWhereUniqueWithoutHostInput = {
@@ -17233,6 +17296,7 @@ export namespace Prisma {
     userId?: StringFilter<"ArticleRead"> | string
     articleId?: StringFilter<"ArticleRead"> | string
     readAt?: DateTimeFilter<"ArticleRead"> | Date | string
+    createdAt?: DateTimeFilter<"ArticleRead"> | Date | string
   }
 
   export type ArticleLikeUpsertWithWhereUniqueWithoutUserInput = {
@@ -17345,6 +17409,7 @@ export namespace Prisma {
   export type LobbyParticipantCreateWithoutLobbyInput = {
     role?: $Enums.ParticipantRole
     joinedAt?: Date | string
+    createdAt?: Date | string
     user: UserCreateNestedOneWithoutLobbyParticipationInput
   }
 
@@ -17352,6 +17417,7 @@ export namespace Prisma {
     userId: string
     role?: $Enums.ParticipantRole
     joinedAt?: Date | string
+    createdAt?: Date | string
   }
 
   export type LobbyParticipantCreateOrConnectWithoutLobbyInput = {
@@ -18011,6 +18077,7 @@ export namespace Prisma {
   export type ArticleReadCreateWithoutArticleInput = {
     id?: string
     readAt?: Date | string
+    createdAt?: Date | string
     user: UserCreateNestedOneWithoutArticleReadsInput
   }
 
@@ -18018,6 +18085,7 @@ export namespace Prisma {
     id?: string
     userId: string
     readAt?: Date | string
+    createdAt?: Date | string
   }
 
   export type ArticleReadCreateOrConnectWithoutArticleInput = {
@@ -18631,6 +18699,7 @@ export namespace Prisma {
     lobbyId: string
     role?: $Enums.ParticipantRole
     joinedAt?: Date | string
+    createdAt?: Date | string
   }
 
   export type PodcastCreateManyHostInput = {
@@ -18673,6 +18742,7 @@ export namespace Prisma {
     id?: string
     articleId: string
     readAt?: Date | string
+    createdAt?: Date | string
   }
 
   export type ArticleLikeCreateManyUserInput = {
@@ -18730,6 +18800,7 @@ export namespace Prisma {
   export type LobbyParticipantUpdateWithoutUserInput = {
     role?: EnumParticipantRoleFieldUpdateOperationsInput | $Enums.ParticipantRole
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lobby?: LobbyUpdateOneRequiredWithoutParticipantsNestedInput
   }
 
@@ -18737,12 +18808,14 @@ export namespace Prisma {
     lobbyId?: StringFieldUpdateOperationsInput | string
     role?: EnumParticipantRoleFieldUpdateOperationsInput | $Enums.ParticipantRole
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type LobbyParticipantUncheckedUpdateManyWithoutUserInput = {
     lobbyId?: StringFieldUpdateOperationsInput | string
     role?: EnumParticipantRoleFieldUpdateOperationsInput | $Enums.ParticipantRole
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type PodcastUpdateWithoutHostInput = {
@@ -18860,6 +18933,7 @@ export namespace Prisma {
   export type ArticleReadUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     readAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     article?: ArticleUpdateOneRequiredWithoutReadersNestedInput
   }
 
@@ -18867,12 +18941,14 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     articleId?: StringFieldUpdateOperationsInput | string
     readAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ArticleReadUncheckedUpdateManyWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     articleId?: StringFieldUpdateOperationsInput | string
     readAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ArticleLikeUpdateWithoutUserInput = {
@@ -18921,11 +18997,13 @@ export namespace Prisma {
     userId: string
     role?: $Enums.ParticipantRole
     joinedAt?: Date | string
+    createdAt?: Date | string
   }
 
   export type LobbyParticipantUpdateWithoutLobbyInput = {
     role?: EnumParticipantRoleFieldUpdateOperationsInput | $Enums.ParticipantRole
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutLobbyParticipationNestedInput
   }
 
@@ -18933,18 +19011,21 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     role?: EnumParticipantRoleFieldUpdateOperationsInput | $Enums.ParticipantRole
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type LobbyParticipantUncheckedUpdateManyWithoutLobbyInput = {
     userId?: StringFieldUpdateOperationsInput | string
     role?: EnumParticipantRoleFieldUpdateOperationsInput | $Enums.ParticipantRole
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ArticleReadCreateManyArticleInput = {
     id?: string
     userId: string
     readAt?: Date | string
+    createdAt?: Date | string
   }
 
   export type ArticleLikeCreateManyArticleInput = {
@@ -18956,6 +19037,7 @@ export namespace Prisma {
   export type ArticleReadUpdateWithoutArticleInput = {
     id?: StringFieldUpdateOperationsInput | string
     readAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutArticleReadsNestedInput
   }
 
@@ -18963,12 +19045,14 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     readAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ArticleReadUncheckedUpdateManyWithoutArticleInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     readAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ArticleLikeUpdateWithoutArticleInput = {

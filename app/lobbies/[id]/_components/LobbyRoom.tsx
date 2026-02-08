@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Pusher from "pusher-js";
+import { pusherClient } from "@/lib/pusher-client";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card } from "@/components/ui/card";
@@ -34,20 +34,29 @@ export default function LobbyRoom({ lobbyId, initialParticipants, _currentUserId
     const [messages] = useState<Message[]>([]);
 
     useEffect(() => {
-        // Initialize Pusher client
-        const pusher = new Pusher(process.env.NEXT_PUBLIC_PUSHER_APP_KEY!, {
-            cluster: 'eu'
-        });
+        // Join the lobby logic
+        const joinLobby = async () => {
+            try {
+                await fetch(`/api/lobbies/${lobbyId}/join`, { method: "POST" });
+            } catch (error) {
+                console.error("Failed to join lobby:", error);
+            }
+        };
+        joinLobby();
 
-        const channel = pusher.subscribe(`lobby-${lobbyId}`);
+        // Initialize Pusher client
+        const channel = pusherClient.subscribe(`lobby-${lobbyId}`);
 
         channel.bind('participant-joined', (data: Participant['user']) => {
-            setParticipants(prev => [...prev, { user: data, role: 'LISTENER' }]);
+            setParticipants(prev => {
+                if (prev.some(p => p.user.id === data.id)) return prev;
+                return [...prev, { user: data, role: 'LISTENER' }];
+            });
         });
 
         // Cleanup
         return () => {
-            pusher.unsubscribe(`lobby-${lobbyId}`);
+            pusherClient.unsubscribe(`lobby-${lobbyId}`);
         };
     }, [lobbyId]);
 

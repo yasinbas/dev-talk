@@ -71,9 +71,7 @@ export async function POST(req: Request) {
                 },
             },
             include: {
-                owner: {
-                    select: { firstName: true, lastName: true, imageUrl: true }
-                },
+                owner: true,
                 participants: true,
             },
         });

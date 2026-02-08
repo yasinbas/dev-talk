@@ -153,7 +153,8 @@ exports.Prisma.LobbyParticipantScalarFieldEnum = {
   lobbyId: 'lobbyId',
   userId: 'userId',
   role: 'role',
-  joinedAt: 'joinedAt'
+  joinedAt: 'joinedAt',
+  createdAt: 'createdAt'
 };
 
 exports.Prisma.MemeScalarFieldEnum = {
@@ -200,7 +201,8 @@ exports.Prisma.ArticleReadScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
   articleId: 'articleId',
-  readAt: 'readAt'
+  readAt: 'readAt',
+  createdAt: 'createdAt'
 };
 
 exports.Prisma.ArticleLikeScalarFieldEnum = {
