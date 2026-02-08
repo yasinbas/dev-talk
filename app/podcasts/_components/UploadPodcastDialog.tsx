@@ -17,6 +17,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { Upload } from "lucide-react";
+import { UploadButton } from "@/lib/uploadthing";
 
 export function UploadPodcastDialog() {
     const [open, setOpen] = useState(false);
@@ -28,7 +29,7 @@ export function UploadPodcastDialog() {
 
     const handleUpload = async () => {
         if (!title || !audioUrl) {
-            toast.error("Please provide title and audio URL");
+            toast.error("Please provide title and upload audio");
             return;
         }
         setLoading(true);
@@ -87,17 +88,28 @@ export function UploadPodcastDialog() {
                         />
                     </div>
                     <div className="grid gap-2">
-                        <Label htmlFor="audioUrl">Audio URL</Label>
-                        <Input
-                            id="audioUrl"
-                            value={audioUrl}
-                            onChange={(e) => setAudioUrl(e.target.value)}
-                            placeholder="https://example.com/podcast.mp3"
-                        />
+                        <Label>Audio File</Label>
+                        <div className="flex flex-col items-center justify-center border-2 border-dashed rounded-lg p-6 bg-muted/50 cursor-pointer">
+                            {audioUrl ? (
+                                <p className="text-sm font-medium text-primary mb-4 truncate w-full text-center">
+                                    ✓ Audio uploaded
+                                </p>
+                            ) : null}
+                            <UploadButton
+                                endpoint="audioUploader"
+                                onClientUploadComplete={(res) => {
+                                    setAudioUrl(res[0].url);
+                                    toast.success("Audio uploaded!");
+                                }}
+                                onUploadError={(error: Error) => {
+                                    toast.error(`ERROR! ${error.message}`);
+                                }}
+                            />
+                        </div>
                     </div>
                 </div>
                 <DialogFooter>
-                    <Button onClick={handleUpload} disabled={loading}>
+                    <Button onClick={handleUpload} disabled={loading || !audioUrl}>
                         {loading ? "Publishing..." : "Publish"}
                     </Button>
                 </DialogFooter>

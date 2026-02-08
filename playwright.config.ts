@@ -12,7 +12,7 @@ export default defineConfig({
     workers: process.env.CI ? 1 : undefined,
     reporter: 'html',
     use: {
-        baseURL: 'https://devtalk.opsdock.work',
+        baseURL: process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000',
         trace: 'on-first-retry',
     },
 
@@ -22,4 +22,13 @@ export default defineConfig({
             use: { ...devices['Desktop Chrome'] },
         },
     ],
+
+    webServer: {
+        command: 'npm run dev',
+        url: 'http://localhost:3000',
+        reuseExistingServer: !process.env.CI,
+        stdout: 'pipe',
+        stderr: 'pipe',
+        timeout: 120 * 1000,
+    },
 });

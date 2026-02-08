@@ -16,6 +16,7 @@ import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { Upload } from "lucide-react";
+import { UploadButton } from "@/lib/uploadthing";
 
 export function UploadMemeDialog() {
     const [open, setOpen] = useState(false);
@@ -26,13 +27,11 @@ export function UploadMemeDialog() {
 
     const handleUpload = async () => {
         if (!caption || !imageUrl) {
-            toast.error("Please provide both caption and image URL");
+            toast.error("Please provide both caption and upload an image");
             return;
         }
         setLoading(true);
         try {
-            // TODO: Use UploadThing for actual file upload
-            // For now, accepting URL directly
             const res = await fetch("/api/memes", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -77,17 +76,26 @@ export function UploadMemeDialog() {
                         />
                     </div>
                     <div className="grid gap-2">
-                        <Label htmlFor="imageUrl">Image URL</Label>
-                        <Input
-                            id="imageUrl"
-                            value={imageUrl}
-                            onChange={(e) => setImageUrl(e.target.value)}
-                            placeholder="https://example.com/meme.jpg"
-                        />
+                        <Label>Meme Image</Label>
+                        <div className="flex flex-col items-center justify-center border-2 border-dashed rounded-lg p-6 bg-muted/50 cursor-pointer">
+                            {imageUrl ? (
+                                <img src={imageUrl} alt="Preview" className="max-h-32 rounded mb-4" />
+                            ) : null}
+                            <UploadButton
+                                endpoint="imageUploader"
+                                onClientUploadComplete={(res) => {
+                                    setImageUrl(res[0].url);
+                                    toast.success("Image uploaded!");
+                                }}
+                                onUploadError={(error: Error) => {
+                                    toast.error(`ERROR! ${error.message}`);
+                                }}
+                            />
+                        </div>
                     </div>
                 </div>
                 <DialogFooter>
-                    <Button onClick={handleUpload} disabled={loading}>
+                    <Button onClick={handleUpload} disabled={loading || !imageUrl}>
                         {loading ? "Uploading..." : "Post Meme"}
                     </Button>
                 </DialogFooter>

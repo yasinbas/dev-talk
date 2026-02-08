@@ -1,7 +1,7 @@
-const { test, expect } = require('@playwright/test');
+import { test, expect } from '@playwright/test';
 
 test('homepage has title and login button', async ({ page }) => {
-    const response = await page.goto('https://devtalk.opsdock.work');
+    const response = await page.goto('/');
 
     // Check if the site is reachable
     if (response?.status() === 502) {

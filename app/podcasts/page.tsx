@@ -26,7 +26,7 @@ export default async function PodcastsPage() {
                         No podcasts yet. Be the first to publish!
                     </div>
                 ) : (
-                    podcasts.map((podcast: any) => (
+                    podcasts.map((podcast) => (
                         <PodcastCard key={podcast.id} podcast={podcast} />
                     ))
                 )}

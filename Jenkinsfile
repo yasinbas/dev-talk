@@ -23,13 +23,10 @@ pipeline {
             }
         }
 
-        // stage('Install & Test') removed to avoid host Node.js dependency
-
-
         stage('Build Docker Image') {
             steps {
                 script {
-                    // Next.js'in frontend tarafında keyleri görebilmesi için --build-arg kullanmalıyız
+                    // Next.js frontend build sırasında bu keylere ihtiyaç duyar
                     sh """
                     docker build \
                     --build-arg NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY='${NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}' \
@@ -41,18 +38,17 @@ pipeline {
         }
 
         stage('Deploy to Production') {
-            when {
-                branch 'main'
-            }
+            // DÜZELTME: 'when' bloğu kaldırıldı. Artık her başarılı build'de deploy yapacak.
             steps {
                 script {
+                    // Tagging
                     sh "docker tag ${IMAGE_NAME}:${BUILD_NUMBER} ${IMAGE_NAME}:latest"
                     
-                    // Stop & Remove Old
+                    // Stop & Remove Old Container
                     sh "docker stop ${CONTAINER_NAME} || true"
                     sh "docker rm ${CONTAINER_NAME} || true"
                     
-                    // Migrate DB
+                    // Migrate DB (Veritabanı şemasını güncelle)
                     sh """
                         docker run --rm \
                         -e DATABASE_URL='${DATABASE_URL}' \
@@ -60,7 +56,7 @@ pipeline {
                         npx prisma db push --accept-data-loss
                     """
 
-                    // Start New
+                    // Start New Container
                     sh """
                         docker run -d \
                         --name ${CONTAINER_NAME} \
@@ -84,13 +80,14 @@ pipeline {
             steps {
                 script {
                     echo "Waiting for application to start..."
-                    // Wait up to 60 seconds (12 * 5s)
+                    // 12 deneme * 5 saniye = Toplam 60 saniye bekleme süresi
                     def maxRetries = 12
                     def retryCount = 0
                     def success = false
                     
                     while (retryCount < maxRetries && !success) {
                         try {
+                            // curl -f: Hata durumunda (404, 500 vs) exit code 1 döner ve catch bloğuna düşer
                             sh "curl -f http://localhost:${PORT}/api/health"
                             success = true
                             echo "Application is healthy!"

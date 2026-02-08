@@ -27,7 +27,7 @@ export default async function MemesPage() {
                         No memes yet. Be the first to post!
                     </div>
                 ) : (
-                    memes.map((meme: any) => (
+                    memes.map((meme) => (
                         <MemeCard key={meme.id} meme={meme} />
                     ))
                 )}
