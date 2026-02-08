@@ -18,9 +18,16 @@ def run_ux_audit(directory_path, guidelines_csv):
             dirs.remove('node_modules')
         if '.next' in dirs:
             dirs.remove('.next')
+        if 'components' in dirs and 'ui' in os.listdir(os.path.join(root, 'components')):
+             # We still want to check other components, just not the base UI ones
+             pass
             
         for file in files:
             file_path = os.path.join(root, file)
+            
+            # Skip base UI components as they are building blocks
+            if 'components/ui' in file_path.replace('\\', '/'):
+                continue
             
             if file.endswith(('.tsx', '.ts', '.css', '.html')):
                 with open(file_path, 'r', encoding='utf-8', errors='ignore') as f:
