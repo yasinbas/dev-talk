@@ -14,6 +14,7 @@ pipeline {
         PUSHER_APP_ID = credentials('pusher-app-id')
         PUSHER_APP_KEY = credentials('pusher-app-key')
         PUSHER_SECRET = credentials('pusher-secret')
+        UPLOADTHING_TOKEN = credentials('uploadthing-token')
         
         // Aliases for matching docker-compose expectations
         NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY = credentials('clerk-publishable-key')

@@ -1,7 +1,7 @@
 import { currentUser } from "@clerk/nextjs/server";
 import { db } from "@/lib/db";
 import { CreateArticleDialog } from "./_components/CreateArticleDialog";
-import { ArticlesListClient } from "./_components/ArticlesListClient";
+import { ArticlesListClient } from "@/app/articles/_components/ArticlesListClient";
 
 export const dynamic = "force-dynamic";
 
