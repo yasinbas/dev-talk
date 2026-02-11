@@ -30,22 +30,35 @@ pipeline {
             steps {
                 script {
                     sh 'docker --version || true'
-                    sh 'node -v || true'
                 }
             }
         }
 
-        stage('Quality Check') {
-            parallel {
-                stage('Lint') {
-                    steps {
-                        sh 'npm run lint'
-                    }
+        stage('Install Dependencies') {
+             agent {
+                docker { 
+                    image 'node:20-alpine' 
+                    reuseNode true
                 }
-                stage('Unit Tests') {
-                    steps {
-                        sh 'npm run test'
-                    }
+            }
+            steps {
+                sh 'npm ci'
+            }
+        }
+
+        stage('Quality Check') {
+            agent {
+                docker { 
+                    image 'node:20-alpine' 
+                    reuseNode true
+                }
+            }
+            steps {
+                script {
+                    parallel(
+                        'Lint': { sh 'npm run lint' },
+                        'Unit Tests': { sh 'npm run test' }
+                    )
                 }
             }
         }
