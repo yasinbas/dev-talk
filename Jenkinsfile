@@ -35,29 +35,21 @@ pipeline {
         }
 
         stage('Install Dependencies') {
-             agent {
-                docker { 
-                    image 'node:20-alpine' 
-                    reuseNode true
-                }
-            }
             steps {
-                sh 'npm ci'
+                sh 'docker run --rm -v $(pwd):/app -w /app node:20-alpine npm ci'
             }
         }
 
         stage('Quality Check') {
-            agent {
-                docker { 
-                    image 'node:20-alpine' 
-                    reuseNode true
-                }
-            }
             steps {
                 script {
                     parallel(
-                        'Lint': { sh 'npm run lint' },
-                        'Unit Tests': { sh 'npm run test' }
+                        'Lint': { 
+                            sh 'docker run --rm -v $(pwd):/app -w /app node:20-alpine npm run lint' 
+                        },
+                        'Unit Tests': { 
+                            sh 'docker run --rm -v $(pwd):/app -w /app -e CI=true node:20-alpine npm run test' 
+                        }
                     )
                 }
             }
