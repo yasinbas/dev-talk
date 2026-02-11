@@ -4,10 +4,11 @@ const path = require('path');
 // Load .env explicitly
 const envPath = path.join(__dirname, '.env');
 if (fs.existsSync(envPath)) {
-    require('dotenv').config({ path: envPath });
-} else {
-    // Fallback for CI environments where .env might not exist (env vars provided by system)
-    require('dotenv').config();
+    try {
+        require('dotenv').config({ path: envPath });
+    } catch (e) {
+        console.warn("WARN: .env found but dotenv package not installed. Skipping load.");
+    }
 }
 
 const databaseUrl = process.env.DATABASE_URL;
