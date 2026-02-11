@@ -1,6 +1,14 @@
+import 'dotenv/config'
+import { Pool } from 'pg'
+import { PrismaPg } from '@prisma/adapter-pg'
 import { PrismaClient, Role, ParticipantRole, LobbyStatus, PointActionType } from '@prisma/client'
 
-const prisma = new PrismaClient()
+const connectionString = process.env.DATABASE_URL
+console.log("SEED: DATABASE_URL:", connectionString);
+
+const pool = new Pool({ connectionString })
+const adapter = new PrismaPg(pool)
+const prisma = new PrismaClient({ adapter })
 
 const techStacks = [
     ['React', 'Next.js', 'TypeScript'],
