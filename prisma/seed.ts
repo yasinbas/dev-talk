@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import 'dotenv/config'
 import { Pool } from 'pg'
 import { PrismaPg } from '@prisma/adapter-pg'
@@ -188,7 +189,7 @@ async function main() {
                                 articleId: article.id
                             }
                         })
-                    } catch (e) { } // Ignore unique constraint violations
+                    } catch { } // Ignore unique constraint violations
                 }
             }
         }
@@ -237,7 +238,7 @@ async function main() {
                             role: ParticipantRole.LISTENER
                         }
                     })
-                } catch (e) { }
+                } catch { }
             }
         }
     }

@@ -20,7 +20,7 @@ services:
       - devtalk-net
 
   app:
-    image: devtalk-app:latest
+    image: devtalk-app:${TAG:-latest}
     container_name: devtalk-app
     restart: always
     ports:

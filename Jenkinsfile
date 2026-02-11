@@ -1,12 +1,16 @@
 pipeline {
     agent any
 
+    options {
+        buildDiscarder(logRotator(numToKeepStr: '10')) // Keep only last 10 builds
+        disableConcurrentBuilds() // Prevent race conditions
+    }
+
     environment {
         IMAGE_NAME = 'devtalk-app'
-        // PATH'i çevre değişkeni olarak tanımlıyoruz
         PATH = "/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:$PATH"
         
-        // Credentials (Bunlar env var olarak sh tarafından görülecek)
+        // Credentials
         DB_PASSWORD = credentials('devtalk-db-password')
         DATABASE_URL = credentials('devtalk-database-url')
         CLERK_PUBLISHABLE_KEY = credentials('clerk-publishable-key')
@@ -16,7 +20,7 @@ pipeline {
         PUSHER_SECRET = credentials('pusher-secret')
         UPLOADTHING_TOKEN = credentials('uploadthing-token')
         
-        // Aliases for matching docker-compose expectations
+        // Aliases
         NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY = credentials('clerk-publishable-key')
         NEXT_PUBLIC_PUSHER_APP_KEY = credentials('pusher-app-key')
     }
@@ -25,9 +29,23 @@ pipeline {
         stage('System Check') {
             steps {
                 script {
-                    // Tek tırnak kullanarak shell genişletmesini sağlıyoruz
-                    sh 'which docker || echo "docker not found in common paths"'
                     sh 'docker --version || true'
+                    sh 'node -v || true'
+                }
+            }
+        }
+
+        stage('Quality Check') {
+            parallel {
+                stage('Lint') {
+                    steps {
+                        sh 'npm run lint'
+                    }
+                }
+                stage('Unit Tests') {
+                    steps {
+                        sh 'npm run test'
+                    }
                 }
             }
         }
@@ -35,12 +53,12 @@ pipeline {
         stage('Build Image') {
             steps {
                 script {
-                    // Üçlü tek tırnak ('''): Interpolation yapmaz, tüm sırları shell env üzerinden okur
                     sh '''
                     export PATH=$PATH:/usr/local/bin:/usr/bin
                     docker build \
                     --build-arg NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY="${CLERK_PUBLISHABLE_KEY}" \
                     --build-arg NEXT_PUBLIC_PUSHER_APP_KEY="${PUSHER_APP_KEY}" \
+                    -t "${IMAGE_NAME}:${BUILD_NUMBER}" \
                     -t "${IMAGE_NAME}:latest" .
                     '''
                 }
@@ -53,14 +71,14 @@ pipeline {
                     sh '''
                     export PATH=$PATH:/usr/local/bin:/usr/bin
                     
-                    # Docker Compose tespiti
                     COMPOSE_CMD="docker compose"
                     if ! command -v docker compose &> /dev/null; then
                         COMPOSE_CMD="docker-compose"
                     fi
                     
                     $COMPOSE_CMD down || true
-                    $COMPOSE_CMD up -d
+                    # Deploy specific version
+                    TAG=${BUILD_NUMBER} $COMPOSE_CMD up -d
                     '''
                 }
             }
@@ -71,14 +89,11 @@ pipeline {
                 script {
                     echo "Waiting for DB..."
                     sh 'sleep 20'
-                    // DATABASE_URL'i her ihtimale karşı temizleyip (trim) öyle geçiyoruz
                     sh '''
                     export PATH=$PATH:/usr/local/bin:/usr/bin
-                    # Force internal URL to ensure it doesn't use any leaked .env or host-based IP
                     INTERNAL_DB_URL="postgresql://devtalk_user:${DB_PASSWORD:-devtalk_pass}@db:5432/devtalk?schema=public"
                     docker exec -e DATABASE_URL="${INTERNAL_DB_URL}" devtalk-app npx prisma db push --accept-data-loss
                     '''
-                    
                 }
             }
         }
@@ -90,7 +105,6 @@ pipeline {
                     def success = false
                     for (int i = 0; i < 15; i++) {
                         try {
-                            // Çift tırnak yerine tek tırnak
                             sh 'curl -f http://localhost:3000/api/health'
                             success = true
                             break

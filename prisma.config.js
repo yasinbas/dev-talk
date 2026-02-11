@@ -6,7 +6,7 @@ const envPath = path.join(__dirname, '.env');
 if (fs.existsSync(envPath)) {
     try {
         require('dotenv').config({ path: envPath });
-    } catch (e) {
+    } catch {
         console.warn("WARN: .env found but dotenv package not installed. Skipping load.");
     }
 }
