@@ -1,10 +1,11 @@
 import { ClerkProvider } from '@clerk/nextjs'
+import { Inter, JetBrains_Mono } from 'next/font/google'
 import './globals.css'
-import { Inter } from 'next/font/google'
 import { Navbar } from '@/components/Navbar'
 import { Toaster } from '@/components/ui/sonner'
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
+const jetbrainsMono = JetBrains_Mono({ subsets: ['latin'], variable: '--font-jetbrains-mono' })
 
 export const metadata = {
   title: 'devTalk',
@@ -18,8 +19,8 @@ export default function RootLayout({
 }) {
   return (
     <ClerkProvider>
-      <html lang="en">
-        <body className={inter.className}>
+      <html lang="en" suppressHydrationWarning>
+        <body className={`${inter.variable} ${jetbrainsMono.variable} font-sans antialiased bg-background text-foreground`}>
           <Navbar />
           <main className="container py-6">
             {children}

@@ -39,7 +39,7 @@ const eslintConfig = [
     }
   },
   {
-    files: ["test-db.js"],
+    files: ["test-db.js", "prisma.config.js"],
     rules: {
       "@typescript-eslint/no-require-imports": "off",
       "@typescript-eslint/no-var-requires": "off",
