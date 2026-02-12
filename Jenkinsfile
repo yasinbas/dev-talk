@@ -47,6 +47,7 @@ pipeline {
                         'Lint': { 
                             sh 'docker run --rm -v $(pwd):/app -w /app node:20-alpine npm run lint' 
                         },
+                        'Test': {
                             sh 'docker run --rm -v $(pwd):/app -w /app -e CI=true node:20-alpine npm run test -- --testPathIgnorePatterns=\'<rootDir>/e2e/\'' 
                         }
                     )
